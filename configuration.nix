@@ -16,7 +16,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use LTS kernel (so that NVIDIA drivers will build)
-  # https://nixos.wiki/wiki/Linux_kernel
+  # https://wiki.nixos.org/wiki/Linux_kernel
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Define your hostname
@@ -55,8 +55,13 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Enable Hyprland tiling window manager
-  programs.hyprland.enable = true;
+  # Enable Hyprland with UWSM
+  # https://wiki.nixos.org/wiki/Hyprland
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
 
   # Suggest Electron apps use Wayland
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -118,7 +123,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git gh curl wget obsidian signal-desktop kitty ghostty starship zsh btop microfetch zed-editor helix neovim
-    eza zoxide zsh-autosuggestions zsh-syntax-highlighting nvtopPackages.nvidia localsend wofi
+    eza zoxide zsh-autosuggestions zsh-syntax-highlighting nvtopPackages.nvidia localsend rofi waybar walker
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
