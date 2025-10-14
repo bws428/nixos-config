@@ -122,8 +122,30 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    git gh curl wget obsidian signal-desktop kitty ghostty starship zsh btop microfetch zed-editor helix neovim
-    eza zoxide zsh-autosuggestions zsh-syntax-highlighting nvtopPackages.nvidia localsend rofi waybar walker
+    git
+    gh
+    curl
+    wget
+    obsidian
+    signal-desktop
+    kitty
+    ghostty
+    starship
+    zsh
+    btop
+    microfetch
+    zed-editor
+    helix
+    neovim
+    eza
+    zoxide
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    nvtopPackages.nvidia
+    localsend
+    rofi
+    waybar
+    fuzzel
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
