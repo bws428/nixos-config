@@ -60,7 +60,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --theme 'border=cyan'";
         user = "greeter";
       };
     };
@@ -75,7 +75,7 @@
   };
 
   # Suggest Electron apps use Wayland
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
   services.xserver.xkb = {
