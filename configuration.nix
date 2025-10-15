@@ -6,7 +6,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./nvidia.nix
     ];
@@ -21,7 +21,7 @@
 
   # Define your hostname
   networking.hostName = "ghost";
-  
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -54,6 +54,17 @@
   # Enable GNOME desktop environment
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Enable `tuigreet` and `greetd` instead of GNOME login screen
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red'";
+        user = "greeter";
+      };
+    };
+  };
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
@@ -147,6 +158,14 @@
     waybar
     fuzzel
     hyprpaper
+    hyprshot
+    hyprlock
+    hypridle
+    hyprsunset
+    hyprnotify
+    hyprcursor
+    uv
+    killall
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
