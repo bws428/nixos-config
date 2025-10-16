@@ -141,8 +141,7 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List of packages installed in sytem profile
   environment.systemPackages = with pkgs; [
     git
     gh
@@ -150,8 +149,10 @@
     wget
     obsidian
     signal-desktop
+    rawtherapee
     kitty
     ghostty
+    alacritty
     starship
     zsh
     btop
@@ -166,16 +167,16 @@
     nvtopPackages.nvidia
     localsend
     rofi
+    mako # notification daemon
+    walker # application launcher
     waybar
-    fuzzel
     hyprpaper
     hyprshot
     hyprlock
     hypridle
     hyprsunset
-    hyprnotify
+    hyprnotify # notification daemon
     hyprcursor
-    uv
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
