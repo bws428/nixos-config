@@ -52,8 +52,8 @@
   services.xserver.enable = true;
 
   # Enable GNOME desktop environment
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
@@ -64,7 +64,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --theme 'border=cyan'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --cmd sway --theme 'border=cyan'";
         user = "greeter";
       };
     };
