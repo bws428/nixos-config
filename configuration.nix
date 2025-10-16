@@ -183,7 +183,7 @@
     hyprnotify # notification daemon
     hyprcursor # mouse cursor
     plymouth # graphical boot screen
-    xfce.thunar # gui file manager
+    nautilus # gui file manager
 
   ];
 
