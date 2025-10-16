@@ -184,6 +184,7 @@
     hyprcursor # mouse cursor
     plymouth # graphical boot screen
     nautilus # gui file manager
+    loupe # simple photo viewer
 
   ];
 
