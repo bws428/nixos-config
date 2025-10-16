@@ -51,10 +51,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable GNOME desktop environment
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
@@ -143,11 +139,14 @@
 
   # List of packages installed in sytem profile
   environment.systemPackages = with pkgs; [
-    # Command-line utilities
+    
+    # Req'd utilities (LEAVE THESE HERE)
     git # version control
-    gh # Github CLI
-    curl # download files
+    neovim # code editor
     wget # download files
+
+    # Command-line utilities
+    curl # download files
     tree # recursive directory listing
     eza # a better `ls`
     zoxide # a better `cd`
@@ -156,6 +155,7 @@
     microfetch # fast system info
 
     # My Apps
+    gh # Github CLI
     ghostty # terminal app in Go
     alacritty # terminal app in Rust
     zsh # the Z shell
@@ -188,6 +188,12 @@
 
   ];
 
+  # Set the default editor to neovim
+  environment.variables.EDITOR = "nvim";
+
+  # Enable Flakes and new `nix-command`
+  nix.settings.experimental-features = [ "flakes" "nix-command" ]
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
