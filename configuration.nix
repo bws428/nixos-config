@@ -7,7 +7,7 @@
 {
   imports =
     [
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
       ./nvidia.nix
     ];
 
@@ -140,7 +140,7 @@
   # List of packages installed in sytem profile
   environment.systemPackages = with pkgs; [
     
-    # Req'd utilities (LEAVE THESE HERE)
+    # Req'd utilities
     git # version control
     neovim # code editor
     wget # download files
@@ -192,7 +192,7 @@
   environment.variables.EDITOR = "nvim";
 
   # Enable Flakes and new `nix-command`
-  nix.settings.experimental-features = [ "flakes" "nix-command" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
