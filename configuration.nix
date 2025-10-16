@@ -64,7 +64,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r --remember-user-session --cmd sway --theme 'border=cyan'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r";
         user = "greeter";
       };
     };
@@ -160,23 +160,25 @@
     zed-editor
     helix
     neovim
+    tree
     eza
     zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
     nvtopPackages.nvidia
     localsend
-    rofi
+    nemo # file manager
     mako # notification daemon
     walker # application launcher
-    waybar
-    hyprpaper
-    hyprshot
-    hyprlock
+    waybar # status bar
+    hyprpaper # wallpaper
+    hyprshot # screenshot
+    hyprlock # lock screen
     hypridle
-    hyprsunset
+    hyprsunset # bluelight filter
     hyprnotify # notification daemon
-    hyprcursor
+    hyprcursor # mouse cursor
+    plymouth # graphical boot screen
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
