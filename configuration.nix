@@ -192,7 +192,7 @@
   environment.variables.EDITOR = "nvim";
 
   # Enable Flakes and new `nix-command`
-  nix.settings.experimental-features = [ "flakes" "nix-command" ]
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
   
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
