@@ -143,31 +143,35 @@
 
   # List of packages installed in sytem profile
   environment.systemPackages = with pkgs; [
-    git
-    gh
-    curl
-    wget
-    obsidian
-    signal-desktop
-    rawtherapee
-    kitty
-    ghostty
-    alacritty
-    starship
-    zsh
-    btop
-    microfetch
-    zed-editor
-    helix
-    neovim
-    tree
-    eza
-    zoxide
+    # Command-line utilities
+    git # version control
+    gh # Github CLI
+    curl # download files
+    wget # download files
+    tree # recursive directory listing
+    eza # a better `ls`
+    zoxide # a better `cd`
+    kitty # terminal app, req'd by Hyprland
+    btop # cool resource monitor
+    microfetch # fast system info
+
+    # My Apps
+    ghostty # terminal app in Go
+    alacritty # terminal app in Rust
+    zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
-    nvtopPackages.nvidia
-    localsend
-    nemo # file manager
+    starship # custom shell prompt
+    helix # code editor
+    neovim # code editor
+    zed-editor # gui code editor
+    obsidian # a second brain
+    signal-desktop # secure comms
+    rawtherapee # photo editor
+    localsend # cross-platform file transfer
+    nvtopPackages.nvidia # nvidia gpu monitor
+
+    # The Desktop Environment
     mako # notification daemon
     walker # application launcher
     waybar # status bar
@@ -179,6 +183,8 @@
     hyprnotify # notification daemon
     hyprcursor # mouse cursor
     plymouth # graphical boot screen
+    thunar # gui file manager
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
