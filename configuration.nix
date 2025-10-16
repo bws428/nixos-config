@@ -78,12 +78,6 @@
     xwayland.enable = true;
   };
 
-  # Enable Sway window manager
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
-
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -182,11 +176,6 @@
     hyprnotify
     hyprcursor
     uv
-    killall
-    grim # screenshot functionality
-    slurp # screenshot functionality
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
