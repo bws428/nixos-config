@@ -205,9 +205,6 @@
     hack
     inconsolata
     jetbrains-mono
-    meslo
-    nerd-fonts-symbols-only
-    noto
   ];
 
   # Enable Flakes and new `nix-command`
