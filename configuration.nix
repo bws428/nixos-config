@@ -196,6 +196,9 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
+  # Add Nerd Fonts, ALL of them
+  fonts.packages = with pkgs; [ nerd-fonts ];
+
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
