@@ -193,14 +193,21 @@
   environment.variables.EDITOR = "nvim";
 
   # Set the default shell to Zsh
+  # https://nixos.wiki/wiki/Zsh
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  # Add Nerd Fonts, ALL of them
+  # Add some Nerd Fonts
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = with pkgs.nerd-fonts; [
-    fira-code
     droid-sans-mono
+    fira-code
+    hack
+    inconsolata
+    jet-brains-mono
+    meslo
+    nerd-fonts-symbols-only
+    noto
   ];
 
   # Enable Flakes and new `nix-command`
