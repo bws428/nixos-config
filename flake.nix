@@ -8,7 +8,7 @@
     nixos-plymouth.url = "github:BeatLink/nixos-plymouth";
   };
 
-  outputs = { self, nixpkgs, nixos-plymouth ...}@inputs: {
+  outputs = { self, nixpkgs, nixos-plymouth, ...}@inputs: {
     # NixOS system configuration - `ghost` is the hostname
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
       modules = [
