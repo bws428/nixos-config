@@ -98,6 +98,10 @@
   # Zsh
   programs.zsh = {
     enable = true;
+    shellAliases = {
+        ls = "eza -lh --group-directories-first --icons=auto";
+        rebuild = "sudo nixos-rebuild switch";
+      };
   };
   programs.zsh.autosuggestion = {
     enable = true;
