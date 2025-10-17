@@ -199,12 +199,16 @@
 
   # Add some Nerd Fonts
   # https://nixos.wiki/wiki/Fonts
-  fonts.packages = with pkgs.nerd-fonts; [
-    droid-sans-mono
-    fira-code
-    hack
-    inconsolata
-    jetbrains-mono
+  # https://mynixos.com/nixpkgs/packages/nerd-fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts-droid-sans-mono
+    nerd-fonts-fira-code
+    nerd-fonts-hack
+    nerd-fonts-inconsolata
+    nerd-fonts-jetbrains-mono
+    nerd-fonts-meslo-lg
+    nerd-fonts-noto
+    nerd-fonts-symbols-only
   ];
 
   # Enable Flakes and new `nix-command`
