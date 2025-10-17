@@ -204,7 +204,7 @@
     fira-code
     hack
     inconsolata
-    jet-brains-mono
+    jetbrains-mono
     meslo
     nerd-fonts-symbols-only
     noto
