@@ -153,6 +153,7 @@
     kitty # terminal app, req'd by Hyprland
     btop # cool resource monitor
     microfetch # fast system info
+    ripgrep # search tool
 
     # My Apps
     gh # Github CLI
