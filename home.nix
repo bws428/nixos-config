@@ -123,7 +123,7 @@
         draw_bold_text_with_bright_colors = true;
         normal = {
           family = "MesloLGS Nerd Font Mono";
-          style = "Regular"
+          style = "Regular";
         };
       };
       scrolling.multiplier = 5;
