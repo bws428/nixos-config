@@ -82,6 +82,32 @@
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   stylix.image = ./themes/gruvbox-berries.jpg;
 
+  # Add font configuration
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerdfonts.override { fonts = [ "Meslo" ]; };
+      name = "MesloLGS Nerd Font Mono";
+    };
+
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+
+    # Font sizes for different contexts
+    sizes = {
+      applications = 12;
+      terminal = 14;
+      desktop = 10;
+      popups = 10;
+    };
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
