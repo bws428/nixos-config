@@ -154,6 +154,7 @@
     btop # cool resource monitor
     microfetch # fast system info
     ripgrep # search tool
+    speedtest-cli # test ISP speed
 
     # My Apps
     gh # Github CLI
