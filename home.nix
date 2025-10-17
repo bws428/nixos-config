@@ -95,6 +95,11 @@
     usbutils # lsusb
   ];
 
+  # Zsh
+  programs.zsh.enable = true;
+  programs.zsh.autosuggestion.enable = true;
+  programs.zsh.syntaxHighlighting.enable = true;
+    
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
@@ -126,7 +131,7 @@
     };
   };
 
-  # This value determines the home Manager release that your
+  # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new home Manager release introduces backwards
   # incompatible changes.
