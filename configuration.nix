@@ -192,6 +192,10 @@
   # Set the default editor to neovim
   environment.variables.EDITOR = "nvim";
 
+  # Set the default shell to Zsh
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
