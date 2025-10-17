@@ -7,10 +7,9 @@
   };
 
   outputs = { self, nixpkgs, ...}@inputs: {
-    # System configuration - replace `ghost` with your hostname
+    # NixOS system configuration - `ghost` is the hostname
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
       modules = [
-        # Import legacy `configuration.nix` file
         ./configuration.nix
       ];
     };
