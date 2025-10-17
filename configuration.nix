@@ -16,6 +16,12 @@
     plymouth = {
       enable = true;
       theme = "flame";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "flame" ];
+        })
+      ];
     };
     # Enable "Silent boot"
     consoleLogLevel = 3;
