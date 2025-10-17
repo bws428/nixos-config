@@ -80,7 +80,7 @@
   # Let Stylix do the ricing...
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-  stylix.image = /home/bws428/Pictures/wallpapers/gruvbox-berries.jpg;
+  stylix.image = ./themes/gruvbox-berries.jpg;
 
   # Configure keymap in X11
   services.xserver.xkb = {
