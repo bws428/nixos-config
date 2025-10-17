@@ -130,7 +130,7 @@
       font = {
         size = 14;
         normal = {
-          family = "MesloLGS Nerd Font Mono";
+          family = "DejaVu Sans Mono";
           style = "Regular";
         };
       };
