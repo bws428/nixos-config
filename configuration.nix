@@ -198,7 +198,10 @@
 
   # Add Nerd Fonts, ALL of them
   # https://nixos.wiki/wiki/Fonts
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs.nerd-fonts; [
+    fira-code
+    droid-sans-mono
+  ];
 
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
