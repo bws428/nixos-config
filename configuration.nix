@@ -82,10 +82,10 @@
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   stylix.image = ./themes/gruvbox-berries.jpg;
 
-  # Add font configuration
+  # Updated font configuration for NixOS 25.05
   stylix.fonts = {
     monospace = {
-      package = pkgs.nerdfonts.override { fonts = [ "Meslo" ]; };
+      package = pkgs.nerd-fonts.meslo-lg;
       name = "MesloLGS Nerd Font Mono";
     };
 
@@ -99,7 +99,6 @@
       name = "DejaVu Serif";
     };
 
-    # Font sizes for different contexts
     sizes = {
       applications = 12;
       terminal = 14;
