@@ -55,7 +55,7 @@
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
 
-  # Enable `tuigreet` and `greetd` instead of GNOME login screen
+  # Enable `tuigreet` and `greetd`
   services.greetd = {
     enable = true;
     settings = {
@@ -148,7 +148,7 @@
     description = "Brian W.";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  e.g., thunderbird # Packages listed here are ONLY available to this user account!
+      # Add these in Home Manager
     ];
   };
 

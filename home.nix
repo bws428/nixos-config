@@ -95,6 +95,11 @@
     usbutils # lsusb
   ];
 
+  # Waybar (enabling here for Stylix)
+  programs.waybar = {
+    enable = true;
+  };
+  
   # Zsh
   programs.zsh = {
     enable = true;
