@@ -187,14 +187,6 @@
     nautilus # gui file manager
     loupe # simple photo viewer
 
-    # MangoWC desktop environment
-    foot # terminal emulator
-    wmenu # dmenu launcher clone for Wayland
-    wl-clipboard # Wayland clipboard tool
-    grim # screenshot
-    slurp # screenshot
-    swaybg # wallpaper
-
   ];
 
   # Set the default editor to neovim
@@ -203,12 +195,6 @@
   # Set the default shell to Zsh
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
-
-  # MangoWC Wayland compositor
-  programs.mangowc.enable = true;
-
-  # Nerd Fonts, ALL of them
-  fonts.packages = with pkgs; [ nerd-fonts ];
 
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
