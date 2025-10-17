@@ -9,14 +9,18 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Add Stylix
+    stylix.url = "github:nix-community/stylix/release-25.05";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, ... }: {
     # NixOS system configuration - `ghost` is the hostname
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
       modules = [
         # Legacy NixOS config file
         ./configuration.nix
+        # Stylix
+        stylix.nixosModules.stylix
         # Home Manager module
         home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;

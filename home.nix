@@ -31,7 +31,7 @@
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
 
-    neofetch
+    fastfetch
     nnn # terminal file manager
 
     # archives
@@ -96,10 +96,16 @@
   ];
 
   # Zsh
-  programs.zsh.enable = true;
-  programs.zsh.autosuggestion.enable = true;
-  programs.zsh.syntaxHighlighting.enable = true;
-    
+  programs.zsh = {
+    enable = true;
+  };
+  programs.zsh.autosuggestion = {
+    enable = true;
+  };
+  programs.zsh.syntaxHighlighting = {
+    enable = true;
+  };
+
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;

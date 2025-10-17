@@ -77,6 +77,10 @@
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # Let Stylix do the ricing...
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+  stylix.image = /home/bws428/Pictures/wallpapers/gruvbox-berries.jpg;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -139,7 +143,7 @@
 
   # List of packages installed in sytem profile
   environment.systemPackages = with pkgs; [
-    
+
     # Req'd utilities
     git # version control
     neovim # code editor
@@ -213,7 +217,7 @@
 
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
