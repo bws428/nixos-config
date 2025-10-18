@@ -98,6 +98,10 @@
   # Waybar (enabling here for Stylix)
   programs.waybar = {
     enable = true;
+    settings = {
+      font-family = "MesloLGS Nerd Font Propo";
+      font-size = "14pt";
+    };
   };
   
   # Zsh
