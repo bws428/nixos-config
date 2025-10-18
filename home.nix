@@ -210,27 +210,48 @@
   # Zsh
   programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
     shellAliases = {
-        ls = "eza -lh --group-directories-first --icons=auto";
-        rebuild = "sudo nixos-rebuild switch";
-      };
-  };
-  programs.zsh.autosuggestion = {
-    enable = true;
-  };
-  programs.zsh.syntaxHighlighting = {
-    enable = true;
+      ls = "eza -lh --group-directories-first --icons=auto";
+      rebuild = "sudo nixos-rebuild switch";
+    };
+    initExtra = ''
+      bindkey '^ ' autosuggest-accept  # Ctrl+Space
+    '';
   };
 
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
-    # custom settings
+    enableZshIntegration = true;
+
     settings = {
-      add_newline = false;
-      aws.disabled = true;
-      gcloud.disabled = true;
-      line_break.disabled = true;
+      format = "$username$hostname$directory$git_branch$git_status$character";
+
+      palette = "stylix";
+
+      palettes.stylix = with config.lib.stylix.colors; {
+        foreground = base05;
+        background = base00;
+        primary = base0D;
+        secondary = base0C;
+        accent = base0E;
+      };
+
+      # Pure-style components using the palette
+      character = {
+        success_symbol = "[❯](accent)";
+        error_symbol = "[❯](red)";
+      };
+
+      directory = {
+        style = "primary";
+      };
+
+      git_branch = {
+        style = "secondary";
+      };
     };
   };
 
@@ -243,6 +264,58 @@
       selection.save_to_clipboard = true;
     };
   };
+
+  programs.helix = {
+    enable = true;
+
+    languages = {
+        language = [
+          {
+            name = "rust";
+            auto-format = true;
+            formatter = {
+              command = "rustfmt";
+            };
+          }
+        ];
+      };
+
+    settings = {
+      theme = "base16";  # Stylix will provide the base16 theme
+
+      editor = {
+        line-number = "relative";
+        cursorline = true;
+        color-modes = true;
+        bufferline = "multiple";
+
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
+
+        statusline = {
+          left = ["mode" "spinner" "file-name" "file-modification-indicator"];
+          center = [];
+          right = ["diagnostics" "selections" "position" "file-encoding"];
+        };
+
+        lsp = {
+          display-messages = true;
+          display-inlay-hints = true;
+        };
+
+        indent-guides = {
+          render = true;
+          character = "│";
+        };
+      };
+    };
+  };
+
+  # Enable Stylix theming for Helix
+  stylix.targets.helix.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
