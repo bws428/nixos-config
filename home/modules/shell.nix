@@ -11,7 +11,7 @@
       rebuild = "sudo nixos-rebuild switch";
     };
     
-    initExtra = ''
+    initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space
     '';
   };
