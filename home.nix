@@ -102,8 +102,8 @@
     # Override Stylix defaults
     style = lib.mkAfter ''
       * {
-        font-family = "MesloLGS Nerd Font Propo";
-        font-size = "14pt";
+        font-family: "MesloLGS Nerd Font Propo";
+        font-size: "16px";
       }
     '';
   };
