@@ -103,7 +103,7 @@
     style = lib.mkAfter ''
       * {
         font-family: "MesloLGS Nerd Font Propo";
-        font-size: "16px";
+        font-size: 16px;
       }
     '';
   };
