@@ -281,8 +281,6 @@
       };
 
     settings = {
-      theme = "base16";  # Stylix will provide the base16 theme
-
       editor = {
         line-number = "relative";
         cursorline = true;
