@@ -216,9 +216,9 @@
       ls = "eza -lh --group-directories-first --icons=auto";
       rebuild = "sudo nixos-rebuild switch";
     };
-    initExtra = ''
-      bindkey '^ ' autosuggest-accept  # Ctrl+Space
-    '';
+    initContent = ''
+        bindkey '^ ' autosuggest-accept  # Ctrl+Space
+      '';
   };
 
   # starship - an customizable prompt for any shell
@@ -227,33 +227,47 @@
     enableZshIntegration = true;
 
     settings = {
+      # Pure preset format
       format = "$username$hostname$directory$git_branch$git_status$character";
 
-      palette = "stylix";
+      # Don't set palette here - Stylix handles it
 
-      palettes.stylix = with config.lib.stylix.colors; {
-        foreground = base05;
-        background = base00;
-        primary = base0D;
-        secondary = base0C;
-        accent = base0E;
+      # Pure-style components
+      character = {
+        success_symbol = "[❯](purple)";
+        error_symbol = "[❯](red)";
+        vicmd_symbol = "[❮](green)";
       };
 
-      # Pure-style components using the palette
-      character = {
-        success_symbol = "[❯](accent)";
-        error_symbol = "[❯](red)";
+      username = {
+        format = "[$user]($style) ";
+        show_always = false;
+      };
+
+      hostname = {
+        format = "[$hostname]($style) ";
+        ssh_only = true;
       };
 
       directory = {
-        style = "primary";
+        format = "[$path]($style) ";
+        truncation_length = 3;
+        truncate_to_repo = true;
       };
 
       git_branch = {
-        style = "secondary";
+        format = "[$symbol$branch]($style) ";
+        symbol = "";
+      };
+
+      git_status = {
+        format = "([\\[$all_status$ahead_behind\\]]($style) )";
       };
     };
   };
+
+  # Stylix will automatically handle the theming
+  stylix.targets.starship.enable = true;
 
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
