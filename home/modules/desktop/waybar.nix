@@ -4,104 +4,152 @@
   programs.waybar = {
     enable = true;
 
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 30;
-        spacing = 4;
+    settings =
+    ''
+      // -*- mode: jsonc -*-
+      {
+          "layer": "top",
+          "position": "top",
+          "exclusive": true,
+          "passthrough": false,
+          "gtk-layer-shell": true,
+          "ipc": false,
+          //"reload_style_on_change": true,
+          "height": 25,
+          "margin": "0",
+          "modules-left": [
+              "dwl/tags",
+              "dwl/window"
+              //"wlr/taskbar"
+          ],
+          "modules-center": [
+              "mpris"
+          ],
+          "modules-right": [
+              "clock",
+              "battery",
+              "pulseaudio",
+              "custom/notification",
+              "tray",
+              "custom/power"
+          ],
+          // Modules configuration
+          "dwl/tags": {
+              "num-tags": 9,
+              "hide-vacant": true,
+              "expand": false,
+              "disable-click": true,
+              "tag-labels": [
+              ],
 
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "hyprland/window" ];
-        modules-right = [
-          "backlight"
-          "custom/check-online"
-          "network"
-          "cpu"
-          "memory"
-          "pulseaudio"
-          "battery"
-          "clock"
-        ];
+          },
+          "dwl/window": {
+              "format": "{app_id} | {title}",
+              "max-length": 50,
+              "rewrite": {
+                  " \\| ": ""
+              }
+          },
+          "wlr/taskbar": {
+             "format": "{icon}",
+              "icon-size": 22,
+              "all-outputs": false,
+              "tooltip-format": "{title}",
+              "markup": true,
+              "on-click": "activate",
+              "on-click-right": "close",
+              "ignore-list": ["Rofi", "wofi"]
+          },
+          "tray": {
+              "icon-size": 21,
+              "spacing": 10
+          },
+          "mpris": {
+              "format": "{player_icon} {artist} - {title}",
+              "format-paused": "{status_icon} <i>{artist} - {title}</i>",
+              "player-icons": {
+                  "vivaldi-stable": "▶",
+                  "spotify": "",
+                  "default": ""
+              },
+              "status-icons": {
+                  "paused": ""
+              },
+              "max-length": 80
+              // "ignored-players": ["firefox"]
+          },
+          "custom/music": {
+              "format": "  {}",
+              "escape": true,
+              "interval": 5,
+              "tooltip": false,
+              "exec": "playerctl metadata --format='{{ titles }}'",
+              "on-click": "playerctl play-pause",
+              "max-length": 50
+          },
+          "clock": {
+              // "timezone": "America/New_York",
+              "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+              "format-alt": "󰥔 {:%d/%m/%Y}",
+              "format": "󰥔 {:%H:%M}"
+          },
+          "battery": {
+              "states": {
+                  // "good": 95,
+                  "warning": 30,
+                  "critical": 15
+              },
+              "format": "{icon} {capacity}%",
+          		  "tooltip": false,
+		      "menu": "on-click",
+		    "menu-file": "~/.config/maomao/waybar/battery_menu.xml",
+		    "menu-actions": {
+			   "performance": "powerprofilesctl set performance",
+			   "balanced": "powerprofilesctl set balanced",
+			   "powersaver": "powerprofilesctl set power-saver",
+		    },
 
-        "hyprland/workspaces" = {
-          disable-scroll = true;
-          all-outputs = true;
-          on-click = "activate";
-          format = "{name}";
-        };
-
-        clock = {
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "{:%Y-%m-%d  %H:%M}";
-          format-alt = "{:%A, %B %d, %Y  %H:%M:%S}";
-        };
-
-        pulseaudio = {
-          format = "  {volume}%";
-          format-bluetooth = " {volume}%";
-          format-muted = "  MUTE";
-          format-muted-bluetooth = " MUTE";
-          on-click = "pavucontrol";
-        };
-
-        backlight = {
-          device = "intel_backlight";
-          format = "🔆 {percent}%";
-          on-scroll-up = "brightnessctl set 5%+";
-          on-scroll-down = "brightnessctl set 5%-";
-        };
-
-        "custom/check-online" = {
-          format = "{}";
-          interval = 20;
-          tooltip = true;
-          tooltip-format = "Online Status";
-          exec = "zsh /home/bws428/.config/waybar/scripts/check-online.sh";
-        };
-
-        network = {
-          format-wifi = "  {essid} ({signalStrength}%)";
-          format-ethernet = "󰈀  {bandwidthDownBytes}";
-          tooltip-format = "{ifname} via {gwaddr} ";
-          format-linked = "{ifname} (No IP) ";
-          format-disconnected = "󰖪 ";
-          format-alt = "{ifname}: {ipaddr}";
-          on-click = "nm-connection-editor";
-        };
-
-        cpu = {
-          format = " {usage}%";
-          tooltip = false;
-          on-click = "btop";
-        };
-
-        memory = {
-          format = " {}%";
-        };
-
-        battery = {
-          states = {
-            warning = 30;
-            critical = 15;
-          };
-          format = " {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
-        };
-
-        "custom/notifications" = {
-          format = "🔔";
-          tooltip = false;
-          on-click = "makoctl invoke";
-        };
-
-        tray = {
-          icon-size = 21;
-          spacing = 10;
-        };
-      };
-    };
+              // "format-alt": "{icon}",
+              // "format-charging": "",
+              // "format-plugged": "",
+              "format-icons": ["󰂎", "󰁻", "󰁽", "󰁿", "󰂁", "󰁹"]
+          },
+          "pulseaudio": {
+              "disable-scroll": true,
+              "format": "{icon} {volume}%",
+              "format-muted": "",
+              "format-icons": {
+                  "default": ["", "", ""]
+              },
+              "on-click": "pavucontrol"
+          },
+          "custom/notification": {
+              "format": "{icon} {text}",
+              "tooltip": false,
+              "format-icons": {
+                  "notification": "󱅫",
+                  "none": "",
+                  "dnd-notification": "",
+                  "dnd-none": "󰂛",
+                  "inhibited-notification": "",
+                  "inhibited-none": "",
+                  "dnd-inhibited-notification": "",
+                  "dnd-inhibited-none": ""
+              },
+              "return-type": "json",
+              "exec-if": "which swaync-client",
+              "exec": "swaync-client -swb",
+              "on-click": "swaync-client -t -sw",
+              "on-click-right": "swaync-client -d -sw",
+              "escape": true
+          },
+          "custom/power": {
+	    "format" : "⏻",
+		  "tooltip": false,
+            "on-click": "wlogout"
+          }
+      }
+    ''
 
     # Font override
     style = lib.mkAfter ''
