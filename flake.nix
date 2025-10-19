@@ -13,16 +13,17 @@
 
     # Mango compositor
     mango.url = "github:DreamMaoMao/mango";
+
+    # Stylix auto-themer
+    stylix.url = "github:nix-community/stylix";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, mango, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, mango, stylix, ... }: {
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           modules = [
             # NixOS system config
             ./configuration.nix
-            # Mango compositor
-            mango.nixosModules.mango
             # Home Manager ("bws428" is the username)
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
@@ -30,6 +31,10 @@
               home-manager.backupFileExtension = "backup";
               home-manager.users.bws428 = import ./home/home/nix;
             }
+            # Mango compositor
+            mango.nixosModules.mango
+            # Stylix
+            stylix.nixosModules.stylix
           ];
         };
       };
