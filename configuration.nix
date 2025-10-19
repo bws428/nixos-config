@@ -60,7 +60,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t --remember-session";
         user = "greeter";
       };
     };
@@ -74,11 +74,17 @@
     xwayland.enable = true;
   };
 
+  # Enable Mango window compositor
+  # https://github.com/DreamMaoMao/mangowc
+  programs.mango = {
+    enable = true;
+  };
+
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Let Stylix do the ricing...
-  stylix.enable = true;
+  # Let Stylix do the ricing... NOT
+  stylix.enable = false;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
   stylix.image = ./themes/gruvbox-berries.jpg;
 
@@ -167,43 +173,20 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # List of packages installed in sytem profile
+  # List of packages installed in system profile
   environment.systemPackages = with pkgs; [
 
-    # Req'd utilities
+    # Required system utilities
     git # version control
     neovim # code editor
     wget # download files
-
-    # Command-line utilities
     curl # download files
-    tree # recursive directory listing
-    eza # a better `ls`
-    zoxide # a better `cd`
-    kitty # terminal app, req'd by Hyprland
-    btop # cool resource monitor
-    microfetch # fast system info
-    ripgrep # search tool
-    speedtest-cli # test ISP speed
-
-    # My Apps
-    gh # Github CLI
-    ghostty # terminal app in Go
-    alacritty # terminal app in Rust
+    kitty # terminal emulator
     zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
-    starship # custom shell prompt
-    helix # code editor
-    neovim # code editor
-    zed-editor # gui code editor
-    obsidian # a second brain
-    signal-desktop # secure comms
-    rawtherapee # photo editor
-    localsend # cross-platform file transfer
-    nvtopPackages.nvidia # nvidia gpu monitor
 
-    # The Desktop Environment
+    # Hyprland desktop
     mako # notification daemon
     walker # application launcher
     waybar # status bar
@@ -214,16 +197,15 @@
     hyprsunset # bluelight filter
     hyprnotify # notification daemon
     hyprcursor # mouse cursor
-    nautilus # gui file manager
-    loupe # simple photo viewer
 
-    # Mango helpers
-    foot
-    wmenu
+    # Mango desktop
+    wmenu # does this even WORK?
     wl-clipboard
-    grim
-    slurp
-    swaybg
+    grim # screenshot
+    slurp # screenshot
+    swaybg # wallpaper
+    rofi-wayland # application launcher
+    wev # Wayland event viewer (debugging)
 
   ];
 
@@ -259,9 +241,6 @@
     clean.extraArgs = "--keep 3";
     flake = "/home/bws428/.nixos-config";
   };
-
-  # Enable Mango window compositor
-  programs.mango.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

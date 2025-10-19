@@ -8,12 +8,12 @@
 
       # Heavily Inspired by Argos Nothing's DWM Re-write + Fun stuff.
       # Check his out here: https://github.com/argosnothing/mango-dwm-config/
-    
+
       # Custom keybindings
       # Terminal emulator
       bind = SUPER, Return, spawn, alacritty
       # App launcher
-      bind = SUPER, R, spawn, wmenu-run -l 10 -f "JetBrainsMono Nerd Font 18"
+      bind = SUPER, R, spawn, rofi -show run
       # Screenshot
       bind = SUPER, S ,spawn, grim -l 0 -g "$(slurp)" - | wl-copy
       # Quit app
@@ -22,7 +22,7 @@
       bind = SUPER+SHIFT, R, reload_config
       # Browser
       bind = SUPER, B, spawn, firefox
-      
+
       # Default keybindings
       bind=SUPER,1,comboview,1
       bind=SUPER,2,comboview,2
@@ -36,7 +36,7 @@
 
       bind=SUPER,i,incnmaster,+1
       bind=SUPER,p,incnmaster,-1
- 
+
       # Layouts
       bind=SUPER,t,setlayout,tile
       bind=SUPER,v,setlayout,vertical_grid
@@ -45,7 +45,7 @@
       bind=SUPER,n,switch_layout
       bind=SUPER,a,togglegaps
 
-      # Layouts in mango are per tag. So we'll set all tags to tile by default. 
+      # Layouts in mango are per tag. So we'll set all tags to tile by default.
       tagrule=id:1,layout_name:tile
       tagrule=id:2,layout_name:tile
       tagrule=id:3,layout_name:tile
@@ -98,9 +98,9 @@
       animations=1
       layer_animations=1
       animation_type_open=zoom
-      animation_type_close=slide 
+      animation_type_close=slide
       layer_animation_type_open=slide
-      layer_animation_type_close=slide 
+      layer_animation_type_close=slide
       animation_fade_in=1
       animation_fade_out=1
       tag_animation_direction=1
@@ -162,7 +162,7 @@
       '';
     autostart_sh = ''
       # see autostart.sh
-      
+
       waybar
       swaybg -i ~/Picture/wallpapers/gruvbox-leaves.jpg >/dev/null 2>&1 &
     '';

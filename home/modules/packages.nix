@@ -2,9 +2,10 @@
 
 {
   home.packages = with pkgs; [
+
     # Terminal file management
-    fastfetch
     nnn
+    yazi
 
     # Archives
     zip
@@ -13,11 +14,13 @@
     p7zip
 
     # Utils
-    ripgrep
+    ripgrep # search tool
     jq
     yq-go
-    eza
-    fzf
+    fzf # fuzzy finder
+    tree # recursive directory listing
+    eza # a better `ls`
+    zoxide # a better `cd`
 
     # Networking tools
     mtr
@@ -33,7 +36,6 @@
     cowsay
     file
     which
-    tree
     gnused
     gnutar
     gawk
@@ -48,9 +50,11 @@
     glow
 
     # Monitoring
-    btop
+    btop # cool resource monitor
     iotop
     iftop
+    nvtopPackages.nvidia # nvidia gpu monitor
+    speedtest-cli # test ISP speed
 
     # System call monitoring
     strace
@@ -63,5 +67,21 @@
     ethtool
     pciutils
     usbutils
+    microfetch # very fast system info
+    fastfetch # fast system info
+
+    # My Apps
+    gh # Github CLI
+    alacritty # terminal app in Rust
+    starship # custom shell prompt
+    helix # code editor
+    zed-editor # gui code editor
+    obsidian # a second brain
+    signal-desktop # secure comms
+    rawtherapee # photo editor
+    localsend # cross-platform file transfer
+    thunar # gui file manager
+    loupe # simple photo viewer
+
   ];
 }
