@@ -44,7 +44,7 @@
         stylix.nixosModules.stylix
 
         # MangoWC
-        mangowc.nixosModules.default
+        mangowc.nixosModules.mangowc
       ];
     };
   };
