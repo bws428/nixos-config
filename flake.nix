@@ -28,7 +28,6 @@
     # NixOS system configuration - `ghost` is the hostname
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
       modules = [
-
         # Legacy NixOS config file
         ./configuration.nix
 
@@ -44,7 +43,7 @@
         stylix.nixosModules.stylix
 
         # MangoWC
-        mangowc.nixosModules.mangowc
+        mangowc.nixosModules.default
       ];
     };
   };
