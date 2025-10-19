@@ -217,7 +217,7 @@
     nautilus # gui file manager
     loupe # simple photo viewer
 
-    # MangoWC helpers
+    # Mango helpers
     foot
     wmenu
     wl-clipboard
@@ -260,7 +260,7 @@
     flake = "/home/bws428/.nixos-config";
   };
 
-  # Enable MangoWC
+  # Enable Mango window compositor
   programs.mango.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -1,72 +1,72 @@
 {
-  description = "NixOS primary system configuration flake";
+  description = "NixOS primary system configuration";
 
   inputs = {
-    # NixOS official package source, using nixos-25.05 branch
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS unstable branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Add nixpkgs-unstable for packages not available in 25.05
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # Add Home Manager
+    # Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Add Stylix
-    stylix.url = "github:nix-community/stylix/release-25.05";
+    # What is flake-parts?
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
-    # Add Mango (provides NixOS and home-manager modules for mangowc)
-    mango = {
-      url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # Mango compositor
+    mango.url = "github:DreamMaoMao/mango";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, stylix, mango, ... }:
-    let
-      system = "x86_64-linux";
+    outputs =
+        inputs@{ self, flake-parts, ... }:
+        flake-parts.lib.mkFlake { inherit inputs; } {
+          debug = true;
+          systems = [ "x86_64-linux" ];
+          flake = {
+            nixosConfigurations = {
+              hostname = inputs.nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                modules = [
+                  inputs.home-manager.nixosModules.home-manager
 
-      # Create an overlay to make unstable packages available
-      overlay-unstable = final: prev: {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
+                  # Add mango nixos module
+                  inputs.mango.nixosModules.mango
+                  {
+                    programs.mango.enable = true;
+                  }
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      backupFileExtension = "backup";
+                      users."username".imports =
+                        [
+                          (
+                            { ... }:
+                            {
+                              wayland.windowManager.mango = {
+                                enable = true;
+                                settings = ''
+                                  # see config.conf
+                                '';
+                                autostart_sh = ''
+                                  # see autostart.sh
+                                  # Note: here no need to add shebang
+                                '';
+                              };
+                            }
+                          )
+                        ]
+                        ++ [
+                          # Add mango hm module
+                          inputs.mango.hmModules.mango
+                        ];
+                    };
+                  }
+                ];
+              };
+            };
+          };
         };
-      };
-    in {
-      # NixOS system configuration - `ghost` is the hostname
-      nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs;
-        };
-
-        modules = [
-          # Apply the unstable overlay
-          ({ config, pkgs, ... }: {
-            nixpkgs.overlays = [ overlay-unstable ];
-          })
-
-          # Legacy NixOS config file
-          ./configuration.nix
-
-          # Home Manager module
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.bws428 = import ./home/home.nix;
-          }
-
-          # Stylix
-          stylix.nixosModules.stylix
-
-          # Mango (MangoWC compositor)
-          mango.nixosModules.mango
-        ];
-      };
-    };
 }
