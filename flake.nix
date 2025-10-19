@@ -42,8 +42,8 @@
         # Stylix
         stylix.nixosModules.stylix
 
-        # MangoWC
-        mangowc.nixosModules.default
+        # Mango (MangoWC compositor)
+        mangowc.nixosModules.mango
       ];
     };
   };
