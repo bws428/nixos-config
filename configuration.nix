@@ -217,6 +217,14 @@
     nautilus # gui file manager
     loupe # simple photo viewer
 
+    # MangoWC helpers
+    foot
+    wmenu
+    wl-clipboard
+    grim
+    slurp
+    swaybg
+
   ];
 
   # Set the default editor to neovim
@@ -248,9 +256,12 @@
   programs.nh = {
     enable = true;
     clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
+    clean.extraArgs = "--keep 3";
     flake = "/home/bws428/.nixos-config";
   };
+
+  # Enable MangoWC
+  programs.mangowc.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -11,16 +11,19 @@
     };
     # Add Stylix
     stylix.url = "github:nix-community/stylix/release-25.05";
+    # Add MangoWC
+    mangowc = {
+      url = "github:DreamMaoMao/mangowc/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, mangowc, ... }: {
     # NixOS system configuration - `ghost` is the hostname
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
       modules = [
         # Legacy NixOS config file
         ./configuration.nix
-        # Stylix
-        stylix.nixosModules.stylix
         # Home Manager module
         home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -28,6 +31,10 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users.bws428 = import ./home/home.nix;
         }
+        # Stylix
+        stylix.nixosModules.stylix
+        # MangoWC
+        mangowc.nixosModules.default
       ];
     };
   };
