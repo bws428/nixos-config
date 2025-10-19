@@ -8,18 +8,15 @@
 
       # Heavily Inspired by Argos Nothing's DWM Re-write + Fun stuff.
       # Check his out here: https://github.com/argosnothing/mango-dwm-config/
-
-      # Default apps
-      $terminal = alacritty
-      $launcher = wmenu-run -l 10 -f "JetBrainsMono Nerd Font 18"
-      $screenshot = grim -l 0 -g "$(slurp)" - | wl-copy
+    
+      # Custom keybindings
+      bind = SUPER, Return, spawn, alacritty
+      bind = SUPER, Space, spawn, wmenu-run -l 10 -f "JetBrainsMono Nerd Font 18"
+      bind = SUPER, S ,spawn, grim -l 0 -g "$(slurp)" - | wl-copy
+      bind = SUPER ,R, spawn, pkill waybar; waybar -c ~/.config/mango/config.jsonc &
+      bind = SUPER, Q, killclient
+      bind = SUPER+SHIFT, R, reload_config
       
-      # Custome keybindings
-      bind=SUPER,Return,spawn,$terminal
-      bind=SUPER,Space,spawn,$launcher
-      bind=SUPER,s,spawn,$screenshot
-      bind=SUPER,R,spawn,/home/tony/.config/mango/rebar.sh
-
       # Default keybindings
       bind=SUPER,1,comboview,1
       bind=SUPER,2,comboview,2
@@ -33,9 +30,7 @@
 
       bind=SUPER,i,incnmaster,+1
       bind=SUPER,p,incnmaster,-1
-      bind=SUPER,q,killclient
-      bind=SUPER+SHIFT,r,reload_config
-
+ 
 # Layouts
 bind=SUPER,t,setlayout,tile
 bind=SUPER,v,setlayout,vertical_grid
