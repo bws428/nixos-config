@@ -244,6 +244,14 @@
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Enable nh
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/bws428/.nixos-config";
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
