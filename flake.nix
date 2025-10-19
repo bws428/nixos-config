@@ -30,6 +30,8 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
               home-manager.users.bws428 = import ./home/home.nix;
+
+              imports = [ mango.hmModules.mango ];
             }
             # Mango compositor
             mango.nixosModules.mango
