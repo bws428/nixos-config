@@ -204,7 +204,7 @@
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
-    rofi-wayland # application launcher
+    rofi # application launcher
     wev # Wayland event viewer (debugging)
 
   ];
