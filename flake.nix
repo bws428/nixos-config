@@ -28,7 +28,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
-              home-manager.users.bws428 = import ./home/home/nix
+              home-manager.users.bws428 = import ./home/home/nix;
             }
           ];
         };
