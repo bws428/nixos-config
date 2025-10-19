@@ -6,32 +6,35 @@
     settings = ''
       # see config.conf
 
-      # Monitors - Uncomment this and set your monitor if on vm
-      # Monitors - Uncomment this and set your monitor if on vm
-      # monitorrule=Virtial-1,0.55,1,tile,0,1,0,0,1920,1080,60
       # Heavily Inspired by Argos Nothing's DWM Re-write + Fun stuff.
       # Check his out here: https://github.com/argosnothing/mango-dwm-config/
 
-      # waybar & wmenu required.
-      bind=SUPER,Return,spawn,alacritty
-      bind=SUPER,d,spawn,wmenu-run -l 10
-      bind=SUPER,s,spawn,/home/tony/.config/mango/snip.sh
+      # Default apps
+      $terminal = alacritty
+      $launcher = wmenu-run -l 10 -f "JetBrainsMono Nerd Font 18"
+      $screenshot = grim -l 0 -g "$(slurp)" - | wl-copy
+      
+      # Custome keybindings
+      bind=SUPER,Return,spawn,$terminal
+      bind=SUPER,Space,spawn,$launcher
+      bind=SUPER,s,spawn,$screenshot
       bind=SUPER,R,spawn,/home/tony/.config/mango/rebar.sh
 
-bind=SUPER,1,comboview,1
-bind=SUPER,2,comboview,2
-bind=SUPER,3,comboview,3
-bind=SUPER,4,comboview,4
-bind=SUPER,5,comboview,5
-bind=SUPER,6,comboview,6
-bind=SUPER,7,comboview,7
-bind=SUPER,8,comboview,8
-bind=SUPER,9,comboview,9
+      # Default keybindings
+      bind=SUPER,1,comboview,1
+      bind=SUPER,2,comboview,2
+      bind=SUPER,3,comboview,3
+      bind=SUPER,4,comboview,4
+      bind=SUPER,5,comboview,5
+      bind=SUPER,6,comboview,6
+      bind=SUPER,7,comboview,7
+      bind=SUPER,8,comboview,8
+      bind=SUPER,9,comboview,9
 
-bind=SUPER,i,incnmaster,+1
-bind=SUPER,p,incnmaster,-1
-bind=SUPER,q,killclient
-bind=SUPER+SHIFT,r,reload_config
+      bind=SUPER,i,incnmaster,+1
+      bind=SUPER,p,incnmaster,-1
+      bind=SUPER,q,killclient
+      bind=SUPER+SHIFT,r,reload_config
 
 # Layouts
 bind=SUPER,t,setlayout,tile
