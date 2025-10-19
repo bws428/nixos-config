@@ -8,6 +8,7 @@
     ./modules/desktop/hyprland.nix
     ./modules/desktop/waybar.nix
     ./modules/desktop/alacritty.nix
+    ./modules/desktop/mango.nix
   ];
 
   home.username = "bws428";
