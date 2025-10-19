@@ -33,6 +33,7 @@
             # Mango compositor
             mango.nixosModules.mango
             mango.hmModules.mango
+            ++ [ mango.hmModules.mango ];
             # Stylix
             stylix.nixosModules.stylix
           ];
