@@ -17,6 +17,9 @@
     };
 
     settings = {
+      
+      theme = "tokyonight_moon";
+      
       editor = {
         line-number = "relative";
         cursorline = true;
