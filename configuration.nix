@@ -51,9 +51,9 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.lightdm = {
-      enable = true;
-    };
+    # displayManager.lightdm = {
+    #   enable = true;
+    # };
   };
 
   # Enable the gnome-keyring secrets vault.
