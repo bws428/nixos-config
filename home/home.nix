@@ -50,6 +50,6 @@
   # Stylix targets
   stylix.targets.starship.enable = true;
   stylix.targets.helix.enable = true;
-  stylix.targets.rofi.enable = true;
+  #stylix.targets.rofi.enable = true;
   stylix.targets.neovim.enable = true;
 }
