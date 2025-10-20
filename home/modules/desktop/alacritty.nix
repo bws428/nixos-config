@@ -3,8 +3,7 @@
 {
   programs.alacritty = {
     enable = true;
-    theme = "gruvbox_material_medium_dark";
-
+    theme = "gruvbox_material_hard_dark";
     settings = {
       env.TERM = "xterm-256color";
       scrolling.multiplier = 5;
