@@ -4,151 +4,33 @@
   programs.waybar = {
     enable = true;
 
-    settings = lib.mkAfter ''
-      // -*- mode: jsonc -*-
-      {
-          "layer": "top",
-          "position": "top",
-          "exclusive": true,
-          "passthrough": false,
-          "gtk-layer-shell": true,
-          "ipc": false,
-          //"reload_style_on_change": true,
-          "height": 25,
-          "margin": "0",
-          "modules-left": [
-              "dwl/tags",
-              "dwl/window"
-              //"wlr/taskbar"
-          ],
-          "modules-center": [
-              "mpris"
-          ],
-          "modules-right": [
-              "clock",
-              "battery",
-              "pulseaudio",
-              "custom/notification",
-              "tray",
-              "custom/power"
-          ],
-          // Modules configuration
-          "dwl/tags": {
-              "num-tags": 9,
-              "hide-vacant": true,
-              "expand": false,
-              "disable-click": true,
-              "tag-labels": [
-              ],
+  settings = {
+    mainBar = {
+      layer = "top";
+      position = "top";
+      height = 30;
+      output = [
+        "eDP-1"
+        "HDMI-A-1"
+      ];
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" "custom/hello-from-waybar" ];
+      modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
 
-          },
-          "dwl/window": {
-              "format": "{app_id} | {title}",
-              "max-length": 50,
-              "rewrite": {
-                  " \\| ": ""
-              }
-          },
-          "wlr/taskbar": {
-             "format": "{icon}",
-              "icon-size": 22,
-              "all-outputs": false,
-              "tooltip-format": "{title}",
-              "markup": true,
-              "on-click": "activate",
-              "on-click-right": "close",
-              "ignore-list": ["Rofi", "wofi"]
-          },
-          "tray": {
-              "icon-size": 21,
-              "spacing": 10
-          },
-          "mpris": {
-              "format": "{player_icon} {artist} - {title}",
-              "format-paused": "{status_icon} <i>{artist} - {title}</i>",
-              "player-icons": {
-                  "vivaldi-stable": "▶",
-                  "spotify": "",
-                  "default": ""
-              },
-              "status-icons": {
-                  "paused": ""
-              },
-              "max-length": 80
-              // "ignored-players": ["firefox"]
-          },
-          "custom/music": {
-              "format": "  {}",
-              "escape": true,
-              "interval": 5,
-              "tooltip": false,
-              "exec": "playerctl metadata --format='{{ titles }}'",
-              "on-click": "playerctl play-pause",
-              "max-length": 50
-          },
-          "clock": {
-              // "timezone": "America/New_York",
-              "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-              "format-alt": "󰥔 {:%d/%m/%Y}",
-              "format": "󰥔 {:%H:%M}"
-          },
-          "battery": {
-              "states": {
-                  // "good": 95,
-                  "warning": 30,
-                  "critical": 15
-              },
-              "format": "{icon} {capacity}%",
-          		  "tooltip": false,
-		      "menu": "on-click",
-		    "menu-file": "~/.config/maomao/waybar/battery_menu.xml",
-		    "menu-actions": {
-			   "performance": "powerprofilesctl set performance",
-			   "balanced": "powerprofilesctl set balanced",
-			   "powersaver": "powerprofilesctl set power-saver",
-		    },
-
-              // "format-alt": "{icon}",
-              // "format-charging": "",
-              // "format-plugged": "",
-              "format-icons": ["󰂎", "󰁻", "󰁽", "󰁿", "󰂁", "󰁹"]
-          },
-          "pulseaudio": {
-              "disable-scroll": true,
-              "format": "{icon} {volume}%",
-              "format-muted": "",
-              "format-icons": {
-                  "default": ["", "", ""]
-              },
-              "on-click": "pavucontrol"
-          },
-          "custom/notification": {
-              "format": "{icon} {text}",
-              "tooltip": false,
-              "format-icons": {
-                  "notification": "󱅫",
-                  "none": "",
-                  "dnd-notification": "",
-                  "dnd-none": "󰂛",
-                  "inhibited-notification": "",
-                  "inhibited-none": "",
-                  "dnd-inhibited-notification": "",
-                  "dnd-inhibited-none": ""
-              },
-              "return-type": "json",
-              "exec-if": "which swaync-client",
-              "exec": "swaync-client -swb",
-              "on-click": "swaync-client -t -sw",
-              "on-click-right": "swaync-client -d -sw",
-              "escape": true
-          },
-          "custom/power": {
-	    "format" : "⏻",
-		  "tooltip": false,
-            "on-click": "wlogout"
-          }
-      }
-    '';
+      "sway/workspaces" = {
+        disable-scroll = true;
+        all-outputs = true;
+      };
+      "custom/hello-from-waybar" = {
+        format = "hello {}";
+        max-length = 40;
+        interval = "once";
+        exec = pkgs.writeShellScript "hello-from-waybar" ''
+          echo "from within waybar"
+        '';
+      };
+    };
+  };
 
     # Font override
     style = lib.mkAfter ''
