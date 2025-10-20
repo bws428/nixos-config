@@ -183,6 +183,7 @@
     wev # Wayland event viewer (debugging)
     mako # notification daemon
     loupe # simple photo viewer
+    nautilus # file browser gui
 
   ];
 
