@@ -184,6 +184,7 @@
       }
 
       #network.disconnected {
+          color: @white;
           background-color: @red;
       }
 
