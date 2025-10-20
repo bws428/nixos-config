@@ -88,11 +88,6 @@
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Let Stylix do the ricing... maybe?
-  stylix.enable = true;
-  stylix.polarity = "dark";
-  stylix.image = ./themes/gruvbox-berries.jpg;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

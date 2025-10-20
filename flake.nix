@@ -13,12 +13,9 @@
 
     # Mango compositor
     mango.url = "github:DreamMaoMao/mango";
-
-    # Stylix auto-themer
-    stylix.url = "github:nix-community/stylix";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, mango, stylix, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, mango, ... }: {
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           modules = [
@@ -38,8 +35,6 @@
             }
             # Mango compositor
             mango.nixosModules.mango
-            # Stylix
-            stylix.nixosModules.stylix
           ];
         };
       };
