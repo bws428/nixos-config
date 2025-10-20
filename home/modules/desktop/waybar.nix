@@ -4,9 +4,9 @@
   programs.waybar = {
     enable = true;
     # Last attempt before removing everything
-    settings = ''
+    settings = {
 
-    '';
+    };
     # Font override
     style = lib.mkAfter ''
       * {
