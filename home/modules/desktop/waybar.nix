@@ -3,38 +3,207 @@
 {
   programs.waybar = {
     enable = true;
-    # Last attempt before removing everything
+
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        modules-left = [ "dwl/tags" ];
-        modules-center = [ "dwl/window" ];
-        modules-right = [
-          "tray"
-          "network"
-          "pulseaudio"
-          "clock"
+
+        modules-left = [
+          "ext/workspaces"
+          "custom/sep"
+          "dwl/window#layout"
+          "custom/sep"
+          "dwl/window#title"
         ];
+
+        modules-right = [
+          "custom/sep"
+          "battery"
+          "custom/sep"
+          "network"
+          "custom/sep"
+          "cpu"
+          "custom/sep"
+          "memory"
+          "custom/sep"
+          "disk"
+          "custom/sep"
+          "clock"
+          "custom/sep"
+          "tray"
+        ];
+
+        clock = {
+          format-alt = "{:%Y-%m-%d}";
+        };
+
+        cpu = {
+          format = "CPU: {usage}%";
+          tooltip = false;
+        };
+
+        memory = {
+          format = "Mem: {used}GiB";
+        };
+
+        disk = {
+          interval = 60;
+          path = "/";
+          format = "Disk: {free}";
+        };
+
+        battery = {
+          states = {
+            good = 95;
+            warning = 30;
+            critical = 15;
+          };
+          format = "Bat: {capacity}% {icon} {time}";
+          format-plugged = "{capacity}% ";
+          format-alt = "Bat {capacity}%";
+          format-time = "{H}:{M}";
+          format-icons = ["" "" "" "" ""];
+        };
+
+        network = {
+          format = "Online";
+          format-disconnected = "Disconnected ⚠";
+        };
+
+        "ext/workspaces" = {
+          format = "{icon}";
+          ignore-hidden = false;
+          on-click = "activate";
+          sort-by-id = true;
+        };
+
         "dwl/tags" = {
           num-tags = 9;
-          hide-vacant = true;
-          expand = false;
-          tag-labels = [];
         };
-        "dwl/window" = {
+
+        "dwl/window#layout" = {
+          format = "[{layout}]";
+        };
+
+        "dwl/window#title" = {
           format = "{title}";
-          max-length = 50;
-          rewrite = {};
+        };
+
+        "custom/sep" = {
+          format = "|";
+          interval = 0;
         };
       };
     };
 
-    # Stylix font override
-    style = lib.mkAfter ''
+    # Tokyo Night color scheme with custom styling
+    style = ''
+      @define-color bg    #1a1b26;
+      @define-color fg    #a9b1d6;
+      @define-color blk   #32344a;
+      @define-color red   #f7768e;
+      @define-color grn   #9ece6a;
+      @define-color ylw   #e0af68;
+      @define-color blu   #7aa2f7;
+      @define-color mag   #ad8ee6;
+      @define-color cyn   #0db9d7;
+      @define-color brblk #444b6a;
+      @define-color white #ffffff;
+
       * {
-        font-size: 16px;
-        font-family: MesloLGS Nerd Font Propo;
+          font-family: "JetBrainsMono Nerd Font", monospace;
+          font-size: 16px;
+          font-weight: bold;
+      }
+
+      window#waybar {
+          background-color: @bg;
+          color: @fg;
+      }
+
+      #workspaces button {
+          padding: 0 6px;
+          color: @cyn;
+          background: transparent;
+          border-bottom: 3px solid @bg;
+      }
+
+      #workspaces button.active {
+          color: @cyn;
+          border-bottom: 3px solid @mag;
+      }
+
+      #workspaces button.hidden {
+          color: @white;
+      }
+
+      #workspaces button.hidden.active {
+          color: @cyn;
+          border-bottom: 3px solid @mag;
+      }
+
+      #workspaces button.urgent {
+          background-color: @red;
+      }
+
+      button:hover {
+          background: inherit;
+          box-shadow: inset 0 -3px #ffffff;
+      }
+
+      #clock,
+      #custom-sep,
+      #battery,
+      #cpu,
+      #memory,
+      #disk,
+      #network,
+      #tray {
+          padding: 0 8px;
+          color: @white;
+      }
+
+      #custom-sep {
+          color: @brblk;
+      }
+
+      #clock {
+          color: @cyn;
+          border-bottom: 4px solid @cyn;
+      }
+
+      #battery {
+          color: @blu;
+          border-bottom: 4px solid @blu;
+      }
+
+      #disk {
+          color: @ylw;
+          border-bottom: 4px solid @ylw;
+      }
+
+      #memory {
+          color: @mag;
+          border-bottom: 4px solid @mag;
+      }
+
+      #cpu {
+          color: @grn;
+          border-bottom: 4px solid @grn;
+      }
+
+      #network {
+          color: @red;
+          border-bottom: 4px solid @red;
+      }
+
+      #network.disconnected {
+          background-color: @red;
+      }
+
+      #tray {
+          background-color: #2980b9;
       }
     '';
   };
