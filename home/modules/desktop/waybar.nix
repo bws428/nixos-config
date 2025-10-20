@@ -5,9 +5,30 @@
     enable = true;
     # Last attempt before removing everything
     settings = {
-
+      layer = "top";
+      position = "top";
+      modules-left = [ "dwl/tags" ];
+      modules-center = [ "dwl/window" ];
+      modules-right = [
+        "tray"
+        "network"
+        "pulseaudio"
+        "clock"
+      ];
+      "dwl/tags" = {
+        num-tags = 9;
+        hide-vacant = true;
+        expand = false;
+        tag-labels = [];
+      };
+      "dwl/window" = {
+        format = "{app_id} | {title}";
+        max-length = 50;
+        rewrite = {};
+      };
     };
-    # Font override
+
+    # Stylix font override
     style = lib.mkAfter ''
       * {
         font-size: 16px;
