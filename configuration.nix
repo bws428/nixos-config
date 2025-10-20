@@ -85,6 +85,16 @@
     enable = true;
   };
 
+  # Add portal support for Mango
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;  # wlroots-based portal (Mango uses wlroots)
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # Might also need dbus-broker back
+  services.dbus.implementation = "broker";
+
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -127,10 +137,7 @@
   users.users.bws428 = {
     isNormalUser = true;
     description = "Brian W.";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      # Add these in Home Manager
-    ];
+    extraGroups = [ "networkmanager" "wheel" "seat" "video" ];
   };
 
   # Allow unfree packages
