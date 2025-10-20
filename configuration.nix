@@ -71,14 +71,6 @@
     };
   };
 
-  # Enable Hyprland with UWSM
-  # https://wiki.nixos.org/wiki/Hyprland
-  # programs.hyprland = {
-  #   enable = true;
-  #   withUWSM = true;
-  #   xwayland.enable = true;
-  # };
-
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
   programs.mango = {
@@ -93,7 +85,7 @@
   };
 
   # Might also need dbus-broker back
-  services.dbus.implementation = "broker";
+  #services.dbus.implementation = "broker";
 
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
