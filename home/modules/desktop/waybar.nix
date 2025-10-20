@@ -4,8 +4,7 @@
   programs.waybar = {
     enable = true;
 
-    settings =
-    ''
+    settings = ''
       // -*- mode: jsonc -*-
       {
           "layer": "top",
