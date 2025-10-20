@@ -45,7 +45,7 @@
   ];
 
   # Gnome/Wayland specific settings for Nvidia
-  services.xserver.displayManager.gdm.wayland = true;
+  services.displayManager.gdm.wayland = true;
 
   # Add environment variables for Nvidia + Wayland
   environment.sessionVariables = {
