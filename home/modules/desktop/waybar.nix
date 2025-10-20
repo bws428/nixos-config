@@ -4,7 +4,7 @@
   programs.waybar = {
     enable = true;
 
-    settings = ''
+    settings = lib.mkAfter ''
       // -*- mode: jsonc -*-
       {
           "layer": "top",
