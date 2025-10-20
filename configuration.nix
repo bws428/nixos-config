@@ -73,11 +73,11 @@
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
-  # programs.hyprland = {
-  #   enable = true;
-  #   withUWSM = true;
-  #   xwayland.enable = true;
-  # };
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
@@ -169,6 +169,15 @@
   # Install Firefox web browser
   programs.firefox.enable = true;
 
+  # Enable nh
+  # https://github.com/nix-community/nh
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep 3";
+    flake = "/home/bws428/.nixos-config";
+  };
+
   # Install Steam + necessary firewall settings
   # https://nixos.wiki/wiki/Steam
   programs.steam.enable = true;
@@ -192,7 +201,7 @@
     zsh-syntax-highlighting
 
     # Hyprland desktop
-    mako # notification daemon
+    # mako # notification daemon
     #walker # application launcher
     #waybar # status bar
     #hyprpaper # wallpaper
@@ -212,6 +221,7 @@
     swaybg # wallpaper
     rofi # application launcher
     wev # Wayland event viewer (debugging)
+    mako # notification daemon
 
   ];
 
@@ -239,14 +249,6 @@
 
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Enable nh
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep 3";
-    flake = "/home/bws428/.nixos-config";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
