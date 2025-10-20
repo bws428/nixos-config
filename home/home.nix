@@ -7,6 +7,7 @@
     ./modules/editors.nix
     ./modules/desktop/hyprland.nix
     ./modules/desktop/waybar.nix
+    ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
     ./modules/desktop/mango.nix
   ];
