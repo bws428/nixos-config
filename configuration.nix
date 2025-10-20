@@ -87,6 +87,9 @@
   # Absolutely required for Mango
   services.dbus.implementation = "broker";
 
+  # PolicyKit - needed for Mango? idk
+  security.polkit.enable = true;
+
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
