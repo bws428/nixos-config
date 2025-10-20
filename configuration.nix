@@ -53,26 +53,29 @@
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
+  # services.gnome.gnome-keyring.enable = true;
 
   # Enable `tuigreet` and `greetd`
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
-        user = "greeter";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
+
+  # Use lightdm display manager instead of tuigreet?
+  services.xserver.displayManager.lightdm.enable = true;
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   withUWSM = true;
+  #   xwayland.enable = true;
+  # };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
@@ -83,9 +86,9 @@
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Let Stylix do the ricing... NOT
+  # Let Stylix do the ricing... maybe?
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+  stylix.polarity = "dark";
   stylix.image = ./themes/gruvbox-berries.jpg;
 
   # Updated font configuration for NixOS 25.05
@@ -108,7 +111,7 @@
     sizes = {
       applications = 12;
       terminal = 14;
-      desktop = 10;
+      desktop = 12;
       popups = 10;
     };
   };
@@ -188,19 +191,20 @@
 
     # Hyprland desktop
     mako # notification daemon
-    walker # application launcher
-    waybar # status bar
-    hyprpaper # wallpaper
-    hyprshot # screenshot
-    hyprlock # lock screen
-    hypridle
-    hyprsunset # bluelight filter
-    hyprnotify # notification daemon
-    hyprcursor # mouse cursor
+    #walker # application launcher
+    #waybar # status bar
+    #hyprpaper # wallpaper
+    #hyprshot # screenshot
+    #hyprlock # lock screen
+    #hypridle
+    #hyprsunset # bluelight filter
+    #hyprnotify # notification daemon
+    #hyprcursor # mouse cursor
 
     # Mango desktop
     wmenu # does this even WORK?
     wl-clipboard
+    waybar
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
