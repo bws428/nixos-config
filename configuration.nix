@@ -83,7 +83,6 @@
   # https://github.com/DreamMaoMao/mangowc
   programs.mango = {
     enable = true;
-    xwayland.enable = true;
   };
 
   # Suggest Electron apps use Wayland
