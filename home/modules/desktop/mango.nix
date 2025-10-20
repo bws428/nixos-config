@@ -10,18 +10,12 @@
       # Check his out here: https://github.com/argosnothing/mango-dwm-config/
 
       # Custom keybindings
-      # Terminal emulator
-      bind = SUPER, Return, spawn, alacritty
-      # App launcher
-      bind = SUPER, R, spawn, rofi -show run
-      # Screenshot
-      bind = SUPER, S ,spawn, grim -l 0 -g "$(slurp)" - | wl-copy
-      # Quit app
-      bind = SUPER, Q, killclient
-      # Reload Mango configuration
-      bind = SUPER+SHIFT, R, reload_config
-      # Browser
-      bind = SUPER, B, spawn, firefox
+      bind=SUPER,Return,spawn,alacritty
+      bind=SUPER,SPACE,spawn,rofi -show drun
+      bind=SUPER,I,spawn,grim -l 0 -g "$(slurp)" - | wl-copy
+      bind=SUPER,Q,killclient
+      bind=SUPER+SHIFT,R,reload_config
+      bind=SUPER,B,spawn,firefox
 
       # Default keybindings
       bind=SUPER,1,comboview,1
