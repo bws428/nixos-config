@@ -11,7 +11,7 @@
 
       # Custom keybindings
       bind=SUPER,Return,spawn,alacritty
-      bind=SUPER,SPACE,spawn,rofi -show drun
+      bind=SUPER,space,spawn,rofi -show drun
       bind=SUPER,I,spawn,grim -l 0 -g "$(slurp)" - | wl-copy
       bind=SUPER,Q,killclient
       bind=SUPER+SHIFT,R,reload_config
