@@ -19,8 +19,6 @@
 
         modules-right = [
           "custom/sep"
-          "battery"
-          "custom/sep"
           "network"
           "custom/sep"
           "cpu"
@@ -51,19 +49,6 @@
           interval = 60;
           path = "/";
           format = "Disk: {free}";
-        };
-
-        battery = {
-          states = {
-            good = 95;
-            warning = 30;
-            critical = 15;
-          };
-          format = "Bat: {capacity}% {icon} {time}";
-          format-plugged = "{capacity}% ";
-          format-alt = "Bat {capacity}%";
-          format-time = "{H}:{M}";
-          format-icons = ["" "" "" "" ""];
         };
 
         network = {
