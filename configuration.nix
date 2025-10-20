@@ -57,27 +57,18 @@
   boot.kernelParams = [ 
     "quiet" 
     "splash" 
-    "vga=current"
-    "rd.systemd.show_status=auto"
-    "rd.udev.log_level=3"
   ];
 
-  # ly greeter
-  services.displayManager.ly = {
-    enable = true;
-    x11Support = true;
-  };
-
   # Enable `tuigreet` and `greetd`
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
-  #       user = "greeter";
-  #     };
-  #   };
-  # };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
+        user = "greeter";
+      };
+    };
+  };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
