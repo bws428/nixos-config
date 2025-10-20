@@ -59,12 +59,12 @@
     "splash" 
   ];
 
-  # Enable `tuigreet` and `greetd`
+  # Enable TUIgreet login screen
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
+        command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
         user = "greeter";
       };
     };
@@ -72,9 +72,7 @@
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
-  programs.mango = {
-    enable = true;
-  };
+  programs.mango.enable = true;
 
   # Add portal support for Mango
   xdg.portal = {
