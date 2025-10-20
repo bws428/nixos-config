@@ -103,38 +103,38 @@
       }
 
       window#waybar {
-          background-color: @bg;
-          color: @fg;
+        background-color: @bg;
+        color: @fg;
       }
 
       #workspaces button {
-          padding: 0 6px;
-          color: @cyn;
-          background: transparent;
-          border-bottom: 3px solid @bg;
+        padding: 0 6px;
+        color: @cyn;
+        background: transparent;
+        border-bottom: 3px solid @bg;
       }
 
       #workspaces button.active {
-          color: @cyn;
-          border-bottom: 3px solid @mag;
+        color: @cyn;
+        border-bottom: 3px solid @mag;
       }
 
       #workspaces button.hidden {
-          color: @white;
+        color: @white;
       }
 
       #workspaces button.hidden.active {
-          color: @cyn;
-          border-bottom: 3px solid @mag;
+        color: @cyn;
+        border-bottom: 3px solid @mag;
       }
 
       #workspaces button.urgent {
-          background-color: @red;
+        background-color: @red;
       }
 
       button:hover {
-          background: inherit;
-          box-shadow: inset 0 -3px #ffffff;
+        background: inherit;
+        box-shadow: inset 0 -3px #ffffff;
       }
 
       #clock,
@@ -145,51 +145,51 @@
       #disk,
       #network,
       #tray {
-          padding: 0 8px;
-          color: @white;
+        padding: 0 8px;
+        color: @white;
       }
 
       #custom-sep {
-          color: @brblk;
+        color: @brblk;
       }
 
       #clock {
-          color: @cyn;
-          border-bottom: 4px solid @cyn;
+        color: @cyn;
+        border-bottom: 4px solid @cyn;
       }
 
       #battery {
-          color: @blu;
-          border-bottom: 4px solid @blu;
+        color: @blu;
+        border-bottom: 4px solid @blu;
       }
 
       #disk {
-          color: @ylw;
-          border-bottom: 4px solid @ylw;
+        color: @ylw;
+        border-bottom: 4px solid @ylw;
       }
 
       #memory {
-          color: @mag;
-          border-bottom: 4px solid @mag;
+        color: @mag;
+        border-bottom: 4px solid @mag;
       }
 
       #cpu {
-          color: @grn;
-          border-bottom: 4px solid @grn;
+        color: @grn;
+        border-bottom: 4px solid @grn;
       }
 
       #network {
-          color: @red;
-          border-bottom: 4px solid @red;
+        color: @fg;
+        border-bottom: 4px solid @fg;
       }
 
       #network.disconnected {
-          color: @white;
-          background-color: @red;
+        color: @red;
+        border-bottom: 4px solid @red;
       }
 
       #tray {
-          background-color: #2980b9;
+        background-color: #2980b9;
       }
     '';
   };
