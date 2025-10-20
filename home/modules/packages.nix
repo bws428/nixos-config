@@ -81,6 +81,5 @@
     rawtherapee # photo editor
     localsend # cross-platform file transfer
 
-
   ];
 }
