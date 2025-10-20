@@ -49,15 +49,10 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-  };
+  services.xserver.enable = true;
 
   # Silent boot parameters
-  boot.kernelParams = [ 
-    "quiet" 
-    "splash" 
-  ];
+  boot.kernelParams = [ "quiet" "splash" ];
 
   # Enable TUIgreet login screen
   services.greetd = {
