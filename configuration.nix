@@ -49,7 +49,12 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm = {
+      enable = true;
+    };
+  }
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
@@ -66,9 +71,6 @@
   #   };
   # };
 
-  # Use lightdm display manager instead of tuigreet?
-  services.xserver.displayManager.lightdm.enable = true;
-
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
   # programs.hyprland = {
@@ -81,6 +83,7 @@
   # https://github.com/DreamMaoMao/mangowc
   programs.mango = {
     enable = true;
+    xwayland.enable = true;
   };
 
   # Suggest Electron apps use Wayland
