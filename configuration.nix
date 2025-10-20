@@ -51,9 +51,9 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    # displayManager.lightdm = {
-    #   enable = true;
-    # };
+    displayManager.lightdm = {
+      enable = true;
+    };
   };
 
   # Enable the gnome-keyring secrets vault.
@@ -73,11 +73,11 @@
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   withUWSM = true;
+  #   xwayland.enable = true;
+  # };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
@@ -183,7 +183,9 @@
     #hyprcursor # mouse cursor
 
     # Mango desktop
-    wmenu # does this even WORK?
+    wayland # these might be needed if we remove hyprland
+    xwayland
+    wlroots
     wl-clipboard
     waybar
     grim # screenshot

@@ -5,7 +5,7 @@
     ./modules/packages.nix
     ./modules/shell.nix
     ./modules/editors.nix
-    ./modules/desktop/hyprland.nix
+    #./modules/desktop/hyprland.nix
     ./modules/desktop/waybar.nix
     ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
