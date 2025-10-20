@@ -158,8 +158,8 @@
     autostart_sh = ''
       # see autostart.sh
 
-      waybar
-      swaybg -i /home/bws428/Pictures/wallpapers/sushi.jpg -m fill
+      waybar >/dev/null 2>&1 &
+      swaybg -i /home/bws428/Pictures/wallpapers/sushi.jpg -m fill >/dev/null 2>&1 &
     '';
     };
 }
