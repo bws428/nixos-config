@@ -63,18 +63,18 @@
   ];
 
   # ly greeter
-  #services.displayManager.ly.enable = true;
+  services.displayManager.ly.enable = true;
 
   # Enable `tuigreet` and `greetd`
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
-        user = "greeter";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet -t -r -c mango";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
