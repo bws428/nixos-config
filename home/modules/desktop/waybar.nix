@@ -149,7 +149,7 @@
             "on-click": "wlogout"
           }
       }
-    ''
+    '';
 
     # Font override
     style = lib.mkAfter ''
