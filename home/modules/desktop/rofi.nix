@@ -3,7 +3,7 @@
 {
   programs.rofi = {
     enable = true;
-    theme = "Arc-Dark";
+    theme = "style-1";
 
       extraConfig = {
         modi = "drun,run,window";

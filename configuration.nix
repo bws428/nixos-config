@@ -51,9 +51,9 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.lightdm = {
-      enable = true;
-    };
+    # displayManager.lightdm = {
+    #   enable = true;
+    # };
   };
 
   # Enable the gnome-keyring secrets vault.
@@ -73,11 +73,11 @@
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
-  # programs.hyprland = {
-  #   enable = true;
-  #   withUWSM = true;
-  #   xwayland.enable = true;
-  # };
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
@@ -170,18 +170,6 @@
     zsh-autosuggestions
     zsh-syntax-highlighting
 
-    # Hyprland desktop
-    # mako # notification daemon
-    #walker # application launcher
-    #waybar # status bar
-    #hyprpaper # wallpaper
-    #hyprshot # screenshot
-    #hyprlock # lock screen
-    #hypridle
-    #hyprsunset # bluelight filter
-    #hyprnotify # notification daemon
-    #hyprcursor # mouse cursor
-
     # Mango desktop
     wayland # these might be needed if we remove hyprland
     xwayland
@@ -248,5 +236,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

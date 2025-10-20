@@ -158,7 +158,7 @@
       # see autostart.sh
 
       waybar
-      swaybg -i ~/Picture/wallpapers/gruvbox-leaves.jpg >/dev/null 2>&1 &
+      swaybg -i ~/Pictures/wallpapers/sushi.jpg -m fill >/dev/null 2>&1 &
     '';
     };
 }
