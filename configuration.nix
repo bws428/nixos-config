@@ -137,7 +137,7 @@
   users.users.bws428 = {
     isNormalUser = true;
     description = "Brian W.";
-    extraGroups = [ "networkmanager" "wheel" "seat" "video" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   # Allow unfree packages
