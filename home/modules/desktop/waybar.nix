@@ -23,7 +23,7 @@
           tag-labels = [];
         };
         "dwl/window" = {
-          format = "{app_id} | {title}";
+          format = "{title}";
           max-length = 50;
           rewrite = {};
         };
