@@ -77,7 +77,7 @@
     helix # code editor
     zed-editor # gui code editor
     obsidian # a second brain
-    #signal-desktop # secure comms
+    signal-desktop # secure comms
     rawtherapee # photo editor
     localsend # cross-platform file transfer
     xfce.thunar # gui file manager
