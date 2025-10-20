@@ -80,8 +80,7 @@
     signal-desktop # secure comms
     rawtherapee # photo editor
     localsend # cross-platform file transfer
-    xfce.thunar # gui file manager
-    loupe # simple photo viewer
+
 
   ];
 }

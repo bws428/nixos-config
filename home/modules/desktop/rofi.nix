@@ -3,7 +3,7 @@
 {
   programs.rofi = {
     enable = true;
-    theme = "style-1";
+    theme = "material";
 
       extraConfig = {
         modi = "drun,run,window";

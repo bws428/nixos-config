@@ -16,6 +16,7 @@
       bind=SUPER,Q,killclient
       bind=SUPER+SHIFT,R,reload_config
       bind=SUPER,B,spawn,firefox
+      bind=SUPER,S,spawn,signal-desktop --password-store="gnome-libsecret"
 
       # Default keybindings
       bind=SUPER,1,comboview,1

@@ -182,6 +182,7 @@
     rofi # application launcher
     wev # Wayland event viewer (debugging)
     mako # notification daemon
+    loupe # simple photo viewer
 
   ];
 
