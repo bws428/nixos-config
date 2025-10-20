@@ -93,31 +93,6 @@
   stylix.polarity = "dark";
   stylix.image = ./themes/gruvbox-berries.jpg;
 
-  # Updated font configuration for NixOS 25.05
-  stylix.fonts = {
-    monospace = {
-      package = pkgs.nerd-fonts.meslo-lg;
-      name = "MesloLGS Nerd Font Mono";
-    };
-
-    sansSerif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Sans";
-    };
-
-    serif = {
-      package = pkgs.dejavu_fonts;
-      name = "DejaVu Serif";
-    };
-
-    sizes = {
-      applications = 12;
-      terminal = 14;
-      desktop = 12;
-      popups = 10;
-    };
-  };
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

@@ -22,6 +22,33 @@
   };
 
   # Global Stylix settings
+  # Stylix fonts
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerd-fonts.meslo-lg;
+      name = "MesloLGS Nerd Font Mono";
+    };
+
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+
+    sizes = {
+      applications = 12;
+      terminal = 14;
+      desktop = 12;
+      popups = 10;
+    };
+  };
+  # Stylix targets
   stylix.targets.starship.enable = true;
   stylix.targets.helix.enable = true;
+  stylix.targets.rofi.enable = true;
+  stylix.targets.nvim.enable = true;
 }
