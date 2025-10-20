@@ -84,8 +84,8 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Might also need dbus-broker back
-  #services.dbus.implementation = "broker";
+  # Absolutely required for Mango
+  services.dbus.implementation = "broker";
 
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
