@@ -73,11 +73,11 @@
 
   # Enable Hyprland with UWSM
   # https://wiki.nixos.org/wiki/Hyprland
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   withUWSM = true;
+  #   xwayland.enable = true;
+  # };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
