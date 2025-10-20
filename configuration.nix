@@ -161,7 +161,6 @@
 
     # Required system utilities
     git # version control
-    neovim # code editor
     wget # download files
     curl # download files
     kitty # terminal emulator
@@ -185,9 +184,6 @@
     nautilus # file browser gui
 
   ];
-
-  # Set the default editor to neovim
-  environment.variables.EDITOR = "nvim";
 
   # Set the default shell to Zsh
   # https://nixos.wiki/wiki/Zsh
