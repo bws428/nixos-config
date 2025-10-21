@@ -80,6 +80,10 @@
     signal-desktop # secure comms
     rawtherapee # photo editor
     localsend # cross-platform file transfer
+    obs-studio # screencasting
+    vlc # media player
+    mpd # music player daemon
+    rmpc # rusty music player client
 
   ];
 }
