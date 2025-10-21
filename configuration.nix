@@ -170,9 +170,9 @@
     zsh-syntax-highlighting
 
     # Mango desktop
-    wayland # these might be needed if we remove hyprland
-    xwayland
-    wlroots
+    #wayland # these might be needed if we remove hyprland
+    #xwayland
+    #wlroots
     wl-clipboard
     waybar
     grim # screenshot
