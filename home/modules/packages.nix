@@ -83,6 +83,7 @@
     vlc # media player
     mpd # music player daemon
     rmpc # rusty music player client
+    ungoogled-chromium # chrome browswer, ungoogled
 
   ];
 }
