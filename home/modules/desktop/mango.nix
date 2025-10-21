@@ -159,7 +159,7 @@
       # see autostart.sh
 
       waybar >/dev/null 2>&1 &
-      swaybg -i /home/bws428/Pictures/wallpapers/sushi.jpg -m fill >/dev/null 2>&1 &
+      swaybg -i /home/bws428/Pictures/wallpapers/moss.jpg -m fill >/dev/null 2>&1 &
     '';
     };
 }

@@ -18,7 +18,7 @@
 
     settings = {
       
-      theme = "tokyonight_moon";
+      theme = "gruvbox_dark_hard";
       
       editor = {
         line-number = "relative";
