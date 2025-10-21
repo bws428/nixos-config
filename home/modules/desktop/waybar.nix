@@ -58,13 +58,13 @@
 
         "ext/workspaces" = {
           format = "{icon}";
-          ignore-hidden = false;
+          ignore-hidden = true;
           on-click = "activate";
           sort-by-id = true;
         };
 
         "dwl/tags" = {
-          num-tags = 9;
+          num-tags = 6;
         };
 
         "dwl/window#layout" = {
