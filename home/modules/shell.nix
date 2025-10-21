@@ -8,7 +8,7 @@
     
     shellAliases = {
       ls = "eza -lh --group-directories-first --icons=auto";
-      rebuild = "sudo nixos-rebuild switch";
+      rebuild = "cd /home/bws428/.nixos-config && git add . && git commit -m 'NixOS rebuild' && git push origin main && nh os switch"
     };
     
     initContent = ''
