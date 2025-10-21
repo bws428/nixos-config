@@ -41,6 +41,7 @@
     gawk
     zstd
     gnupg
+    cmatrix
 
     # Nix related
     nix-output-monitor
