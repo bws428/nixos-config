@@ -139,6 +139,9 @@
   # Install Firefox web browser
   programs.firefox.enable = true;
 
+  # Install LocalSend and firewall configs
+  programs.localsend.enable = true;
+
   # Enable nh
   # https://github.com/nix-community/nh
   programs.nh = {
