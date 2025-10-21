@@ -59,7 +59,8 @@
       gappov=5
       borderpx=4
       no_border_when_single=0
-      focuscolor=0x005577ff
+      #focuscolor=0x005577ff
+      focuscolor=0x0083a598
 
       # Mouse Button Bindings
       mousebind=SUPER,btn_left,moveresize,curmove
