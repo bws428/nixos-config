@@ -12,11 +12,11 @@
       # Custom keybindings
       bind=SUPER,Return,spawn,alacritty
       bind=SUPER,space,spawn,rofi -show drun
-      bind=SUPER,I,spawn,grim -l 0 -g "$(slurp)" - | wl-copy
+      bind=SUPER,I,spawn,grim -l 0 -g "$(slurp)"
       bind=SUPER,Q,killclient
       bind=SUPER+SHIFT,R,reload_config
       bind=SUPER,B,spawn,firefox
-      bind=SUPER,S,spawn,signal-desktop --password-store="gnome-libsecret"
+      bind=SUPER,S,spawn,signal-desktop
 
       # Default keybindings
       bind=SUPER,1,comboview,1
@@ -83,8 +83,8 @@
       shadows = 1
       layer_shadows = 1
       shadow_only_floating=1
-      shadows_size = 12
-      shadows_blur = 15
+      shadows_size = 8
+      shadows_blur = 12
       shadows_position_x = 0
       shadows_position_y = 0
       shadowscolor= 0x000000ff
