@@ -82,19 +82,20 @@
       };
     };
 
-    # Tokyo Night color scheme with custom styling
+    # Gruvbox Dark Hard theme
     style = ''
-      @define-color bg    #1a1b26;
-      @define-color fg    #a9b1d6;
-      @define-color blk   #32344a;
-      @define-color red   #f7768e;
-      @define-color grn   #9ece6a;
-      @define-color ylw   #e0af68;
-      @define-color blu   #7aa2f7;
-      @define-color mag   #ad8ee6;
-      @define-color cyn   #0db9d7;
-      @define-color brblk #444b6a;
-      @define-color white #ffffff;
+ 
+      @define-color bg    #1d2021;
+      @define-color fg    #ebdbb2;
+      @define-color blk   #282828;
+      @define-color red   #fb4934;
+      @define-color grn   #b8bb26;
+      @define-color ylw   #fabd2f;
+      @define-color blu   #83a598;
+      @define-color mag   #d3869b;
+      @define-color cyn   #8ec07c;
+      @define-color brblk #665c54;
+      @define-color white #fbf1c7;
 
       * {
           font-family: "JetBrainsMono Nerd Font", monospace;
