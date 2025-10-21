@@ -18,6 +18,7 @@
         ];
 
         modules-right = [
+          "tray"
           "custom/sep"
           "network"
           "custom/sep"
@@ -28,8 +29,6 @@
           "disk"
           "custom/sep"
           "clock"
-          "custom/sep"
-          "tray"
         ];
 
         clock = {
@@ -84,7 +83,7 @@
 
     # Gruvbox Dark Hard theme
     style = ''
- 
+
       @define-color bg    #1d2021;
       @define-color fg    #ebdbb2;
       @define-color blk   #282828;

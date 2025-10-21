@@ -14,7 +14,6 @@
 
       # Window colors
       focuscolor=0x005577ff
-      #focuscolor=0x0083a598
       shadowscolor= 0x000000ff
 
       # Keyboard options
@@ -22,15 +21,15 @@
       repeat_delay=600
 
       # Primary keybindings
-      bind = SUPER, Q, killclient                    # close window
-      bind = SUPER, Return, spawn, alacritty         # terminal
-      bind = SUPER, space, spawn, rofi -show drun    # app launcher
-      bind = ALT, I, spawn, grim -l 0 -g "$(slurp)"  # screenshot
-      bind = SUPER, B, spawn, firefox                # browser
-      bind = SUPER, S, spawn, signal-desktop         # signal messenger
-      bind = SUPER, O, spawn, obsidian               # obsidian notes
+      bind=SUPER,q,killclient                    # close window
+      bind=SUPER,Return,spawn, alacritty         # terminal
+      bind=SUPER,space,spawn, rofi -show drun    # app launcher
+      bind=ALT,i,spawn,grim -l 0 -g "$(slurp)"   # screenshot
+      bind=SUPER,b,spawn,firefox                 # browser
+      bind=SUPER,s,spawn,signal-desktop          # signal messenger
+      bind=SUPER,o,spawn,obsidian                # obsidian notes
 
-      bind = SUPER+SHIFT, R, reload_config
+      bind=SUPER+SHIFT,r,reload_config
 
       # What do these DO exactly?
       bind=SUPER,i,incnmaster,+1
