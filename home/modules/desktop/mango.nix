@@ -3,22 +3,66 @@
 {
   wayland.windowManager.mango = {
     enable = true;
+    autostart_sh = ''
+      # see autostart.sh
+
+      waybar >/dev/null 2>&1 &
+      swaybg -i /home/bws428/Pictures/wallpapers/moss.jpg -m fill >/dev/null 2>&1 &
+    '';
     settings = ''
       # see config.conf
 
-      # Heavily Inspired by Argos Nothing's DWM Re-write + Fun stuff.
-      # Check his out here: https://github.com/argosnothing/mango-dwm-config/
+      # Window colors
+      focuscolor=0x005577ff
+      #focuscolor=0x0083a598
+      shadowscolor= 0x000000ff
 
-      # Custom keybindings
-      bind=SUPER,Return,spawn,alacritty
-      bind=SUPER,space,spawn,rofi -show drun
-      bind=SUPER,I,spawn,grim -l 0 -g "$(slurp)"
-      bind=SUPER,Q,killclient
-      bind=SUPER+SHIFT,R,reload_config
-      bind=SUPER,B,spawn,firefox
-      bind=SUPER,S,spawn,signal-desktop
+      # Keyboard options
+      repeat_rate=25
+      repeat_delay=600
 
-      # Default keybindings
+      # Primary keybindings
+      bind = SUPER, Q, killclient                    # close window
+      bind = SUPER, Return, spawn, alacritty         # terminal
+      bind = SUPER, space, spawn, rofi -show drun    # app launcher
+      bind = ALT, I, spawn, grim -l 0 -g "$(slurp)"  # screenshot
+      bind = SUPER, B, spawn, firefox                # browser
+      bind = SUPER, S, spawn, signal-desktop         # signal messenger
+      bind = SUPER, O, spawn, obsidian               # obsidian notes
+
+      bind = SUPER+SHIFT, R, reload_config
+
+      # What do these DO exactly?
+      bind=SUPER,i,incnmaster,+1
+      bind=SUPER,p,incnmaster,-1
+
+      # Window layouts
+      bind=SUPER+SHIFT,f,togglefullscreen,
+      bind=SUPER,f,togglefloating,
+      bind=SUPER,t,setlayout,tile
+      bind=SUPER,v,setlayout,vertical_grid
+      bind=SUPER,c,setlayout,spiral
+      bind=SUPER,x,setlayout,scroller
+      bind=SUPER,n,switch_layout
+      bind=SUPER,a,togglegaps
+
+      # Window focus
+      bind=SUPER,j,focusstack,next
+      bind=SUPER,k,focusstack,prev
+      bind=SUPER,h,focusdir,left
+      bind=SUPER,l,focusdir,right
+
+      # Swap windows
+      bind=SUPER+SHIFT,k,exchange_client,up
+      bind=SUPER+SHIFT,j,exchange_client,down
+      bind=SUPER+SHIFT,h,exchange_client,left
+      bind=SUPER+SHIFT,l,exchange_client,right
+
+      # Mouse Button Bindings
+      mousebind=SUPER,btn_left,moveresize,curmove
+      mousebind=SUPER,btn_right,moveresize,curresize
+
+      # Switch workspaces
       bind=SUPER,1,comboview,1
       bind=SUPER,2,comboview,2
       bind=SUPER,3,comboview,3
@@ -29,18 +73,14 @@
       bind=SUPER,8,comboview,8
       bind=SUPER,9,comboview,9
 
-      bind=SUPER,i,incnmaster,+1
-      bind=SUPER,p,incnmaster,-1
+      # Window Smart Move
+      bind=CTRL+SHIFT,k,smartmovewin,up
+      bind=CTRL+SHIFT,j,smartmovewin,down
+      bind=CTRL+SHIFT,h,smartmovewin,left
+      bind=CTRL+SHIFT,l,smartmovewin,right
 
-      # Layouts
-      bind=SUPER,t,setlayout,tile
-      bind=SUPER,v,setlayout,vertical_grid
-      bind=SUPER,c,setlayout,spiral
-      bind=SUPER,x,setlayout,scroller
-      bind=SUPER,n,switch_layout
-      bind=SUPER,a,togglegaps
-
-      # Layouts in mango are per tag. So we'll set all tags to tile by default.
+      # Layouts in Mango are per tag
+      # Set all tags to tile by default
       tagrule=id:1,layout_name:tile
       tagrule=id:2,layout_name:tile
       tagrule=id:3,layout_name:tile
@@ -51,7 +91,7 @@
       tagrule=id:8,layout_name:tile
       tagrule=id:9,layout_name:tile
 
-
+      # Gaps and borders
       animations=1
       gappih=5
       gappiv=5
@@ -59,16 +99,6 @@
       gappov=5
       borderpx=4
       no_border_when_single=0
-      #focuscolor=0x005577ff
-      focuscolor=0x0083a598
-
-      # Mouse Button Bindings
-      mousebind=SUPER,btn_left,moveresize,curmove
-      mousebind=SUPER,btn_right,moveresize,curresize
-
-      # options
-      repeat_rate=25
-      repeat_delay=600
 
       # Effect
       blur=0
@@ -81,6 +111,7 @@
       blur_params_contrast = 0.9
       blur_params_saturation = 1.2
 
+      # Window shadows
       shadows = 1
       layer_shadows = 1
       shadow_only_floating=1
@@ -88,9 +119,8 @@
       shadows_blur = 12
       shadows_position_x = 0
       shadows_position_y = 0
-      shadowscolor= 0x000000ff
 
-      # Animation Configuration
+      # Animations
       animations=1
       layer_animations=1
       animation_type_open=zoom
@@ -122,27 +152,6 @@
       scroller_default_proportion_single=1.0
       scroller_proportion_preset=0.5,0.8,1.0
 
-      bind=SUPER+SHIFT,f,togglefullscreen,
-      bind=SUPER,f,togglefloating,
-
-      # smartmovewin
-      bind=CTRL+SHIFT,k,smartmovewin,up
-      bind=CTRL+SHIFT,j,smartmovewin,down
-      bind=CTRL+SHIFT,h,smartmovewin,left
-      bind=CTRL+SHIFT,l,smartmovewin,right
-
-      # switch window focus
-      bind=SUPER,j,focusstack,next
-      bind=SUPER,k,focusstack,prev
-      bind=SUPER,h,focusdir,left
-      bind=SUPER,l,focusdir,right
-
-      # swap window
-      bind=SUPER+SHIFT,k,exchange_client,up
-      bind=SUPER+SHIFT,j,exchange_client,down
-      bind=SUPER+SHIFT,h,exchange_client,left
-      bind=SUPER+SHIFT,l,exchange_client,right
-
       # Gesturebind
       gesturebind=none,left,3,focusdir,left
       gesturebind=none,right,3,focusdir,right
@@ -154,13 +163,6 @@
       gesturebind=none,down,4,toggleoverview
       bind=SUPER,0,toggleoverview
 
-
       '';
-    autostart_sh = ''
-      # see autostart.sh
-
-      waybar >/dev/null 2>&1 &
-      swaybg -i /home/bws428/Pictures/wallpapers/moss.jpg -m fill >/dev/null 2>&1 &
-    '';
     };
 }
