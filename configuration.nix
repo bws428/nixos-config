@@ -69,7 +69,7 @@
   services.displayManager.gdm = {
     enable = true;
     wayland = true;
-  }:
+  };
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
