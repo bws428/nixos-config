@@ -55,15 +55,21 @@
   boot.kernelParams = [ "quiet" "splash" ];
 
   # Enable TUIgreet login screen
-  services.greetd = {
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
+
+  # Gnome Display Manager (trying to understand this...)
+  services.displayManager.gdm = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
-        user = "greeter";
-      };
-    };
-  };
+    wayland = true;
+  }:
 
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc

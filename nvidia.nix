@@ -44,9 +44,6 @@
     "d /var/tmp 1777 root root -"
   ];
 
-  # Gnome/Wayland specific settings for Nvidia
-  services.displayManager.gdm.wayland = true;
-
   # Add environment variables for Nvidia + Wayland
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
