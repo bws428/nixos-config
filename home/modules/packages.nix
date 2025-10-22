@@ -88,7 +88,7 @@
     spotify # streaming music
     spicetify-cli # spice up spotify
     shotcut # video editor
-    #bambu-studio # 3D printer
+    bambu-studio # 3D printer
     orca-slicer # 3D printer
     
   ];
