@@ -85,7 +85,9 @@
     mpd # music player daemon
     rmpc # rusty music player client
     ungoogled-chromium # chrome browswer, ungoogled
-    brave # brave browswer
+    spotify # streaming music
+    spicetify-cli # spice up spotify
+    shotcut # video editor
     
   ];
 }
