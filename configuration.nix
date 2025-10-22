@@ -186,6 +186,7 @@
     mako # notification daemon
     loupe # simple photo viewer
     nautilus # file browser gui
+    bambu-studio # 3D printer
 
   ];
 
@@ -215,15 +216,10 @@
   nixpkgs.overlays = [
       (final: prev: {
         bambu-studio = prev.bambu-studio.overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or []) ++ [
-            (final.writeText "fix-cmake-version.patch" ''
-              --- a/cmake/modules/FindOpenVDB.cmake
-              +++ b/cmake/modules/FindOpenVDB.cmake
-              @@ -126 +126 @@
-              -cmake_minimum_required(VERSION 3.0)
-              +cmake_minimum_required(VERSION 3.5)
-            '')
-          ];
+          postPatch = (oldAttrs.postPatch or "") + ''
+            sed -i 's/cmake_minimum_required(VERSION [0-2]\.[0-9])/cmake_minimum_required(VERSION 3.5)/g' cmake/modules/FindOpenVDB.cmake
+            sed -i 's/cmake_minimum_required(VERSION 3\.[0-4])/cmake_minimum_required(VERSION 3.5)/g' cmake/modules/FindOpenVDB.cmake
+          '';
         });
       })
     ];
