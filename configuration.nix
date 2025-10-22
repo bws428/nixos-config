@@ -213,26 +213,20 @@
 
   # Workaround for Bambu Studio build
   nixpkgs.overlays = [
-    (final: prev: {
-      bambu-studio = prev.bambu-studio.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or []) ++ [
-          (final.writeText "fix-cmake-version.patch" ''
-            --- a/cmake/modules/FindOpenVDB.cmake
-            +++ b/cmake/modules/FindOpenVDB.cmake
-            @@ -123,7 +123,7 @@
-             # CMAKE_MODULE_PATH has been modified to append custom cmake module paths
-             # within BambuStudio, this breaks internal openvdb version targeting and
-             # CMAKE_MODULE_PATH must be unset prior to calling find_package(openvdb)
-            -cmake_minimum_required(VERSION 3.0)
-            +cmake_minimum_required(VERSION 3.5)
-
-             set(_slic3r_openVDB_paths ${CMAKE_MODULE_PATH})
-             unset(CMAKE_MODULE_PATH)
-          '')
-        ];
-      });
-    })
-  ];
+      (final: prev: {
+        bambu-studio = prev.bambu-studio.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or []) ++ [
+            (final.writeText "fix-cmake-version.patch" ''
+              --- a/cmake/modules/FindOpenVDB.cmake
+              +++ b/cmake/modules/FindOpenVDB.cmake
+              @@ -126 +126 @@
+              -cmake_minimum_required(VERSION 3.0)
+              +cmake_minimum_required(VERSION 3.5)
+            '')
+          ];
+        });
+      })
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
