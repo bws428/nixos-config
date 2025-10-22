@@ -175,7 +175,6 @@
     # Mango desktop
     wl-clipboard # cli copy/paste
     waybar # status bar
-    eww # widget system
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
