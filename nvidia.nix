@@ -27,7 +27,7 @@
   
   # Nvidia driver configuration
   hardware.nvidia = {
-    open = true;  # Required for RTX 5080 (Blackwell architecture)
+    open = true;  # Required for RTX 5080
     modesetting.enable = true;
     nvidiaSettings = true;
     
