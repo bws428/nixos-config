@@ -219,7 +219,17 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      #PasswordAuthentication = false;
+      #KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "bws428" ];
+    };
+  };
+  #services.fail2ban.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

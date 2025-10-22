@@ -42,6 +42,7 @@
     zstd
     gnupg
     cmatrix
+    unimatrix
 
     # Nix related
     nix-output-monitor
@@ -56,6 +57,7 @@
     iftop
     nvtopPackages.nvidia # nvidia gpu monitor
     speedtest-cli # test ISP speed
+    netstat
 
     # System call monitoring
     strace
