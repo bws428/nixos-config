@@ -6,7 +6,6 @@
     ./modules/shell.nix
     ./modules/editors.nix
     ./modules/desktop/waybar.nix
-    ./modules/desktop/eww.nix
     ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
     ./modules/desktop/mango.nix
