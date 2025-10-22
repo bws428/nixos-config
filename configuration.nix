@@ -186,7 +186,6 @@
     mako # notification daemon
     loupe # simple photo viewer
     nautilus # file browser gui
-    bambu-studio # 3D printer
 
   ];
 
@@ -211,21 +210,6 @@
 
   # Enable Flakes and new `nix-command`
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Workaround for Bambu Studio build
-  nixpkgs.overlays = [
-    (final: prev: {
-      bambu-studio = prev.bambu-studio.overrideAttrs (oldAttrs: {
-        cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
-          "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-        ];
-
-        buildInputs = (oldAttrs.buildInputs or []) ++ [
-          final.cereal
-        ];
-      });
-    })
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
