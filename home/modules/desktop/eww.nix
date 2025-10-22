@@ -4,6 +4,6 @@
   programs.eww = {
     enable = true;
     enableZshIntegration = true;
-    configDir = "./eww";
+    configDir = ./eww;
   };
 }
