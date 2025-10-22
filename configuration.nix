@@ -173,11 +173,9 @@
     zsh-syntax-highlighting
 
     # Mango desktop
-    #wayland # these might be needed if we remove hyprland
-    #xwayland
-    #wlroots
-    wl-clipboard
-    waybar
+    wl-clipboard # cli copy/paste
+    waybar # status bar
+    eww # widget system
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
