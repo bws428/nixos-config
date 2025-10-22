@@ -217,8 +217,11 @@
       (final: prev: {
         bambu-studio = prev.bambu-studio.overrideAttrs (oldAttrs: {
           postPatch = (oldAttrs.postPatch or "") + ''
-            sed -i 's/cmake_minimum_required(VERSION [0-2]\.[0-9])/cmake_minimum_required(VERSION 3.5)/g' cmake/modules/FindOpenVDB.cmake
-            sed -i 's/cmake_minimum_required(VERSION 3\.[0-4])/cmake_minimum_required(VERSION 3.5)/g' cmake/modules/FindOpenVDB.cmake
+            # Fix all cmake_minimum_required with versions < 3.5
+            find . -name "CMakeLists.txt" -o -name "*.cmake" | while read -r file; do
+              sed -i 's/cmake_minimum_required(VERSION [0-2]\.[0-9])/cmake_minimum_required(VERSION 3.5)/g' "$file"
+              sed -i 's/cmake_minimum_required(VERSION 3\.[0-4])/cmake_minimum_required(VERSION 3.5)/g' "$file"
+            done
           '';
         });
       })
