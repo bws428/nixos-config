@@ -174,6 +174,8 @@
     zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
+    bluez # bluetooth protocol stack
+    bluetui # bluetooth tui
 
     # Mango desktop
     wl-clipboard # cli copy/paste
