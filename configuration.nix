@@ -30,6 +30,10 @@
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true; # one or the other, NOT both!
 
+  # Enable Bluetooth
+  # https://wiki.nixos.org/wiki/Bluetooth
+  hardware.bluetooth.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -67,7 +71,6 @@
 
   # Gnome Display Manager (trying to understand this...)
   services.displayManager.gdm = {
-    enable = false;
     wayland = true;
   };
 
