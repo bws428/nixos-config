@@ -80,6 +80,8 @@
     zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
+    signal-cli # cli and dbus for signal
+    scli # TUI for signal
     rawtherapee # photo editor
     obs-studio # screencasting
     vlc # media player
