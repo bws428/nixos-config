@@ -218,7 +218,8 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
+  # Enable OpenSSH
+  # https://wiki.nixos.org/wiki/SSH
   services.openssh = {
     enable = true;
     ports = [ 22 ];
@@ -226,10 +227,12 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = [ "bws428" ];
     };
   };
-  #services.fail2ban.enable = true;
+
+  # Fail2ban to protect unauthorized SSH
+  # https://wiki.nixos.org/wiki/Fail2ban
+  services.fail2ban.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
