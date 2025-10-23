@@ -90,6 +90,7 @@
     spicetify-cli # spice up spotify
     shotcut # video editor
     gimp3-with-plugins # image manipulation
+    ladybird # experimental web browser
 
   ];
 }
