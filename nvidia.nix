@@ -76,7 +76,6 @@
 
       # Useful tools
       nvidia-docker  # If you want to use Docker with CUDA
-      nvtop         # GPU monitoring tool (like htop for GPUs)
       nvitop        # Alternative GPU monitoring tool
     ];
 
