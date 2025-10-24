@@ -21,6 +21,7 @@
     tree # recursive directory listing
     eza # a better `ls`
     zoxide # a better `cd`
+    alejandra # nix code formatter
 
     # Networking tools
     mtr
