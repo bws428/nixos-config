@@ -57,7 +57,7 @@
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
-    driSupport = true;
+    #driSupport = true;
     driSupport32Bit = true; # For 32-bit applications
     extraPackages = with pkgs; [
       vaapiVdpau
