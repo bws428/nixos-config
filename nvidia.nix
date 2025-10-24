@@ -23,7 +23,6 @@
 
   # Enable Nvidia drivers
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable = true;
 
   # Nvidia driver configuration
   hardware.nvidia = {
@@ -52,10 +51,8 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  ### CUDA Additions... ###
-
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     #driSupport = true;
     driSupport32Bit = true; # For 32-bit applications
