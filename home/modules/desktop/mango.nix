@@ -26,7 +26,7 @@
       bind=SUPER,space,spawn,rofi -show drun     
       bind=ALT,i,spawn,grim -l 0 -g "$(slurp)"   
       bind=SUPER,b,spawn,firefox                 
-      bind=SUPER,s,spawn,gurk         
+      bind=SUPER,s,spawn,signal-desktop         
       bind=SUPER,o,spawn,obsidian                
 
       # Reload Mango configuration

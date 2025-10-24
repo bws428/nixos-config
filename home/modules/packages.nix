@@ -43,7 +43,8 @@
     gnupg
     cmatrix
     unimatrix
-
+    fortune-kind
+    
     # Nix related
     nix-output-monitor
 
@@ -80,7 +81,6 @@
     zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
-    gurk-rs # TUI client for signal messenger
     rawtherapee # photo editor
     obs-studio # screencasting
     vlc # media player
@@ -91,7 +91,6 @@
     spicetify-cli # spice up spotify
     shotcut # video editor
     gimp3-with-plugins # image manipulation
-    ladybird # experimental web browser
 
   ];
 }
