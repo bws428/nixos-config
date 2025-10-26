@@ -189,6 +189,9 @@
     nautilus # file browser gui
     wlogout # Wayland based logout menu
 
+    # Gnome desktop extensions
+    gnomeExtensions.space-bar
+
   ];
 
   # Set the default shell to Zsh
