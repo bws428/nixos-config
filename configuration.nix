@@ -187,6 +187,7 @@
     mako # notification daemon
     loupe # simple photo viewer
     nautilus # file browser gui
+    wlogout # Wayland based logout menu
 
   ];
 

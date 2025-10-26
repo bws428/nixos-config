@@ -21,6 +21,7 @@
       repeat_delay=600
 
       # Primary keybindings
+      bind=SUPER,m,quit
       bind=SUPER,q,killclient
       bind=SUPER,Return,spawn,alacritty          
       bind=SUPER,space,spawn,rofi -show drun     
