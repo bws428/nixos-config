@@ -193,6 +193,7 @@
     gnomeExtensions.space-bar
     gnomeExtensions.switcher
     gnomeExtensions.tactile
+    gnomeExtensions.just-perfection
 
   ];
 
