@@ -3,7 +3,7 @@
 {
   programs.alacritty = {
     enable = true;
-    theme = "gruvbox_material_hard_dark";
+    theme = "catppuccin_macchiato";
     settings = {
       font.size = 16;
       font.normal = {
