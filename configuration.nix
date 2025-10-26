@@ -57,23 +57,6 @@
     variant = "";
   };
 
-  # Silent boot parameters
-  boot.kernelParams = [ "quiet" "splash" ];
-
-  # Enable TUIgreet login screen
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
-  #       user = "greeter";
-  #     };
-  #   };
-  # };
-
-  # Disable the X11 windowing system
-  services.xserver.enable = false;
-
   # Gnome Display Manager (NixOS 25.11+)
   # https://wiki.nixos.org/wiki/GNOME
   services.displayManager.gdm = {
@@ -86,7 +69,7 @@
 
   # Gnome default application suite
   services.gnome = {
-    core-apps.enable = true;
+    core-apps.enable = false;
     games.enable = false;
     core-developer-tools.enable = false;
   };
