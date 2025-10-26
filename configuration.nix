@@ -28,7 +28,7 @@
 
   # Enable networking (one or the other, NOT both)
   networking.networkmanager.enable = true;
-  # networking.wireless.enable = true; 
+  # networking.wireless.enable = true;
 
   # Enable Bluetooth
   # https://wiki.nixos.org/wiki/Bluetooth
@@ -59,15 +59,15 @@
   boot.kernelParams = [ "quiet" "splash" ];
 
   # Enable TUIgreet login screen
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
-        user = "greeter";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.tuigreet}/bin/tuigreet -t -r -c mango";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
 
   # Gnome Display Manager (NixOS 25.11+)
   # https://wiki.nixos.org/wiki/GNOME
@@ -90,7 +90,7 @@
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour gnome-user-docs
   ];
-  
+
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
   programs.mango.enable = true;
