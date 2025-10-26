@@ -69,8 +69,8 @@
 
   # Gnome default application suite
   services.gnome = {
-    core-apps.enable = false;
     games.enable = false;
+    core-apps.enable = false;
     core-developer-tools.enable = false;
   };
 
