@@ -45,7 +45,7 @@
     cmatrix
     unimatrix
     fortune-kind
-    
+
     # Nix related
     nix-output-monitor
 
@@ -59,7 +59,7 @@
     iftop
     nvtopPackages.nvidia # nvidia gpu monitor
     speedtest-cli # test ISP speed
-    
+
     # System call monitoring
     strace
     ltrace
@@ -73,10 +73,12 @@
     usbutils
     microfetch # very fast system info
     fastfetch # fast system info
+    vulkan-tools # Vulkan driver info
 
     # My Apps
     gh # Github CLI
     alacritty # terminal app in Rust
+    ghostty # terminal app in Zig
     starship # custom shell prompt
     helix # code editor
     zed-editor # gui code editor

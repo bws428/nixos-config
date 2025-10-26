@@ -71,8 +71,7 @@
   #   };
   # };
 
-
-  # Enable the X11 windowing system
+  # Disable the X11 windowing system
   services.xserver.enable = false;
 
   # Gnome Display Manager (NixOS 25.11+)
