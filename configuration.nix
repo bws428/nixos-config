@@ -31,8 +31,20 @@
   # networking.wireless.enable = true;
 
   # Enable Bluetooth
-  # https://wiki.nixos.org/wiki/Bluetooth
-  hardware.bluetooth.enable = true;
+  # https://nixos.wiki/wiki/Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        FastConnectable = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
 
   # Bluetooth GUI for Mango
   services.blueman.enable = true;
