@@ -4,7 +4,7 @@
   programs.ghostty = {
     enable = true;
     settings = {
-      theme = "catppuccin-macchiato";
+      theme = "Catppuccin Macchiato";
       font-size = 16;
     };
   };
