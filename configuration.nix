@@ -26,9 +26,9 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
+  # Enable networking (one or the other, NOT both)
   networking.networkmanager.enable = true;
-  # networking.wireless.enable = true; # one or the other, NOT both!
+  # networking.wireless.enable = true; 
 
   # Enable Bluetooth
   # https://wiki.nixos.org/wiki/Bluetooth
@@ -69,11 +69,28 @@
     };
   };
 
-  # Gnome Display Manager (trying to understand this...)
+  # Gnome Display Manager (NixOS 25.11+)
+  # https://wiki.nixos.org/wiki/GNOME
   services.displayManager.gdm = {
+    enable = true;
     wayland = true;
   };
 
+  # Gnome Desktop Manager
+  services.desktopManager.gnome.enable = true;
+
+  # Gnome default application suite
+  services.gnome = {
+    core-apps.enable = false;
+    games.enable = false;
+    core-developer-tools.enable = false;
+  };
+
+  # Exclude unwanted Gnome packages
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour gnome-user-docs
+  ];
+  
   # Enable Mango window compositor
   # https://github.com/DreamMaoMao/mangowc
   programs.mango.enable = true;
