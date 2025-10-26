@@ -189,8 +189,9 @@
     nautilus # file browser gui
     wlogout # Wayland based logout menu
 
-    # Gnome desktop extensions
+    # Gnome desktop extensions - rice it up!
     gnomeExtensions.space-bar
+    gnomeExtensions.switcher
 
   ];
 
