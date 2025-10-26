@@ -34,6 +34,9 @@
   # https://wiki.nixos.org/wiki/Bluetooth
   hardware.bluetooth.enable = true;
 
+  # Bluetooth GUI for Mango
+  services.blueman.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
