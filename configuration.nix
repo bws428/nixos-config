@@ -128,7 +128,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account
   users.users.bws428 = {
     isNormalUser = true;
     description = "Brian W.";
@@ -153,7 +153,7 @@
     flake = "/home/bws428/.nixos-config";
   };
 
-  # Install Steam + necessary firewall settings
+  # Install Steam and firewall configs
   # https://nixos.wiki/wiki/Steam
   programs.steam.enable = true;
   programs.steam = {
