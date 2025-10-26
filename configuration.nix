@@ -52,8 +52,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system
   services.xserver.enable = true;
+
+  # Configure keyboard layout
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   # Silent boot parameters
   boot.kernelParams = [ "quiet" "splash" ];
@@ -81,7 +87,7 @@
 
   # Gnome default application suite
   services.gnome = {
-    core-apps.enable = false;
+    core-apps.enable = true;
     games.enable = false;
     core-developer-tools.enable = false;
   };
@@ -110,12 +116,6 @@
 
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
