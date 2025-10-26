@@ -73,17 +73,17 @@
 
 
   # Enable the X11 windowing system
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Gnome Display Manager (NixOS 25.11+)
   # https://wiki.nixos.org/wiki/GNOME
-  services.xserver.displayManager.gdm = {
+  services.displayManager.gdm = {
     enable = true;
     wayland = true;
   };
 
   # Gnome Desktop Manager
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Gnome default application suite
   services.gnome = {
