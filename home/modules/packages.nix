@@ -22,6 +22,7 @@
     eza # a better `ls`
     zoxide # a better `cd`
     alejandra # nix code formatter
+    dconf2nix # convert dconf config to Nix
 
     # Networking tools
     mtr

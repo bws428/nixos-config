@@ -9,6 +9,7 @@
     ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
     ./modules/desktop/mango.nix
+    #./modules/desktop/dconf.nix
   ];
 
   home.username = "bws428";
