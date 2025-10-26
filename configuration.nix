@@ -51,10 +51,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system
-  services.xserver.enable = true;
-
-  # Configure keyboard layout
+  # Keyboard layout
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -74,15 +71,19 @@
   #   };
   # };
 
+
+  # Enable the X11 windowing system
+  services.xserver.enable = true;
+
   # Gnome Display Manager (NixOS 25.11+)
   # https://wiki.nixos.org/wiki/GNOME
-  services.displayManager.gdm = {
-    enable = false;
+  services.xserver.displayManager.gdm = {
+    enable = true;
     wayland = true;
   };
 
   # Gnome Desktop Manager
-  services.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Gnome default application suite
   services.gnome = {
