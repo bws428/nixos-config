@@ -192,6 +192,7 @@
     # Gnome desktop extensions - rice it up!
     gnomeExtensions.space-bar
     gnomeExtensions.switcher
+    gnomeExtensions.tactile
 
   ];
 
