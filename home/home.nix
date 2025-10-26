@@ -8,6 +8,7 @@
     ./modules/desktop/waybar.nix
     ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
+    ./modules/desktop/ghostty.nix
     ./modules/desktop/mango.nix
     #./modules/desktop/dconf.nix
   ];
