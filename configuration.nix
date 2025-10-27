@@ -219,6 +219,7 @@
     gnomeExtensions.switcher
     gnomeExtensions.tactile
     gnomeExtensions.just-perfection
+    gnomeExtensions.paperwm
 
   ];
 
