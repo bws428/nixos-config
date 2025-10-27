@@ -189,7 +189,6 @@
       }
 
       #tray {
-        background-color: #2980b9;
       }
     '';
   };
