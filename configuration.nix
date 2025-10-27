@@ -256,14 +256,17 @@
   };
 
   # Automatic system cleanup
-  # https://wiki.nixos.org/wiki/Storage_optimization#Automation
+  # https://wiki.nixos.org/wiki/Storage_optimization
   nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 10d";
   };
-  nix.settings.auto-optimize-store = true;
-  
+
+  # Automatic system storage optimization
+  # https://wiki.nixos.org/wiki/Storage_optimization
+  nix.optimise.automatic = true;
+    
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
