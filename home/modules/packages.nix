@@ -36,7 +36,7 @@
     ipcalc
 
     # Misc
-    cowsay
+    bat
     file
     which
     gnused
