@@ -98,6 +98,18 @@
   # https://github.com/DreamMaoMao/mangowc
   programs.mango.enable = true;
 
+  # UWSM support for Mango
+  programs.uwsm = {
+    enable = true;
+    waylandCompositors = {
+      mango = {
+        prettyName = "Mango";
+        comment = "Mango compositor (UWSM)";
+        binPath = "/run/current-system/sw/bin/mango";
+      };
+    };
+  };
+
   # Add portal support for Mango
   xdg.portal = {
     enable = true;
@@ -231,9 +243,27 @@
     symbols-only
   ];
 
-  # Enable Flakes and new `nix-command`
+  # Enable Flakes and `nix-command` (experimental)
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Automatic system upgrades (with flakes)
+  # https://wiki.nixos.org/wiki/Automatic_system_upgrades
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = ["--print-build-logs"];
+    dates = "weekly";
+  };
+
+  # Automatic system cleanup
+  # https://wiki.nixos.org/wiki/Storage_optimization#Automation
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 10d";
+  };
+  nix.settings.auto-optimize-store = true;
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
