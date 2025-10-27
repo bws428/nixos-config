@@ -175,8 +175,6 @@
   # https://github.com/nix-community/nh
   programs.nh = {
     enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep 3";
     flake = "/home/bws428/.nixos-config";
   };
 
@@ -251,6 +249,7 @@
   system.autoUpgrade = {
     enable = true;
     #flake = inputs.self.outPath;
+    flake = "/home/bws428/.nixos-config";
     flags = ["--print-build-logs"];
     dates = "weekly";
   };
