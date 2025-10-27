@@ -250,7 +250,7 @@
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    flake = inputs.self.outPath;
+    #flake = inputs.self.outPath;
     flags = ["--print-build-logs"];
     dates = "weekly";
   };
