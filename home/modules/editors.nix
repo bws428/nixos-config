@@ -18,7 +18,7 @@
 
     settings = {
       
-      theme = "gruvbox_dark_hard";
+      theme = "catppuccin_machiato";
       
       editor = {
         line-number = "relative";

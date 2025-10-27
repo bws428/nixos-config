@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -248,8 +248,7 @@
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    #flake = "/home/bws428/.nixos-config";
-    flake = inputs.self.outPath;
+    flake = "/home/bws428/.nixos-config#";
     flags = ["--print-build-logs"];
     dates = "weekly";
   };
