@@ -16,7 +16,7 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, ashell, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
