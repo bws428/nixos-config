@@ -115,9 +115,7 @@
       };
 
       # Gestures
-      gestures = {
-        workspace_swipe = false;
-      };
+      gestures = {};
 
       # Per-device configuration
       device = {
