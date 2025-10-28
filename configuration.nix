@@ -47,7 +47,7 @@
   };
 
   # Bluetooth GUI for Mango
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -122,6 +122,14 @@
 
   # PolicyKit - needed for Mango? idk
   security.polkit.enable = true;
+
+  # Enable Hyprland compositor
+  # https://wiki.nixos.org/wiki/Hyprland
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = false;
+  };
 
   # Suggest Electron apps use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
