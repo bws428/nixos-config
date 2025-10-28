@@ -87,16 +87,17 @@
     zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
-    rawtherapee # photo editor
+    rawtherapee # raw photo editor
     obs-studio # screencasting
     vlc # media player
     mpd # music player daemon
     rmpc # rusty music player client
-    ungoogled-chromium # chrome browswer, ungoogled
+    ungoogled-chromium # web browswer, sans spyware
     spotify # streaming music
     spicetify-cli # spice up spotify
     shotcut # video editor
     gimp3-with-plugins # image manipulation
+    discord # voice and text chat
 
   ];
 }
