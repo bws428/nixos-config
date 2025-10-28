@@ -17,7 +17,7 @@
       # Program definitions
       "$terminal" = "alacritty";
       "$fileManager" = "nautilus";
-      "$menu" = "rofi";
+      "$menu" = "walker";
       "$signal" = "signal-desktop --password-store=\"gnome-libsecret\"";
       "$browser" = "firefox";
       "$notes" = "obsidian";
@@ -222,6 +222,7 @@
   home.packages = with pkgs; [
     ashell
     hyprpaper
+    walker
     nautilus
     playerctl
     pavucontrol
