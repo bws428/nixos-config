@@ -98,6 +98,7 @@
     shotcut # video editor
     gimp3-with-plugins # image manipulation
     discord # voice and text chat
+    halloy # irc client in Rust
 
   ];
 }
