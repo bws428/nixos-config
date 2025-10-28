@@ -13,11 +13,13 @@
 
     # Mango compositor
     mango.url = "github:DreamMaoMao/mango";
+
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, ashell, ... }: {
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
           modules = [
             # NixOS system config
             ./configuration.nix

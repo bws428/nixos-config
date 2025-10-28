@@ -221,6 +221,7 @@
 
   # Desktop packages
   home.packages = with pkgs; [
+    ashell
     hyprpaper
     nautilus
     playerctl
