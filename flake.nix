@@ -15,7 +15,7 @@
     mango.url = "github:DreamMaoMao/mango";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, mango, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           modules = [
