@@ -5,6 +5,7 @@
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    history.size = 10000;
     
     shellAliases = {
       ls = "eza -lh --group-directories-first --icons=auto";
