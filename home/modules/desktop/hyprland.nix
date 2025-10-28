@@ -128,6 +128,7 @@
       # Autostart programs
       exec-once = [
         "hyprpaper"
+        "ashell"
         "[workspace 1 silent] $browser"
         "[workspace 2 silent] $terminal"
         "[workspace 2 silent] $notes"
