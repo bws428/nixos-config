@@ -11,6 +11,7 @@
     ./modules/desktop/ghostty.nix
     ./modules/desktop/mango.nix
     ./modules/desktop/hyprland.nix
+    ./modules/desktop/ashell.nix
     #./modules/desktop/dconf.nix
   ];
 
