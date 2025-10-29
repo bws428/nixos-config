@@ -46,9 +46,6 @@
     };
   };
 
-  # Bluetooth GUI for Mango
-  # services.blueman.enable = true;
-
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -128,7 +125,7 @@
   programs.hyprland = {
     enable = true;
     withUWSM = true;
-    xwayland.enable = false;
+    xwayland.enable = true; # Steam needs this
   };
 
   # Suggest Electron apps use Wayland
