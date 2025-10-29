@@ -1,6 +1,23 @@
 { pkgs, ... }:
 
 {
+  # Desktop packages
+  home.packages = with pkgs; [
+    hyprpaper
+    hyprcursor
+    hyprshot
+    hyprlock
+    hypridle
+    hyprpanel
+    hyprsunset
+    hyprpicker 
+    ashell    
+    walker
+    nautilus
+    playerctl
+    pavucontrol
+  ];
+  
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -217,14 +234,4 @@
       ];
     };
   };
-
-  # Desktop packages
-  home.packages = with pkgs; [
-    ashell
-    hyprpaper
-    walker
-    nautilus
-    playerctl
-    pavucontrol
-  ];
 }

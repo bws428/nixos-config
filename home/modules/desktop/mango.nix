@@ -3,6 +3,7 @@
 {
   wayland.windowManager.mango = {
     enable = true;
+
     autostart_sh = ''
       # see autostart.sh
 
