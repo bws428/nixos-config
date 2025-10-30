@@ -77,6 +77,9 @@
     fastfetch # fast system info
     vulkan-tools # Vulkan driver info
 
+    # Rust development
+    rustup
+
     # My Apps
     gh # Github CLI
     alacritty # terminal emulator in Rust
