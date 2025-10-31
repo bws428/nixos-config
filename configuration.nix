@@ -128,12 +128,6 @@
     xwayland.enable = true; # Steam needs this
   };
 
-  # Enable the COSMIC desktop environment
-  services.desktopManager.cosmic.enable = true;
-
-  # Suggest Electron apps use Wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
