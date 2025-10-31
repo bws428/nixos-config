@@ -46,7 +46,7 @@
             mango.nixosModules.mango
 
             # Niri compositor
-            niri.homeModules.niri
+            niri.nixosModules.niri
           ];
         };
       };
