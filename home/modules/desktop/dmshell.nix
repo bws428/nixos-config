@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.dankMaterialShel = {
+  programs.dankMaterialShell = {
     enable = true;
     settings = {
 
