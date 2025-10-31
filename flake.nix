@@ -32,13 +32,16 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, dankMaterialShell,  ... }: {
+    
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            
             # NixOS system config
             ./configuration.nix
+            
             # Home Manager ("bws428" is the username)
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
@@ -48,9 +51,11 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
+                  dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };
             }
+            
             # Mango compositor
             mango.nixosModules.mango
           ];
