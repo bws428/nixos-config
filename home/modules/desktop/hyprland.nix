@@ -229,8 +229,6 @@
         sensitivity = -0.5;
       };
 
-
-
       # Window rules
       windowrule = [
         "suppressevent maximize, class:.*"
