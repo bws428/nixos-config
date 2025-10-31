@@ -45,6 +45,9 @@
             # Mango compositor
             mango.nixosModules.mango
 
+            # Niri compositor
+            niri.nixosModules.niri
+
           ];
         };
       };
