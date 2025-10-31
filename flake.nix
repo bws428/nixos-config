@@ -14,9 +14,12 @@
     # Mango compositor
     mango.url = "github:DreamMaoMao/mango";
 
+    # Niri compositor
+    niri.url = "github:YaLTeR/niri";
+
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango,  ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, niri, ... }: {
     
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
@@ -35,12 +38,16 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
+                  niri.hmModules.niri
                 ];
               };
             }
             
             # Mango compositor
             mango.nixosModules.mango
+
+            # Niri compositor
+            niri.homeModules.niri
           ];
         };
       };

@@ -128,6 +128,10 @@
     xwayland.enable = true; # Steam needs this
   };
 
+  # Enable Niri window compositor
+  # https://github.com/YaLTeR/niri
+  programs.niri.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
