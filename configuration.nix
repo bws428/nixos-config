@@ -95,7 +95,11 @@
   # https://github.com/DreamMaoMao/mangowc
   programs.mango.enable = true;
 
-  # UWSM support for Mango
+  # Enable Niri window compositor
+  # https://github.com/YaLTeR/niri
+  programs.niri.enable = true;
+
+  # UWSM support Wayland compositors
   programs.uwsm = {
     enable = true;
     waylandCompositors = {
@@ -103,6 +107,11 @@
         prettyName = "Mango";
         comment = "Mango compositor (UWSM)";
         binPath = "/run/current-system/sw/bin/mango";
+      };
+      niri = {
+        prettyName = "Niri";
+        comment = "Niri compositor (UWSM)";
+        binPath = "/run/current-system/sw/bin/niri";
       };
     };
   };
@@ -127,10 +136,6 @@
     withUWSM = true;
     xwayland.enable = true; # Steam needs this
   };
-
-  # Enable Niri window compositor
-  # https://github.com/YaLTeR/niri
-  programs.niri.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
