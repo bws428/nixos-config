@@ -12,7 +12,7 @@
     ./modules/desktop/mango.nix
     ./modules/desktop/hyprland.nix
     ./modules/desktop/ashell.nix
-    #./modules/desktop/dconf.nix
+    ./modules/desktop/dmshell.nix
   ];
 
   home.username = "bws428";
