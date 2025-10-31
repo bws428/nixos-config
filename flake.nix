@@ -38,7 +38,6 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
-                  niri.hmModules.niri
                 ];
               };
             }
