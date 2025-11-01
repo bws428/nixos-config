@@ -38,6 +38,7 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
+                  niri.homeModules.niri
                 ];
               };
             }
@@ -46,7 +47,7 @@
             mango.nixosModules.mango
 
             # Niri compositor
-            niri.nixosModules.niri
+            #niri.nixosModules.niri
 
           ];
         };
