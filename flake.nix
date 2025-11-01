@@ -15,7 +15,7 @@
     mango.url = "github:DreamMaoMao/mango";
 
     # Niri compositor
-    niri.url = "github:YaLTeR/niri";
+    #niri.url = "github:YaLTeR/niri";
 
   };
 
@@ -38,16 +38,12 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
-                  niri.homeModules.niri
                 ];
               };
             }
             
             # Mango compositor
             mango.nixosModules.mango
-
-            # Niri compositor
-            #niri.nixosModules.niri
 
           ];
         };
