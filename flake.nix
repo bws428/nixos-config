@@ -15,7 +15,7 @@
     mango.url = "github:DreamMaoMao/mango";
 
     # Niri compositor
-    #niri.url = "github:YaLTeR/niri";
+    niri.url = "github:YaLTeR/niri";
 
   };
 
