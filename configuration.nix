@@ -92,12 +92,13 @@
   ];
 
   # Enable Mango window compositor
-  # https://github.com/DreamMaoMao/mangowc
   programs.mango.enable = true;
 
   # Enable Niri window compositor
-  # https://github.com/YaLTeR/niri
   programs.niri.enable = true;
+
+  # Enable XWayland for compatibility (Steam, etc.)
+  programs.xwayland.enable = true;
 
   # UWSM support Wayland compositors
   programs.uwsm = {
@@ -126,8 +127,11 @@
   # Absolutely required for Mango
   services.dbus.implementation = "broker";
 
-  # PolicyKit - needed for Mango? idk
+  # Security
   security.polkit.enable = true;
+
+  # Keyring
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable Hyprland compositor
   # https://wiki.nixos.org/wiki/Hyprland
