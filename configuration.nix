@@ -109,11 +109,6 @@
         comment = "Mango compositor (UWSM)";
         binPath = "/run/current-system/sw/bin/mango";
       };
-      # niri = {
-      #   prettyName = "Niri";
-      #   comment = "Niri compositor (UWSM)";
-      #   binPath = "/run/current-system/sw/bin/niri";
-      # };
     };
   };
 
