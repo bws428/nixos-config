@@ -18,14 +18,14 @@
     };
 
     # Niri compositor
-    niri = {
-      url = "github:YaLTeR/niri";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # niri = {
+    #   url = "github:YaLTeR/niri";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, niri, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
 
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
