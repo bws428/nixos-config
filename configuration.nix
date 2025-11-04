@@ -108,7 +108,7 @@
         prettyName = "Mango";
         comment = "Mango compositor (UWSM)";
         binPath = "/run/current-system/sw/bin/mango";
-      };
+      };H
     };
   };
 
