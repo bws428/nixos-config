@@ -1,5 +1,5 @@
 {
-  description = "NixOS primary system configuration";
+  description = "NixOS configuration with Home Manager";
 
   inputs = {
     # NixOS unstable branch
@@ -12,23 +12,29 @@
     };
 
     # Mango compositor
-    mango.url = "github:DreamMaoMao/mango";
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Niri compositor
-    niri.url = "github:YaLTeR/niri";
+    niri = {
+      url = "github:YaLTeR/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, mango, niri, ... }: {
-    
+
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            
+
             # NixOS system config
             ./configuration.nix
-            
+
             # Home Manager ("bws428" is the username)
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
@@ -41,7 +47,7 @@
                 ];
               };
             }
-            
+
             # Mango compositor
             mango.nixosModules.mango
 
