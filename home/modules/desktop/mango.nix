@@ -26,7 +26,7 @@
       bind=SUPER,m,quit
       bind=SUPER,q,killclient
       bind=SUPER,Return,spawn,alacritty          
-      bind=SUPER,space,spawn,rofi -show drun     
+      #bind=SUPER,space,spawn,rofi -show drun     
       bind=ALT,i,spawn,grim -l 0 -g "$(slurp)"   
       bind=SUPER,b,spawn,firefox                 
       bind=SUPER,s,spawn,signal-desktop --password-store="gnome-libsecret"         
