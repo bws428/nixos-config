@@ -10,14 +10,14 @@
     hypridle
     hyprpanel
     hyprsunset
-    hyprpicker 
-    ashell    
+    hyprpicker
+    ashell
     walker
     nautilus
     playerctl
     pavucontrol
   ];
-  
+
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -39,11 +39,10 @@
       "$browser" = "firefox";
       "$notes" = "obsidian";
       "$mainMod" = "SUPER";
-      
+
       # Autostart programs
       exec-once = [
-        "hyprpaper"
-        "hyprpanel"
+        "qs -c noctalia-shell"
         "[workspace 1 silent] $browser"
         "[workspace 2 silent] $terminal"
         "[workspace 2 silent] $terminal"
@@ -128,7 +127,7 @@
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
       ];
-      
+
       # General settings
       general = {
         gaps_in = 5;
