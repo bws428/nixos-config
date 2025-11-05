@@ -14,8 +14,9 @@
       # see config.conf
 
       # Window colors
-      focuscolor=0x005577ff
-      shadowscolor= 0x000000ff
+      # (let DMS manage colors!)
+      # focuscolor=0x005577ff
+      # shadowscolor= 0x000000ff
 
       # Keyboard options
       repeat_rate=25
