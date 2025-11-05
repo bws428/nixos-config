@@ -232,7 +232,7 @@
     gnomeExtensions.paperwm
 
     # Noctalia desktop shell
-    inputs.noctalia.packages.${system}.default
+    #inputs.noctalia.packages.${system}.default
 
   ];
 
