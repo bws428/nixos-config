@@ -17,15 +17,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Noctalia desktop shell
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
+    # Dank Material Shell
+    dgop = {
+      url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+
+    dms-cli = {
+      url = "github:AvengeMedia/danklinux";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
+    };
+
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+      inputs.dms-cli.follows = "dms-cli";
     };
 
   };
@@ -55,9 +62,6 @@
 
             # Mango compositor
             mango.nixosModules.mango
-
-            # Noctalia desktop shell
-            ./noctalia.nix
 
           ];
         };
