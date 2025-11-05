@@ -57,7 +57,7 @@
             mango.nixosModules.mango
 
             # Noctalia desktop shell
-            inputs.noctalia.packages
+            ./noctalia.nix
 
           ];
         };
