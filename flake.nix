@@ -30,7 +30,7 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, quickshell, noctalia, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
 
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
@@ -57,7 +57,7 @@
             mango.nixosModules.mango
 
             # Noctalia desktop shell
-            noctalia.nixosModules.noctalia
+            ./noctalia.nix
 
           ];
         };
