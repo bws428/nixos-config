@@ -56,6 +56,7 @@
                 imports = [
                   ./home/home.nix
                   mango.hmModules.mango
+                  inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };
             }
