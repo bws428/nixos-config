@@ -42,7 +42,6 @@
 
       # Autostart programs
       exec-once = [
-        "qs -c noctalia-shell"
         "[workspace 1 silent] $browser"
         "[workspace 2 silent] $terminal"
         "[workspace 2 silent] $terminal"

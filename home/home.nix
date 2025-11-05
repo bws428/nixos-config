@@ -21,6 +21,7 @@
     ./modules/desktop/mango.nix
     ./modules/desktop/hyprland.nix
     ./modules/desktop/niri.nix
+    ./modules/desktop/dms.nix
   ];
 
 }
