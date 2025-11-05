@@ -14,12 +14,13 @@
       repeat_rate=25
       repeat_delay=600
 
+      # Application launcher (DMS)
+      bind=SUPER,space,spawn,dms ipc call spotlight toggle
+
       # Primary keybindings
       bind=SUPER,m,quit
       bind=SUPER,q,killclient
       bind=SUPER,Return,spawn,alacritty          
-      bind=SUPER,space,spawn,dms ipc call spotlight toggle    
-      #bind=SUPER,space,spawn,rofi -show drun     
       bind=ALT,i,spawn,grim -l 0 -g "$(slurp)"   
       bind=SUPER,b,spawn,firefox                 
       bind=SUPER,s,spawn,signal-desktop --password-store="gnome-libsecret"         
@@ -117,7 +118,7 @@
       shadows_position_y = 0
 
       # Animations
-      animations=1
+      animations=0
       layer_animations=1
       animation_type_open=zoom
       animation_type_close=slide
