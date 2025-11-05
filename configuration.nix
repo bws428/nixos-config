@@ -231,6 +231,9 @@
     gnomeExtensions.just-perfection
     gnomeExtensions.paperwm
 
+    # Noctalia desktop shell
+    inputs.noctalia.packages.${system}.default
+
   ];
 
   # Set the default shell to Zsh
