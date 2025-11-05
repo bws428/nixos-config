@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
+
 {
   home-manager.users.drfoobar = {
     # import the home manager module
