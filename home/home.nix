@@ -22,6 +22,7 @@
     ./modules/desktop/hyprland.nix
     ./modules/desktop/niri.nix
     ./modules/desktop/ashell.nix
+    ./modules/desktop/noctalia.nix
   ];
 
 }
