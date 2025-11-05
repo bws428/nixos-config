@@ -6,17 +6,9 @@
 
     autostart_sh = ''
       # see autostart.sh
-
-      # waybar >/dev/null 2>&1 &
-      # swaybg -i /home/bws428/Pictures/wallpapers/moss.jpg -m fill >/dev/null 2>&1 &
     '';
     settings = ''
       # see config.conf
-
-      # Window colors
-      # (let DMS manage colors!)
-      # focuscolor=0x005577ff
-      # shadowscolor= 0x000000ff
 
       # Keyboard options
       repeat_rate=25
@@ -26,6 +18,7 @@
       bind=SUPER,m,quit
       bind=SUPER,q,killclient
       bind=SUPER,Return,spawn,alacritty          
+      bind=SUPER,space,spawn,dms ipc call spotlight toggle    
       #bind=SUPER,space,spawn,rofi -show drun     
       bind=ALT,i,spawn,grim -l 0 -g "$(slurp)"   
       bind=SUPER,b,spawn,firefox                 
