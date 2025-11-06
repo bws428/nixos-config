@@ -22,6 +22,7 @@
     default.settings = {
       theme = "dark";
       dynamicTheming = true;
+      useFahrenheit = true;
       # Add any other settings here
     };
 
