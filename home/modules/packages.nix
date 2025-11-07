@@ -1,4 +1,4 @@
-{ config, pkgs, zen-browser, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
