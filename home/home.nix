@@ -15,7 +15,6 @@
     ./modules/shell.nix
     ./modules/helix.nix
     ./modules/desktop/alacritty.nix
-    ./modules/desktop/mango.nix
     ./modules/desktop/niri.nix
     ./modules/desktop/dms.nix
   ];
