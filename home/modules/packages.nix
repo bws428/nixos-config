@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, zen-browser, ... }:
 
 {
   home.packages = with pkgs; [
@@ -81,7 +81,7 @@
     rustup
 
     # Web broswers
-    ungoogled-chromium # web browswer, sans spyware
+    ungoogled-chromium # chrome, sans spyware
     zen-browser.packages."${pkgs.system}".default
 
     # My Apps
