@@ -1,4 +1,4 @@
-{ config, pkgs, zen-browser, ... }:
+{ config, pkgs, ... }:
 
 {
   # User for Home Manager to manage
@@ -11,11 +11,11 @@
   home.stateVersion = "25.05";
 
   imports = [
-    ./modules/shell.nix
-    ./modules/helix.nix
-    ./modules/desktop/alacritty.nix
-    ./modules/desktop/niri.nix
-    ./modules/desktop/dms.nix
+    ../config/shell.nix
+    ../config/helix.nix
+    ../config/alacritty.nix
+    ../config/niri.nix
+    ../config/dms.nix
   ];
 
 }

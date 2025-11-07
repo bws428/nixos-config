@@ -30,7 +30,7 @@
   outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           modules = [
-            # Hardware
+            # Hardware configuration
             ./hardware-configuration.nix
 
             # System modules
@@ -57,7 +57,7 @@
               home-manager.backupFileExtension = "backup";
               home-manager.users.bws428 = {
                 imports = [
-                  ./home/home.nix
+                  ./modules/home.nix
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };

@@ -4,9 +4,6 @@
   # Niri compositor
   programs.niri.enable = true;
 
-  # Hyprland compositor
-  programs.hyprland.enable = true;
-
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
 
@@ -19,18 +16,6 @@
 
   # Gnome Desktop Manager
   services.desktopManager.gnome.enable = true;
-
-  # # Gnome default application suite
-  # services.gnome = {
-  #   games.enable = false;
-  #   core-apps.enable = false;
-  #   core-developer-tools.enable = false;
-  # };
-
-  # # Exclude unwanted Gnome packages
-  # environment.gnome.excludePackages = with pkgs; [
-  #   gnome-tour gnome-user-docs
-  # ];
 
   # Security
   security.polkit.enable = true;
