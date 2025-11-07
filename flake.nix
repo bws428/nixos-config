@@ -11,6 +11,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Zen browser
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Dank Material Shell
     dgop = {
       url = "github:AvengeMedia/dgop";
@@ -31,14 +37,14 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
-
-    # NixOS system configuration ("ghost" is the hostname)
+  outputs = inputs @ { self, nixpkgs, home-manager, zen-browser, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+            inherit zen-browser;
+          };
           modules = [
-
-            # NixOS system config
+            # NixOS legacy system config
             ./configuration.nix
 
             # Home Manager ("bws428" is the username)
