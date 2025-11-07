@@ -80,6 +80,10 @@
     # Rust development
     rustup
 
+    # Web broswers
+    ungoogled-chromium # web browswer, sans spyware
+    zen-browser.packages."${pkgs.system}".default
+
     # My Apps
     gh # Github CLI
     starship # custom shell prompt
@@ -92,7 +96,6 @@
     vlc # media player
     mpd # music player daemon
     rmpc # rusty music player client
-    ungoogled-chromium # web browswer, sans spyware
     spotify # streaming music
     spicetify-cli # spice up spotify
     shotcut # video editor
