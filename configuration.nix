@@ -176,7 +176,6 @@
     git # version control
     wget # download files
     curl # download files
-    kitty # terminal emulator
     alacritty # terminal emulator
     zsh # the Z shell
     zsh-autosuggestions
@@ -184,15 +183,8 @@
 
     # Desktop helpers
     wl-clipboard # cli copy/paste
-    mako # notifications
-    grim # screenshot
-    slurp # screenshot
-    swaybg # wallpaper
-    swaylock # lock screen
-    swayidle # idle daemon
     loupe # simple photo viewer
     nautilus # gui file browser
-    wlogout # Wayland based logout menu
 
   ];
 

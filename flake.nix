@@ -11,12 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Zen browser
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Dank Material Shell
     dgop = {
       url = "github:AvengeMedia/dgop";
@@ -37,10 +31,8 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, zen-browser, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; inherit zen-browser; };
           modules = [
             # NixOS legacy system config
             ./configuration.nix

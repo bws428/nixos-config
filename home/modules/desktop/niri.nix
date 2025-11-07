@@ -1,8 +1,14 @@
 { pkgs, ... }:
 
 {
-  # Niri required packages
+  # Niri helper packages
   home.packages = with pkgs; [
-    fuzzel
+    fuzzel # default app launcher
+    mako # notifications
+    grim # screenshot
+    slurp # screenshot
+    swaybg # wallpaper
+    swaylock # lock screen
+    swayidle # idle daemon
   ];
 }
