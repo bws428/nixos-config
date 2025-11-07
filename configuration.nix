@@ -124,6 +124,7 @@
 
   # Security
   security.polkit.enable = true;
+  security.pam.services.swaylock = {}; # needed?
 
   # Keyring
   services.gnome.gnome-keyring.enable = true;
@@ -197,18 +198,22 @@
     wget # download files
     curl # download files
     kitty # terminal emulator
+    alacritty # terminal emulator
     zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
-
-    # Mango desktop
+    
+    # Desktop helpers
     wl-clipboard # cli copy/paste
+    mako # notifications
     waybar # status bar
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
+    swaylock # lock screen
+    swayidle # idle daemon
     loupe # simple photo viewer
-    nautilus # file browser gui
+    nautilus # gui file browser
     wlogout # Wayland based logout menu
 
     # Noctalia desktop shell

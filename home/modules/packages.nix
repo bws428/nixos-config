@@ -82,7 +82,6 @@
 
     # My Apps
     gh # Github CLI
-    alacritty # terminal emulator in Rust
     starship # custom shell prompt
     helix # code editor
     zed-editor # gui code editor
