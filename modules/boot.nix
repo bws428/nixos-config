@@ -18,6 +18,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # System version
+  # System state version
   system.stateVersion = "25.05";
 }

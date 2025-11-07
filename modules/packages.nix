@@ -21,6 +21,14 @@
   # LocalSend and firewall configs
   programs.localsend.enable = true;
 
+  # Enable nh
+  # https://github.com/nix-community/nh
+  programs.nh = {
+    enable = true;
+    flake = "/home/bws428/.nixos-config";
+  };
+
+  # List of installed packages
   environment.systemPackages = with pkgs; [
 
     # Required system utilities

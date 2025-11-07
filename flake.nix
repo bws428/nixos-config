@@ -36,12 +36,18 @@
             # System modules
             ./modules/boot.nix
             ./modules/users.nix
-            ./modules/networking.nix
             ./modules/locale.nix
             ./modules/nvidia.nix
+            ./modules/networking.nix
+            ./modules/bluetooth.nix
+            ./modules/services.nix
+            ./modules/upgrade.nix
+
+            # Desktop environments
             ./modules/desktop.nix
 
-            # Installed packages
+            # Installed fonts & packages
+            ./modules/fonts.nix
             ./modules/packages.nix
 
             # NixOS legacy config file
