@@ -97,6 +97,9 @@
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
 
+  # I need to understand what this does
+  services.dbus.implementation = "broker";
+
   # Security
   security.polkit.enable = true;
   security.pam.services.swaylock = {}; # needed with DMS?
