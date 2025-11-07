@@ -13,9 +13,6 @@
     wayland = true;
   };
 
-  # Gnome Desktop Manager
-  #services.desktopManager.gnome.enable = true;
-
   # Security
   security.polkit.enable = true;
   security.pam.services.swaylock = {}; # needed with DMS?
