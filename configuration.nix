@@ -206,7 +206,6 @@
     # Desktop helpers
     wl-clipboard # cli copy/paste
     mako # notifications
-    waybar # status bar
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
@@ -215,9 +214,6 @@
     loupe # simple photo viewer
     nautilus # gui file browser
     wlogout # Wayland based logout menu
-
-    # Noctalia desktop shell
-    #inputs.noctalia.packages.${system}.default
 
   ];
 
