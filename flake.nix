@@ -50,10 +50,6 @@
             ./modules/fonts.nix
             ./modules/packages.nix
 
-            # NixOS legacy config file
-            # TODO: phase this out
-            ./configuration.nix
-
             # Home Manager ("bws428" is the username)
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
