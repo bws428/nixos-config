@@ -39,7 +39,8 @@
 
   outputs = inputs @ { self, nixpkgs, home-manager, zen-browser, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; inherit zen-browser; };
           modules = [
             # NixOS legacy system config
             ./configuration.nix
@@ -54,7 +55,6 @@
                   ./home/home.nix
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
-                home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
               };
             }
           ];

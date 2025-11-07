@@ -1,4 +1,4 @@
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, zen-browser, ... }:
 
 {
   home.packages = with pkgs; [
@@ -82,7 +82,7 @@
 
     # Web broswers
     ungoogled-chromium # chrome, sans spyware
-    inputs.zen-browser.packages."${system}".specific
+    zen-browser.packages."${pkgs.system}".default
 
     # My Apps
     gh # Github CLI

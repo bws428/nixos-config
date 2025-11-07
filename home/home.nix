@@ -1,4 +1,4 @@
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   # User for Home Manager to manage
