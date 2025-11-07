@@ -99,7 +99,7 @@
 
   # Security
   security.polkit.enable = true;
-  security.pam.services.swaylock = {}; # needed?
+  security.pam.services.swaylock = {}; # needed with DMS?
 
   # Keyring
   services.gnome.gnome-keyring.enable = true;
@@ -177,7 +177,7 @@
     zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
-    
+
     # Desktop helpers
     wl-clipboard # cli copy/paste
     mako # notifications
