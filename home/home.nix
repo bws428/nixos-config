@@ -14,12 +14,8 @@
     ./modules/packages.nix
     ./modules/shell.nix
     ./modules/helix.nix
-    ./modules/desktop/waybar.nix
-    ./modules/desktop/rofi.nix
     ./modules/desktop/alacritty.nix
-    ./modules/desktop/ghostty.nix
     ./modules/desktop/mango.nix
-    ./modules/desktop/hyprland.nix
     ./modules/desktop/niri.nix
     ./modules/desktop/dms.nix
   ];

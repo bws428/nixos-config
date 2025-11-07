@@ -128,14 +128,6 @@
   # Keyring
   services.gnome.gnome-keyring.enable = true;
 
-  # Enable Hyprland compositor
-  # https://wiki.nixos.org/wiki/Hyprland
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true; # Steam needs this
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -208,8 +200,6 @@
     zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
-    bluez # bluetooth protocol stack
-    bluetui # bluetooth tui
 
     # Mango desktop
     wl-clipboard # cli copy/paste
@@ -217,19 +207,9 @@
     grim # screenshot
     slurp # screenshot
     swaybg # wallpaper
-    rofi # application launcher
-    wev # Wayland event viewer (debugging)
-    mako # notification daemon
     loupe # simple photo viewer
     nautilus # file browser gui
     wlogout # Wayland based logout menu
-
-    # Gnome desktop extensions - rice it up!
-    gnomeExtensions.space-bar
-    gnomeExtensions.switcher
-    gnomeExtensions.tactile
-    gnomeExtensions.just-perfection
-    gnomeExtensions.paperwm
 
     # Noctalia desktop shell
     #inputs.noctalia.packages.${system}.default
@@ -272,7 +252,7 @@
   nix.gc = {
     automatic = true;
     dates = "daily";
-    options = "--delete-older-than 10d";
+    options = "--delete-older-than 5d";
   };
 
   # Automatic system storage optimization
