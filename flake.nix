@@ -39,6 +39,7 @@
 
   outputs = inputs @ { self, nixpkgs, home-manager, zen-browser, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
             # NixOS legacy system config
