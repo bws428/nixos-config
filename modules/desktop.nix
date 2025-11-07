@@ -8,14 +8,13 @@
   programs.xwayland.enable = true;
 
   # Gnome Display Manager (NixOS 25.11+)
-  # https://wiki.nixos.org/wiki/GNOME
   services.displayManager.gdm = {
     enable = true;
     wayland = true;
   };
 
   # Gnome Desktop Manager
-  services.desktopManager.gnome.enable = true;
+  #services.desktopManager.gnome.enable = true;
 
   # Security
   security.polkit.enable = true;
