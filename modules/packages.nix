@@ -1,13 +1,53 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
+  # Steam and firewall configs
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 
-    # Terminal file management
+  # Enable gamemode for better gaming performance
+  programs.gamemode.enable = true;
+
+  # Zsh shell
+  programs.zsh.enable = true;
+
+  # Firefox bloat browser
+  programs.firefox.enable = true;
+
+  # LocalSend and firewall configs
+  programs.localsend.enable = true;
+
+  environment.systemPackages = with pkgs; [
+
+    # Required system utilities
+    git # version control
+    wget # download files
+    curl # download files
+    alacritty # terminal emulator
+    #zsh # the Z shell
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+
+    # Desktop helpers
+    loupe # simple photo viewer
+
+    # Niri utilities
+    swaybg
+    grim
+    slurp
+    wl-clipboard
+    xwayland-satellite # Required for XWayland apps (Steam, etc.) to work with Niri
+
+    # File managers
     nnn
     yazi
+    nautilus
 
-    # Archives
+    # Archive tools
     zip
     xz
     unzip
@@ -15,8 +55,6 @@
 
     # Utils
     ripgrep # search tool
-    jq
-    yq-go
     fzf # fuzzy finder
     tree # recursive directory listing
     eza # a better `ls`
@@ -39,26 +77,17 @@
     bat
     file
     which
-    gnused
-    gnutar
     gawk
     zstd
     gnupg
+
+    # Oddities
     cmatrix
     unimatrix
     fortune-kind
 
-    # Nix related
-    nix-output-monitor
-
-    # Productivity
-    hugo
-    glow
-
     # Monitoring
     btop # cool resource monitor
-    iotop
-    iftop
     nvtopPackages.nvidia # nvidia gpu monitor
     speedtest-cli # test ISP speed
 
@@ -76,9 +105,6 @@
     microfetch # very fast system info
     fastfetch # fast system info
     vulkan-tools # Vulkan driver info
-
-    # Rust development
-    rustup
 
     # Web broswers
     ungoogled-chromium # chrome, sans spyware

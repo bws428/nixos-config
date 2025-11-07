@@ -43,50 +43,12 @@
     pulse.enable = true;
   };
 
-  # Install Firefox web browser
-  programs.firefox.enable = true;
-
-  # Install LocalSend and firewall configs
-  programs.localsend.enable = true;
-
   # Enable nh
   # https://github.com/nix-community/nh
   programs.nh = {
     enable = true;
     flake = "/home/bws428/.nixos-config";
   };
-
-  # Install Steam and firewall configs
-  # https://nixos.wiki/wiki/Steam
-  programs.steam.enable = true;
-  programs.steam = {
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
-
-  # List of packages installed in system profile
-  environment.systemPackages = with pkgs; [
-
-    # Required system utilities
-    git # version control
-    wget # download files
-    curl # download files
-    alacritty # terminal emulator
-    zsh # the Z shell
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-
-    # Desktop helpers
-    wl-clipboard # cli copy/paste
-    loupe # simple photo viewer
-    nautilus # gui file browser
-
-  ];
-
-  # Set the default shell to Zsh
-  # https://nixos.wiki/wiki/Zsh
-  programs.zsh.enable = true;
 
   # Add some Nerd Fonts
   # https://nixos.wiki/wiki/Fonts
@@ -122,32 +84,5 @@
   # Automatic system storage optimization
   # https://wiki.nixos.org/wiki/Storage_optimization
   nix.optimise.automatic = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable OpenSSH
-  # https://wiki.nixos.org/wiki/SSH
-  services.openssh = {
-    enable = true;
-    ports = [ 22 ];
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
-
-  # Fail2ban to protect unauthorized SSH
-  # https://wiki.nixos.org/wiki/Fail2ban
-  services.fail2ban.enable = true;
-
 
 }

@@ -11,7 +11,6 @@
   home.stateVersion = "25.05";
 
   imports = [
-    ./modules/packages.nix
     ./modules/shell.nix
     ./modules/helix.nix
     ./modules/desktop/alacritty.nix

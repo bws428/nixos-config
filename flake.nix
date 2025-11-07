@@ -41,6 +41,8 @@
             ./modules/nvidia.nix
             ./modules/desktop.nix
 
+            # Installed packages
+            ./modules/packages.nix
 
             # NixOS legacy config file
             # TODO: phase this out
