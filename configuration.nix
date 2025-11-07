@@ -91,36 +91,11 @@
     gnome-tour gnome-user-docs
   ];
 
-  # Enable Mango window compositor
-  programs.mango.enable = true;
-
   # Enable Niri window compositor
   programs.niri.enable = true;
 
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
-
-  # UWSM support Wayland compositors
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      mango = {
-        prettyName = "Mango";
-        comment = "Mango compositor (UWSM)";
-        binPath = "/run/current-system/sw/bin/mango";
-      };
-    };
-  };
-
-  # Add portal support for Mango
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;  # wlroots-based portal (Mango uses wlroots)
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
-
-  # Absolutely required for Mango
-  services.dbus.implementation = "broker";
 
   # Security
   security.polkit.enable = true;

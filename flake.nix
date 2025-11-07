@@ -11,12 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Mango compositor
-    mango = {
-      url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Dank Material Shell
     dgop = {
       url = "github:AvengeMedia/dgop";
@@ -37,7 +31,7 @@
 
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, mango, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
 
     # NixOS system configuration ("ghost" is the hostname)
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
@@ -55,15 +49,10 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home/home.nix
-                  mango.hmModules.mango
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };
             }
-
-            # Mango compositor
-            mango.nixosModules.mango
-
           ];
         };
       };
