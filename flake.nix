@@ -57,7 +57,7 @@
               home-manager.backupFileExtension = "backup";
               home-manager.users.bws428 = {
                 imports = [
-                  ./modules/home.nix
+                  ./home.nix
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };

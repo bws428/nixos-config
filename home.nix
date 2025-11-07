@@ -11,11 +11,11 @@
   home.stateVersion = "25.05";
 
   imports = [
-    ../config/shell.nix
-    ../config/helix.nix
-    ../config/alacritty.nix
-    ../config/niri.nix
-    ../config/dms.nix
+    ./config/shell.nix
+    ./config/helix.nix
+    ./config/alacritty.nix
+    ./config/niri.nix
+    ./config/dms.nix
   ];
 
 }
