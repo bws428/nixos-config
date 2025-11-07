@@ -30,7 +30,15 @@
   outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           modules = [
-            # NixOS legacy system config
+            # Hardware
+            ./hardware-configuration.nix
+
+            # System modules
+            ./modules/boot.nix
+            ./modules/nvidia.nix
+
+            # NixOS legacy config file
+            # TODO: phase this out
             ./configuration.nix
 
             # Home Manager ("bws428" is the username)

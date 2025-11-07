@@ -5,19 +5,9 @@
 { config, pkgs,  ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./nvidia.nix
-    ];
+  imports = [];
 
-  # Bootloader (systemd)
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use LTS kernel (so that NVIDIA drivers will build)
-  # https://wiki.nixos.org/wiki/Linux_kernel
-  boot.kernelPackages = pkgs.linuxPackages;
 
   # Define your hostname
   networking.hostName = "ghost";
@@ -144,8 +134,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+
 
   # Install Firefox web browser
   programs.firefox.enable = true;
@@ -207,9 +196,6 @@
     symbols-only
   ];
 
-  # Enable Flakes and `nix-command` (experimental)
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Automatic system upgrades (with flakes)
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
@@ -257,17 +243,5 @@
   # https://wiki.nixos.org/wiki/Fail2ban
   services.fail2ban.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
 }
