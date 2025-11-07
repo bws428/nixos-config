@@ -82,7 +82,7 @@
 
     # Web broswers
     ungoogled-chromium # chrome, sans spyware
-    inputs.zen-browser.packages."${pkgs.system}".default
+    inputs.zen-browser.packages."${system}".specific
 
     # My Apps
     gh # Github CLI
