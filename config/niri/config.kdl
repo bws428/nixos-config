@@ -1,8 +1,4 @@
 // Niri configuration
-
-include "dms/colors.kdl"
-include "dms/layout.kdl"
-
 input {
     keyboard {
         numlock
@@ -11,37 +7,8 @@ input {
 }
 
 layout {
-    gaps 0
-    center-focused-column "never"
-
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
-    }
-
-    default-column-width { proportion 0.5; }
-
-    focus-ring {
-        off
-    }
-
-    border {
-        width 2
-        active-color "#3d1f5c"
-        inactive-color "#00000000"
-        urgent-color "#9b0000"
-    }
-
-    shadow {
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
-    }
-
-    struts {
-    }
+    gaps 5
+    background-color "transparent"
 }
 
 // Dark mode environment variables
@@ -256,6 +223,7 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-// Cursor configuration
-// Note: Niri manages cursor from GTK/system theme
-// Set via home-manager gtk.cursorTheme instead
+// The next niri release will support automatic gap and colors with DMS.
+// Not available in current stable release.
+// include "dms/colors.kdl"
+// include "dms/layout.kdl"
