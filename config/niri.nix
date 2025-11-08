@@ -13,8 +13,10 @@
     xwayland-satellite # xwayland support
   ];
 
-  # Niri settings
-  programs.niri.settings = {
-    outputs."eDP-1".scale = 2.0;
-  };
+  # XDG configuration directories
+  xdg.enable = true;
+
+  # Configure niri
+  xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
+
 }
