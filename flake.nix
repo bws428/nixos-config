@@ -58,7 +58,6 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
-                  ./config/kdl.nix
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };
