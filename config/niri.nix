@@ -47,19 +47,6 @@ inputs: # This is your flake inputs. It contains the `niri` flake (github:sodibo
 }: let
   inherit (inputs.niri.lib.kdl) node plain leaf flag;
 in {
-
-  # Niri helper packages
-  home.packages = with pkgs; [
-    fuzzel # default app launcher
-    mako # notifications
-    grim # screenshot
-    slurp # screenshot
-    swaybg # wallpaper
-    swaylock # lock screen
-    swayidle # idle daemon
-    xwayland-satellite # xwayland support
-  ];
-
   # Niri configuration
   programs.niri.config = [
     (plain "input" [
