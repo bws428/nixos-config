@@ -7,7 +7,7 @@ input {
 }
 
 layout {
-    gaps 10
+    gaps 8
     background-color "transparent"
 }
 
