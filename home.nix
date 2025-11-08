@@ -13,6 +13,12 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
 
+  # XDG configuration directories
+  xdg.enable = true;
+
+  # Configure niri
+  xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
+
   # Configurations to manage
   imports = [
     ./config/shell.nix
