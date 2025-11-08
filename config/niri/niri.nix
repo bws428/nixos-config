@@ -7,9 +7,6 @@
     mako # notifications
     grim # screenshot
     slurp # screenshot
-    swaybg # wallpaper
-    swaylock # lock screen
-    swayidle # idle daemon
     xwayland-satellite # xwayland support
   ];
 }
