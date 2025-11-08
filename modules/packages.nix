@@ -36,7 +36,6 @@
     wget # download files
     curl # download files
     alacritty # terminal emulator
-    #zsh # the Z shell
     zsh-autosuggestions
     zsh-syntax-highlighting
 
@@ -48,7 +47,6 @@
     grim
     slurp
     wl-clipboard
-    xwayland-satellite # Required for XWayland apps (Steam, etc.) to work with Niri
 
     # File managers
     nnn
@@ -123,7 +121,7 @@
     helix # code editor
     zed-editor # gui code editor
     obsidian # a second brain
-    signal-desktop # secure comms
+    #signal-desktop # secure comms
     rawtherapee # raw photo editor
     obs-studio # screencasting
     vlc # media player

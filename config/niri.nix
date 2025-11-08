@@ -10,5 +10,6 @@
     swaybg # wallpaper
     swaylock # lock screen
     swayidle # idle daemon
+    xwayland-satellite # xwayland support
   ];
 }
