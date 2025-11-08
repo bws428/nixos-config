@@ -20,8 +20,4 @@
   # Keyring
   services.gnome.gnome-keyring.enable = true;
 
-  # I need to understand what this does
-  # System fails to rebuild without it
-  #services.dbus.implementation = "broker";
-
 }
