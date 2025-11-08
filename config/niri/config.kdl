@@ -1,5 +1,8 @@
 // Niri configuration
 
+include "dms/colors.kdl"
+include "dms/layout.kdl"
+
 input {
     keyboard {
         numlock
