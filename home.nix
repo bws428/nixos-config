@@ -18,20 +18,8 @@
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
+    ./config/kdl.nix
     ./config/niri.nix
     ./config/dms.nix
   ];
-
-  # Niri helper packages
-  home.packages = with pkgs; [
-    fuzzel # default app launcher
-    mako # notifications
-    grim # screenshot
-    slurp # screenshot
-    swaybg # wallpaper
-    swaylock # lock screen
-    swayidle # idle daemon
-    xwayland-satellite # xwayland support
-  ];
-
 }
