@@ -18,7 +18,6 @@
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
-    ./config/kdl.nix
     ./config/niri.nix
     ./config/dms.nix
   ];
