@@ -22,6 +22,6 @@
 
   # I need to understand what this does
   # System fails to rebuild without it
-  services.dbus.implementation = "broker";
+  #services.dbus.implementation = "broker";
 
 }
