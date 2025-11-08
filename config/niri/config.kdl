@@ -92,9 +92,6 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "alacritty";
     }
-    Mod+V hotkey-overlay-title="Clipboard Manager" {
-        spawn "dms" "ipc" "call" "clipboard" "toggle";
-    }
     Mod+M hotkey-overlay-title="Task Manager" {
         spawn "dms" "ipc" "call" "processlist" "toggle";
     }
