@@ -6,8 +6,6 @@ prefer-no-csd
 
 input {
     keyboard {
-        repeat-rate 35
-        repeat-delay 200
         xkb {
         }
         numlock
@@ -15,9 +13,48 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+output "DP-1" {
+    mode "2560x1440@59.951"
+    scale  1
+    transform "normal"
+}
+
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Layout
 layout {
-    gaps 8
+    gaps 7
     background-color "transparent"
+    center-focused-column "never"
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+    focus-ring {
+        width 1.5
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+    }
+    border {
+        off
+        width 1.5
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
+    shadow {
+        // on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+    struts {
+    }
 }
 
 // Environment variables
@@ -32,7 +69,7 @@ environment {
 }
 
 // Startup programs
-// spawn-at-startup "waybar"
+// spawn-at-startup "noctalia-shell"
 
 // Clipboard history
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
