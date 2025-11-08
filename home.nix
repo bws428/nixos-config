@@ -24,7 +24,7 @@
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
-    ./config/niri.nix
+    ./config/niri/niri.nix
     ./config/dms.nix
   ];
 }

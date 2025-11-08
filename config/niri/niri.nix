@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # Niri helper packages
+  # Niri support packages
   home.packages = with pkgs; [
     fuzzel # default app launcher
     mako # notifications
