@@ -1,4 +1,9 @@
 // Niri configuration
+
+// Client-side decorators (window bar)
+prefer-no-csd
+
+
 input {
     keyboard {
         numlock
@@ -30,8 +35,6 @@ spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
 hotkey-overlay {
 }
-
-prefer-no-csd
 
 animations {
 }
@@ -75,7 +78,7 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 
