@@ -5,11 +5,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use LTS kernel (so that NVIDIA drivers will build)
-  # https://wiki.nixos.org/wiki/Linux_kernel
-  #boot.kernelPackages = pkgs.linuxPackages;
-
-  # Latest kernel (probably won't work with NVIDIA?)
+  # Choose Linux kernel packages (LTS or latest)
+  # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix settings
