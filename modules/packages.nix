@@ -32,19 +32,15 @@
   environment.systemPackages = with pkgs; [
 
     # Required system utilities
-    git # version control
-    wget # download files
-    curl # download files
-    alacritty # terminal emulator
+    git
+    wget
+    curl
+    alacritty
     zsh-autosuggestions
     zsh-syntax-highlighting
 
-    # Desktop helpers
-    loupe # simple photo viewer
-
     # Niri utilities
-    grim
-    slurp
+    loupe
     wl-clipboard
 
     # File managers
@@ -65,7 +61,6 @@
     eza # a better `ls`
     zoxide # a better `cd`
     alejandra # nix code formatter
-    dconf2nix # convert dconf config to Nix
     tldr # abbreviated man pages
 
     # Networking tools
@@ -113,7 +108,6 @@
 
     # Web broswers
     ungoogled-chromium # chrome, sans spyware
-    palemoon-bin # palemoon browser
 
     # My Apps
     gh # Github CLI
