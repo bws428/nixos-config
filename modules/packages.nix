@@ -43,7 +43,6 @@
     loupe # simple photo viewer
 
     # Niri utilities
-    swaybg
     grim
     slurp
     wl-clipboard
@@ -114,6 +113,7 @@
 
     # Web broswers
     ungoogled-chromium # chrome, sans spyware
+    palemoon-bin # palemoon browser
 
     # My Apps
     gh # Github CLI
