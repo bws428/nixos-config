@@ -47,7 +47,6 @@ layout {
         urgent-color "#9b0000"
     }
     shadow {
-        off
     }
     struts {
     }
