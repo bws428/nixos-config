@@ -47,11 +47,7 @@ layout {
         urgent-color "#9b0000"
     }
     shadow {
-        // on
-        softness 30
-        spread 5
-        offset x=0 y=5
-        color "#0007"
+        off
     }
     struts {
     }
@@ -119,7 +115,7 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 0
+    geometry-corner-radius 3
     clip-to-geometry true
 }
 
