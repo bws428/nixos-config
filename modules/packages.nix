@@ -121,7 +121,7 @@
     helix # code editor
     zed-editor # gui code editor
     obsidian # a second brain
-    # signal-desktop # secure comms
+    signal-desktop # secure comms
     rawtherapee # raw photo editor
     obs-studio # screencasting
     vlc # media player
