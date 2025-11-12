@@ -15,6 +15,7 @@
     
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space
+      microfetch
     '';
   };
 
