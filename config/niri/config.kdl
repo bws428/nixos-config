@@ -131,6 +131,9 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "alacritty";
     }
+    Mod+B hotkey-overlay-title="Open a Web Browser" {
+        spawn "firefox";
+    }
     Mod+M hotkey-overlay-title="Task Manager" {
         spawn "dms" "ipc" "call" "processlist" "toggle";
     }
