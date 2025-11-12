@@ -18,7 +18,7 @@
 
     settings = {
       
-      theme = "autumn";
+      theme = "ayu_mirage";
       
       editor = {
         line-number = "relative";
