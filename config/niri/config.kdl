@@ -134,7 +134,10 @@ binds {
     Mod+B hotkey-overlay-title="Open a Web Browser" {
         spawn "firefox";
     }
-    Mod+M hotkey-overlay-title="Task Manager" {
+    Mod+S hotkey-overlay-title="Open Signal Messenger" {
+        spawn "signal-desktop";
+    }
+    Mod+M hotkey-overlay-title="System Monitor" {
         spawn "dms" "ipc" "call" "processlist" "toggle";
     }
     Mod+Comma hotkey-overlay-title="Settings" {
