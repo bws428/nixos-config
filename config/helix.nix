@@ -18,7 +18,7 @@
 
     settings = {
       
-      # theme = "catppuccin_macchiato";
+      theme = "autumn";
       
       editor = {
         line-number = "relative";
