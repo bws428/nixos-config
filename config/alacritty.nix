@@ -3,8 +3,9 @@
 {
   programs.alacritty = {
     enable = true;
-    theme = "catppuccin_macchiato";
+    # theme = "autumn";
     settings = {
+      padding = { x = 10, y = 10 };
       font.size = 15;
       font.normal = {
         family = "JetBrainsMono Nerd Font";
