@@ -5,7 +5,7 @@
     enable = true;
     # theme = "autumn";
     settings = {
-      padding = { x = 10, y = 10 };
+      padding = { x = 10; y = 10 };
       font.size = 15;
       font.normal = {
         family = "JetBrainsMono Nerd Font";
