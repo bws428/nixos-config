@@ -5,7 +5,7 @@
     enable = true;
     # theme = "autumn";
     settings = {
-      padding =
+      padding = {
         x = 10;
         y = 10;
       };
