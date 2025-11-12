@@ -13,7 +13,7 @@
       env.TERM = "xterm-256color";
       window.opacity = 0.85;
       window.blur = true;
-      window.padding = { x = 20; y = 20; };
+      window.padding = { x = 25; y = 10; };
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
     };
