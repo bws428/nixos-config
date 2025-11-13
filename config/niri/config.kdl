@@ -63,10 +63,17 @@ environment {
   QT_STYLE_OVERRIDE "adwaita-dark"
 }
 
-// Startup programs
-// spawn-at-startup "noctalia-shell"
+// Mouse cursor theme
+cursor {
+    xcursor-theme "macos"
+    xcursor-size 48
 
-// Clipboard history
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
+
+// *** Startup programs ***
+spawn-at-startup "alacritty"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
 hotkey-overlay {
