@@ -72,7 +72,7 @@ cursor {
 }
 
 // Startup programs
-spawn-at-startup "alacritty"
+spawn-at-startup "firefox"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
 hotkey-overlay {
@@ -89,13 +89,13 @@ gestures {
 
 // Window Rules - Auto-placement
 
-// Discord on workspace 1, right monitor (DP-1)
-// window-rule {
-//     match app-id="discord"
-//     open-on-output "DP-1"
-//     open-on-workspace "1"
-//     open-fullscreen true
-// }
+// Open Firefox on workspace 1, primary display (DP-1)
+window-rule {
+    match app-id="firefox"
+    open-on-output "DP-1"
+    open-on-workspace "1"
+    open-fullscreen true
+}
 
 // DMS recommended window rules, tailor to your prefs:
 window-rule {
