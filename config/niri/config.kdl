@@ -25,7 +25,7 @@ output "DP-1" {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
-    gaps 7
+    gaps 8
     background-color "transparent"
     center-focused-column "never"
     preset-column-widths {
@@ -65,14 +65,13 @@ environment {
 
 // Mouse cursor theme
 cursor {
-    xcursor-theme "macos"
+    xcursor-theme "macOS"
     xcursor-size 48
-
     hide-when-typing
     hide-after-inactive-ms 1000
 }
 
-// *** Startup programs ***
+// Startup programs
 spawn-at-startup "alacritty"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
