@@ -56,11 +56,11 @@ layout {
 environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORM "wayland"
-  ELECTRON_OZONE_PLATFORM_HINT "auto"
   QT_QPA_PLATFORMTHEME "gtk3"
   QT_QPA_PLATFORMTHEME_QT6 "gtk3"
   GTK_THEME "Adwaita:dark"
   QT_STYLE_OVERRIDE "adwaita-dark"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
 // Mouse cursor theme

@@ -19,6 +19,5 @@
   };
 
   # Automatic system storage optimization
-  # https://wiki.nixos.org/wiki/Storage_optimization
   nix.optimise.automatic = true;
 }
