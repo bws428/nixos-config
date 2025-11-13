@@ -20,7 +20,7 @@
     '';
   };
 
-  environment.variables = {
+  environment.sessionVariables = {
     EDITOR = "hx";
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
