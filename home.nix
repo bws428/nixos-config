@@ -35,7 +35,7 @@
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
   
-  # GTK theme for dark mode
+  # GTK theme (and icons!)
   gtk = {
     enable = true;
     theme = {
