@@ -127,6 +127,7 @@
     gimp3-with-plugins # image manipulation
     discord # voice and text chat
     halloy # irc client in Rust
+    ollama-desktop # ollama desktop gui
 
   ];
 
