@@ -20,11 +20,6 @@
     '';
   };
 
-  environment.sessionVariables = {
-    EDITOR = "hx";
-    QT_QPA_PLATFORMTHEME = "gtk3";
-  };
-
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
