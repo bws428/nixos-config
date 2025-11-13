@@ -129,4 +129,5 @@
     halloy # irc client in Rust
 
   ];
+
 }
