@@ -44,7 +44,6 @@
     wl-clipboard
 
     # File managers
-    nnn
     yazi
     nautilus
 
