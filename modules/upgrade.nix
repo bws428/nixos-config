@@ -1,4 +1,4 @@
-{ config, pkgs, inputs ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Automatic system upgrades (with flakes)
