@@ -65,13 +65,7 @@
     environment.systemPackages = with pkgs; [
       cudaPackages.cudatoolkit
       cudaPackages.cudnn
-      cudaPackages.cutensor
       cudaPackages.nccl
-      # cudaPackages.tensorrt  # If you need TensorRT
-
-      # Useful tools
-      nvidia-docker  # If you want to use Docker with CUDA
-      nvitop        # Alternative GPU monitoring tool
     ];
 
     # Set CUDA environment variables system-wide
