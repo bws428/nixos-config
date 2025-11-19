@@ -5,6 +5,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Bootloader configuration
+  boot.loader.systemd-boot.configurationLimit = 1;  # Only show current NixOS generation (press any key during boot to see more)
+  boot.loader.timeout = 3;  # 3 second timeout
+
   # Choose Linux kernel packages (LTS or latest)
   # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelPackages = pkgs.linuxPackages_latest;
