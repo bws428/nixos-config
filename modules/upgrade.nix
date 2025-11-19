@@ -5,7 +5,7 @@
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    flake = inputs.self.outPath;
+    flake = "/home/bws428/.nixos-config";
     flags = [
       "--print-build-logs"
     ];
