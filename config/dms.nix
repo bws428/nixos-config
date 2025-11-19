@@ -8,7 +8,9 @@
     enable = true;
 
     # Core features
-    enableSystemd = true;              # Systemd service for auto-start
+    systemd = {
+      enable = true;                   # Systemd service for auto-start
+    };
     enableSystemMonitoring = true;     # System monitoring widgets (dgop)
     enableClipboard = true;            # Clipboard history manager
     enableVPN = true;                  # VPN management widget
