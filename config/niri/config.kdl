@@ -72,7 +72,7 @@ cursor {
 }
 
 // Startup programs
-spawn-at-startup "firefox"
+spawn-at-startup "alacritty"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
 hotkey-overlay {
