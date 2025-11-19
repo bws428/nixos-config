@@ -19,13 +19,6 @@
   # Configure niri
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
 
-  # Configure GTK
-  xdg.configFile = {
-    "gtk-3.0/settings.ini".force = true;
-    "gtk-4.0/settings.ini".force = true;
-    "gtk-4.0/gtk.css".force = true;
-  };
-
   # Configurations to manage
   imports = [
     ./config/shell.nix
