@@ -35,20 +35,20 @@
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
   
-  # GTK theme (and icons!)
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
-  };
+  # # GTK theme (and icons!)
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     name = "Adwaita-dark";
+  #     package = pkgs.gnome-themes-extra;
+  #   };
+  #   iconTheme = {
+  #     name = "Adwaita";
+  #     package = pkgs.adwaita-icon-theme;
+  #   };
+  # };
 
-  # Allow Home Manager to overwrite GTK settings
-  xdg.configFile."gtk-3.0/settings.ini".force = true;
-  xdg.configFile."gtk-4.0/settings.ini".force = true;
+  # # Allow Home Manager to overwrite GTK settings
+  # xdg.configFile."gtk-3.0/settings.ini".force = true;
+  # xdg.configFile."gtk-4.0/settings.ini".force = true;
 }
