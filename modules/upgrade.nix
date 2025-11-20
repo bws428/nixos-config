@@ -8,8 +8,7 @@
     flake = "github:bws428/nixos-config";
     flags = [
       "--print-build-logs"
-      "--recreate-lock-file"
-      "--commit-lock-file"
+      "--no-write-lock-file"
     ];
     dates = "02:00";
     randomizedDelaySec = "45min";
