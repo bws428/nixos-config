@@ -18,7 +18,7 @@
   # https://wiki.nixos.org/wiki/Storage_optimization
   nix.gc = {
     automatic = true;
-    dates = "daily";
+    dates = "03:00";
     options = "--delete-older-than 5d";
   };
 
