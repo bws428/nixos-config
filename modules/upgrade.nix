@@ -8,7 +8,6 @@
     flake = "github:bws428/nixos-config";
     flags = [
       "--print-build-logs"
-     # "--no-write-lock-file"
     ];
     dates = "02:00";
     randomizedDelaySec = "45min";
@@ -19,7 +18,7 @@
   nix.gc = {
     automatic = true;
     dates = "03:00";
-    options = "--delete-older-than 5d";
+    options = "--keep 3";
   };
 
   # Automatic system storage optimization
