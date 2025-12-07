@@ -24,7 +24,7 @@
   # Enable Ollama LLM
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    package = pkgs.ollama-cuda;
   };
 
   # Enable OpenSSH
