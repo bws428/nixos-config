@@ -21,7 +21,7 @@
   services.gnome.gnome-keyring.enable = true;
 
   # Power management for desktop shell (Noctalia/DMS)
-  services.power-profiles-daemon.enable;
-  services.upower.enable;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
 }
