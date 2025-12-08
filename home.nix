@@ -16,8 +16,11 @@
   # XDG configuration directories
   xdg.enable = true;
 
-  # Configure niri
+  # Niri configuration file
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
+
+  # Fuzzel configuration file
+  xdg.configFile."fuzzel/fuzzel.ini".source = ../config/fuzzel/fuzzel.ini;
 
   # Configurations to manage
   imports = [
