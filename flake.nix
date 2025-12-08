@@ -15,7 +15,7 @@
     quickshell = {
       url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
      
     dgop = {
       url = "github:AvengeMedia/dgop";
