@@ -74,6 +74,7 @@ cursor {
 // Startup programs
 spawn-at-startup "alacritty"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "swaybg -i ~/Pictures/wallpapers/pine-2.jpg -m fill >/dev/null 2>&1 &"
 
 hotkey-overlay {
 }
@@ -133,7 +134,7 @@ binds {
     // Application Launchers
     Mod+Space hotkey-overlay-title="Application Launcher" {
         // spawn "dms" "ipc" "call" "spotlight" "toggle";
-        spawn "fuzzel";
+        spawn "walker";
     }
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "alacritty";
