@@ -9,8 +9,8 @@
   boot.loader.timeout = 5;  # 3 second timeout
 
   # Choose Linux kernel packages (LTS or latest)
-  boot.kernelPackages = pkgs.linuxPackages;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

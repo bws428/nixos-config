@@ -39,9 +39,9 @@
     zsh-autosuggestions
     zsh-syntax-highlighting
 
-    # Niri utilities
-    loupe
-    wl-clipboard
+    # Desktop utilities
+    loupe # image viewer
+    wl-clipboard # wayland clipboard
 
     # File managers
     yazi
