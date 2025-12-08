@@ -25,7 +25,7 @@
     ./config/helix.nix
     ./config/alacritty.nix
     ./config/niri/niri.nix
-    ./config/dms.nix
+    # ./config/dms.nix
   ];
 
   # Environment session variables
