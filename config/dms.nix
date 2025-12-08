@@ -6,7 +6,7 @@
 
   programs.dankMaterialShell = {
     enable = true;
-    quickshell.package = pkgs.quickshell;
+    quickshell.package = pkgs.quickshell; # Custom Quickshell version
 
     # Core features
     systemd = {
