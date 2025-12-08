@@ -48,7 +48,6 @@
 
             # Desktop environments
             ./modules/desktop.nix
-            ./modules/noctalia.nix
 
             # Installed fonts & packages
             ./modules/fonts.nix
