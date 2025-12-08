@@ -19,7 +19,6 @@
   # XDG configuration files
   xdg.configFile = {
     "niri/config.kdl".source = ./config/niri/config.kdl;
-    "fuzzel/fuzzel.ini".source = ./config/fuzzel.ini;
   };
 
   # Configurations to manage
@@ -28,6 +27,7 @@
     ./config/helix.nix
     ./config/alacritty.nix
     ./config/niri/niri.nix
+    ./config/waybar.nix
     # ./config/dms.nix
   ];
 

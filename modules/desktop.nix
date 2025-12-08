@@ -15,7 +15,7 @@
 
   # Security
   security.polkit.enable = true;
-  security.pam.services.swaylock = {}; # needed with DMS?
+  security.pam.services.swaylock = {};
 
   # Keyring
   services.gnome.gnome-keyring.enable = true;
