@@ -19,9 +19,4 @@
 
   # Keyring
   services.gnome.gnome-keyring.enable = true;
-
-  # Power management for desktop shell
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
-
 }
