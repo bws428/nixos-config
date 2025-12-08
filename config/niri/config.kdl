@@ -106,11 +106,8 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
     match app-id="Alacritty"
-    match app-id="zen"
     match app-id="com.mitchellh.ghostty"
-    match app-id="kitty"
     draw-border-with-background false
 }
 
@@ -131,8 +128,10 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Application Launchers
-    Mod+Space hotkey-overlay-title="Application Launcher" {
-        // spawn "dms" "ipc" "call" "spotlight" "toggle";
+    Mod+Space hotkey-overlay-title="App Launcher" {
+        spawn "dms" "ipc" "call" "spotlight" "toggle";
+    }
+    Mod+D hotkey-overlay-title="App Launcher - Walker" {
         spawn "walker";
     }
     Mod+Return hotkey-overlay-title="Open a Terminal" {

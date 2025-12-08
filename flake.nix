@@ -54,7 +54,8 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
-                  #inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+                  inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+                  # inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
                 ];
               };
             }

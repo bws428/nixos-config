@@ -6,10 +6,12 @@
 
   programs.dankMaterialShell = {
     enable = true;
+    quickshell.package = pkgs.quickshell;
 
     # Core features
     systemd = {
       enable = true;                   # Systemd service for auto-start
+      restartIfChanged = true;         # Auto-restart dms.service
     };
     enableSystemMonitoring = true;     # System monitoring widgets (dgop)
     enableClipboard = true;            # Clipboard history manager

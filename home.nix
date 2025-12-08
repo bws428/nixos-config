@@ -28,7 +28,7 @@
     ./config/alacritty.nix
     ./config/niri/niri.nix
     ./config/waybar.nix
-    # ./config/dms.nix
+    ./config/dms.nix
   ];
 
   # Environment session variables
