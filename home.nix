@@ -20,7 +20,7 @@
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
 
   # Fuzzel configuration file
-  xdg.configFile."fuzzel/fuzzel.ini".source = ../config/fuzzel/fuzzel.ini;
+  xdg.configFile."fuzzel/fuzzel.ini".source = ../config/fuzzel.ini;
 
   # Configurations to manage
   imports = [
@@ -28,6 +28,7 @@
     ./config/helix.nix
     ./config/alacritty.nix
     ./config/niri/niri.nix
+    ./config/fuzzel.ini
     # ./config/dms.nix
   ];
 
