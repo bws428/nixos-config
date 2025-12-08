@@ -43,6 +43,7 @@
     loupe # image viewer
     wl-clipboard # wayland clipboard
     ghostty  # Modern GPU-accelerated terminal (supports Kitty graphics protocol)
+    swaybg
     swayidle
     swaylock
     mako
@@ -137,7 +138,7 @@
     discord # voice and text chat
     halloy # irc client in Rust
 
-    # Obligatory AI inclusion 
+    # Obligatory AI inclusion
     claude-code
 
   ];
