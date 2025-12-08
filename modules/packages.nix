@@ -42,6 +42,16 @@
     # Desktop utilities
     loupe # image viewer
     wl-clipboard # wayland clipboard
+    ghostty  # Modern GPU-accelerated terminal (supports Kitty graphics protocol)
+    swayidle
+    swaylock
+    mako
+    wiremix
+    wireplumber
+    libnotify
+    walker
+    playerctl  # Media player control for waybar mpris module
+    chafa  # Terminal image viewer for wallpaper preview
 
     # File managers
     yazi
@@ -127,7 +137,7 @@
     discord # voice and text chat
     halloy # irc client in Rust
 
-    # Development
+    # Obligatory AI inclusion 
     claude-code
 
   ];
