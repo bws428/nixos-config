@@ -127,6 +127,9 @@
     discord # voice and text chat
     halloy # irc client in Rust
 
+    # Development
+    claude-code
+
   ];
 
 }
