@@ -132,7 +132,8 @@ binds {
 
     // Application Launchers
     Mod+Space hotkey-overlay-title="Application Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle";
+        // spawn "dms" "ipc" "call" "spotlight" "toggle";
+        spawn "fuzzel";
     }
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "alacritty";
