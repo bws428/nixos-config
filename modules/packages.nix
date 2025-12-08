@@ -47,6 +47,7 @@
     swayidle
     swaylock
     mako
+    waybar
     wiremix
     wireplumber
     libnotify
