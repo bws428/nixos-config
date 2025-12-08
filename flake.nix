@@ -12,22 +12,16 @@
     };
 
     # Dank Material Shell
-    # quickshell = {
-    #   url = "github:outfoxxed/quickshell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-     
-    # dgop = {
-    #   url = "github:AvengeMedia/dgop";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # dankMaterialShell = {
-    #   url = "github:AvengeMedia/DankMaterialShell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   # inputs.quickshell.follows = "quickshell";
-    #   inputs.dgop.follows = "dgop";
-    # };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+    };
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
@@ -48,6 +42,7 @@
 
             # Desktop environments
             ./modules/desktop.nix
+            ./modules/noctalia.nix
 
             # Installed fonts & packages
             ./modules/fonts.nix
@@ -60,7 +55,7 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
-                  # inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+                  inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                 ];
               };
             }
