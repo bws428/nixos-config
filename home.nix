@@ -23,12 +23,11 @@
 
   # Configurations to manage
   imports = [
+    ./config/niri/niri.nix
+    ./config/dms.nix
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
-    ./config/niri/niri.nix
-    ./config/waybar.nix
-    ./config/dms.nix
   ];
 
   # Environment session variables
