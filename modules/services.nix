@@ -42,5 +42,4 @@
   # Fail2ban to protect unauthorized SSH
   # https://wiki.nixos.org/wiki/Fail2ban
   services.fail2ban.enable = true;
-
 }

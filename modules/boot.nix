@@ -6,13 +6,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Bootloader configuration
-  boot.loader.timeout = 5;  # 3 second timeout
+  boot.loader.timeout = 5;
 
-  # Choose Linux kernel packages (LTS or latest)
+  # Linux kernel packages (LTS for best GPU support)
   boot.kernelPackages = pkgs.linuxPackages;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Nix settings
+  # Nix settings (use flakes)
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Allow unfree packages
