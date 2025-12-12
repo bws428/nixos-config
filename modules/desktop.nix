@@ -3,7 +3,7 @@
 {
   # Niri, a scrollable-tiling Wayland compositor
   # https://wiki.nixos.org/wiki/Niri
-  programs.niri.enable = true;
+  # programs.niri.enable = true;
 
   # Dank Material Shell
   # https://danklinux.com/
