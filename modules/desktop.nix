@@ -20,7 +20,7 @@
 
   # Security
   security.polkit.enable = true;
-  security.pam.services.swaylock = {};
+  # security.pam.services.swaylock = {};
 
   # Keyring
   services.gnome.gnome-keyring.enable = true;
