@@ -7,10 +7,12 @@
 
   # Dank Material Shell
   # https://danklinux.com/
-  programs.dms-shell = {
-    enable = true;
-    quickshell.package = pkgs.quickshell;
-  };
+  # NOTE: EVENTUALLY, this will be the way to add DMS, rather than via flakes.
+  #       Currently, this method is frozen at v.0.6 instead of 1.0+
+  # programs.dms-shell = {
+  #   enable = true;
+  #   quickshell.package = pkgs.quickshell;
+  # };
 
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
