@@ -9,9 +9,7 @@
     swaybg # desktop wallpaper
     swayidle # idle management
     swaylock # lockscreen
-    mako # notification daemon
-    fuzzel # default app launcher
-    walker # better app launcher
+    fuzzel # app launcher
     xwayland-satellite # xwayland support
   ];
 

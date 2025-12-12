@@ -62,7 +62,7 @@
                   ./home.nix
                   inputs.niri.homeModules.niri
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-                  inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+                  # inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
                 ];
               };
             }
