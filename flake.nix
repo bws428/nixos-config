@@ -11,12 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Niri compositor
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Dank Material Shell
     dgop = {
       url = "github:AvengeMedia/dgop";
@@ -60,9 +54,7 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
-                  # inputs.niri.homeModules.niri
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-                  # inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
                 ];
               };
             }
