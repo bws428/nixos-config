@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Niri
+    # Niri compositor
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +60,7 @@
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
-                  inputs.niri.homeModules.niri
+                  # inputs.niri.homeModules.niri
                   inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                   # inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
                 ];

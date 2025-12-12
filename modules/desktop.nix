@@ -3,11 +3,11 @@
 {
   # Niri, a scrollable-tiling Wayland compositor
   # https://wiki.nixos.org/wiki/Niri
-  # programs.niri.enable = true;
+  programs.niri.enable = true;
 
   # Dank Material Shell
   # https://danklinux.com/
-  # NOTE: EVENTUALLY, this will be the way to add DMS, rather than via flakes.
+  # NOTE: EVENTUALLY, this will be the clean way to add DMS, rather than via flakes.
   #       Currently, this method is frozen at v.0.6 instead of 1.0+
   # programs.dms-shell = {
   #   enable = true;
