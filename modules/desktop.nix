@@ -7,7 +7,10 @@
 
   # Dank Material Shell
   # https://danklinux.com/
-  programs.dms-shell.enable = true;
+  programs.dms-shell = {
+    enable = true;
+    quickshell.package = pkgs.quickshell;
+  };
 
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
