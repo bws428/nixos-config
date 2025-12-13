@@ -8,7 +8,7 @@
 
   # Enable Space Mouse drivers
   hardware.spacenavd.enable = true;
-  systemd.services.spacenavd.wantedBy = [ "graphical.target" ];
+  systemd.services.spacenavd.wantedBy = [ "multi-user.target" ];
 
   # Steam and firewall configs
   programs.steam = {
