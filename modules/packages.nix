@@ -3,10 +3,12 @@
 {
   # Enable Flatpaks (Bambu Studio, etc.)
   # https://flathub.org/en/setup/NixOS
+  # https://flathub.org/en/apps/com.bambulab.BambuStudio
   services.flatpak.enable = true;
 
   # Enable Space Mouse drivers
   hardware.spacenavd.enable = true;
+  systemd.services.spacenavd.wantedBy = [ "graphical.target" ];
 
   # Steam and firewall configs
   programs.steam = {
