@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  # Enable Flatpaks
+  # https://flathub.org/en/setup/NixOS
+  services.flatpak.enable = true;
+
   # Steam and firewall configs
   programs.steam = {
     enable = true;
