@@ -145,6 +145,9 @@
     # Obligatory AI inclusion
     claude-code
 
+    # Test SpaceMouse devices
+    spacenav-cube-example
+
   ];
 
 }
