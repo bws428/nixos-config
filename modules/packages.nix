@@ -1,9 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  # Enable Flatpaks
+  # Enable Flatpaks (Bambu Studio, etc.)
   # https://flathub.org/en/setup/NixOS
   services.flatpak.enable = true;
+
+  # Enable Space Mouse drivers
+  hardware.spacenavd.enable = true;
 
   # Steam and firewall configs
   programs.steam = {
