@@ -88,6 +88,7 @@
     ipcalc
 
     # Misc
+    uv
     bat
     file
     which
