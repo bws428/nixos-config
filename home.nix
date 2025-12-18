@@ -24,7 +24,6 @@
   # Configurations to manage
   imports = [
     ./config/niri/niri.nix
-    # ./config/dms.nix
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix

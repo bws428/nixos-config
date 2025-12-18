@@ -24,10 +24,6 @@
   # Zsh shell
   programs.zsh.enable = true;
 
-  # Dank Material Shell
-  # https://danklinux.com
-  programs.dms-shell.enable = true;
-
   # Firefox bloat browser
   programs.firefox.enable = true;
 
