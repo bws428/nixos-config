@@ -5,13 +5,6 @@
   # https://wiki.nixos.org/wiki/Niri
   programs.niri.enable = true;
 
-  # Dank Material Shell
-  # https://danklinux.com/
-  programs.dms-shell = {
-    enable = true;
-    quickshell.package = pkgs.quickshell;
-  };
-
   # Enable XWayland for compatibility (Steam, etc.)
   programs.xwayland.enable = true;
 
