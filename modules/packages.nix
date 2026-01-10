@@ -129,7 +129,7 @@
     gh # Github CLI
     starship # custom shell prompt
     helix # code editor
-    zed-editor # gui code editor
+    # zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
     rawtherapee # raw photo editor
@@ -145,7 +145,7 @@
     halloy # irc client in Rust
 
     # Obligatory AI inclusion
-    claude-code
+    # claude-code
 
     # Test SpaceMouse devices
     spacenav-cube-example
