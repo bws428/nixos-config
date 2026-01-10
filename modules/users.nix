@@ -14,5 +14,5 @@
     description = "Lyndsey B.";
     extraGroups = [];
     shell = pkgs.zsh;
-  }
+  };
 }
