@@ -121,7 +121,8 @@
     fastfetch # fast system info
     vulkan-tools # Vulkan driver info
 
-    # Web broswers
+    # Web broswers, other than Firefox
+    chromium # google chrome browser
     ungoogled-chromium # chrome, sans spyware
 
     # My Apps
