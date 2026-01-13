@@ -6,7 +6,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history.size = 10000;
-    dotDir = config.home.homeDirectory;
     
     shellAliases = {
       ls = "eza -lh --group-directories-first --icons=auto";
