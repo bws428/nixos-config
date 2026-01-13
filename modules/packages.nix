@@ -143,6 +143,9 @@
     gimp3-with-plugins # image manipulation
     discord # voice and text chat
     halloy # irc client in Rust
+    libreoffice # office apps for Linux
+    hunspell # spellcheck for libreoffice
+    hunspellDicts.en_US # US English dictionary
 
     # Obligatory AI inclusion
     # claude-code
