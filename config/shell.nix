@@ -6,6 +6,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history.size = 10000;
+    dotDir = "${config.xdg.configHome}/zsh";
     
     shellAliases = {
       ls = "eza -lh --group-directories-first --icons=auto";
