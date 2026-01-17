@@ -146,6 +146,7 @@
     libreoffice # office apps for Linux
     hunspell # spellcheck for libreoffice
     hunspellDicts.en_US # US English dictionary
+    libgen-cli # CLI tool for the Library Genesis dataset
 
     # Obligatory AI inclusion
     # claude-code
