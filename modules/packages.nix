@@ -132,6 +132,9 @@
     # zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
+    proton-pass # password manager
+    protonvpn-gui # VPN client
+    proton-authenticator # 2FA manager
     rawtherapee # raw photo editor
     obs-studio # screencasting
     vlc # media player
