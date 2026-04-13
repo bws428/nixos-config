@@ -5,12 +5,22 @@
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    flake = "github:bws428/nixos-config";
+    flake = "/home/bws428/.nixos-config#ghost";
     flags = [
       "--print-build-logs"
     ];
     dates = "02:00";
     randomizedDelaySec = "45min";
+  };
+
+  # Pull latest commits and update flake inputs before rebuilding
+  systemd.services.nixos-upgrade = {
+    path = [ pkgs.git ];
+    preStart = ''
+      cd /home/bws428/.nixos-config
+      git -c safe.directory=/home/bws428/.nixos-config pull
+      nix flake update
+    '';
   };
 
   # Automatic system cleanup
