@@ -149,7 +149,7 @@
     libgen-cli # CLI tool for the Library Genesis dataset
 
     # Obligatory AI inclusion
-    # claude-code
+    claude-code
 
     # Test SpaceMouse devices
     spacenav-cube-example
