@@ -18,6 +18,7 @@
     path = [ pkgs.git ];
     preStart = ''
       cd /home/bws428/.nixos-config
+      git -c safe.directory=/home/bws428/.nixos-config checkout -- flake.lock
       git -c safe.directory=/home/bws428/.nixos-config pull
       nix flake update
     '';
