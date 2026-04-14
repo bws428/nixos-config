@@ -24,8 +24,8 @@
       # Uses `nh os switch` (from programs.nh) which already knows
       # the flake path.
       rebuild = "cd ${flakePath} && git add . && git commit -m 'NixOS rebuild' && git push origin main && nh os switch";
-      # Clean old generations, keeping only the 3 most recent.
-      clean = "nh clean all --keep 3";
+      # Clean old generations, keeping only the 5 most recent.
+      clean = "nh clean all --keep 5";
     };
 
     # Extra Zsh init sourced at the end of .zshrc.
