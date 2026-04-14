@@ -18,9 +18,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Out-of-tree kernel modules + firmware for the MediaTek MT7927
+    # Patched kernel modules + firmware for the MediaTek MT7927
     # (Filogic 380) WiFi/BT card. Mainline support is not yet merged.
-    mt7927.url = "github:cmspam/mt7927-nixos";
+    mt7927.url = "github:clemenscodes/linux-mt7927";
   };
 
   # ── Flake outputs ────────────────────────────────────────────────────
