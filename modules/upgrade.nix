@@ -35,7 +35,7 @@
   # back to GitHub after a successful rebuild.
   systemd.services.nixos-upgrade = {
     # Make git available to the pre/post scripts.
-    path = [ pkgs.git pkgs.sudo ];
+    path = [ pkgs.git pkgs.util-linux ];
 
     # ── preStart: runs before nixos-rebuild ─────────────────────────
     #
@@ -80,14 +80,14 @@
     # when flake.lock actually changed, keeping the git history clean.
     postStart = ''
       TOKEN=$(cat /root/.github-token)
-      sudo -u bws428 bash -c '
-        cd ${flakePath}
-        git add flake.lock
-        if ! git diff --cached --quiet; then
-          git commit -m "flake.lock: update inputs"
-          git push "https://'"$TOKEN"'@github.com/bws428/nixos-config.git" main
-        fi
-      '
+      cd ${flakePath}
+      runuser -u bws428 -- git add flake.lock
+      if runuser -u bws428 -- git diff --cached --quiet; then
+        echo "flake.lock unchanged, nothing to push"
+      else
+        runuser -u bws428 -- git commit -m "flake.lock: update inputs"
+        runuser -u bws428 -- git push "https://''${TOKEN}@github.com/bws428/nixos-config.git" main
+      fi
     '';
   };
 
