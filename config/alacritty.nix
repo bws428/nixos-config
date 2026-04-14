@@ -3,7 +3,7 @@
 {
   programs.alacritty = {
     enable = true;
-    # theme = "autumn";
+    theme = "github_dark";
     settings = {
       font.size = 15;
       font.normal = {

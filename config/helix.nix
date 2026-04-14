@@ -17,9 +17,9 @@
     };
 
     settings = {
-      
-      theme = "ayu_mirage";
-      
+
+      theme = "catppuccin_macchiato";
+
       editor = {
         line-number = "relative";
         cursorline = true;

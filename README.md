@@ -14,7 +14,7 @@ Home Manager runs inside the NixOS rebuild — there's no separate `home-manager
 
 ## Nightly auto-upgrade
 
-A systemd timer (`nixos-upgrade.service`) runs at 02:00 each night (with up to 45 min random delay). Before rebuilding it:
+A systemd timer (`nixos-upgrade.service`) runs at 02:00 each night (with up to 45 min random delay). The upgrade service:
 
 1. Resets any local `flake.lock` changes from the previous run
 2. Pulls the latest commits from `origin/main`
@@ -77,7 +77,6 @@ The flake defines users declaratively but doesn't set passwords. Set them now:
 
 ```sh
 sudo passwd bws428
-sudo passwd lyndsey    # second user defined in modules/users.nix
 sudo reboot
 ```
 
