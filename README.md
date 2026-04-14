@@ -4,96 +4,61 @@ Personal NixOS flake for host `ghost`, with Home Manager wired in as a NixOS mod
 
 ## Day-to-day
 
+Two shell aliases cover almost everything (defined in `config/shell.nix`):
+
+```sh
+rebuild   # cd to the flake, commit, push, then `nh os switch`
+clean     # `nh clean all --keep 3`
+```
+
+`rebuild` commits any local changes with a stock message and pushes before switching, so the live machine and `origin/main` stay in sync. Home Manager runs inside the rebuild — there's no separate `home-manager switch`.
+
+Raw equivalents, if needed:
+
 ```sh
 sudo nixos-rebuild switch --flake .#ghost   # apply
 sudo nixos-rebuild test   --flake .#ghost   # try without a boot entry
 nix flake update                            # refresh flake.lock
 ```
 
-Home Manager runs inside the NixOS rebuild — there's no separate `home-manager switch`.
-
 ## Nightly auto-upgrade
 
-A systemd timer (`nixos-upgrade.service`) runs at 02:00 each night (with up to 45 min random delay). The upgrade service:
+A systemd timer runs at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate overnight.
 
-1. Resets any local `flake.lock` changes from the previous run
-2. Pulls the latest commits from `origin/main`
-3. Runs `nix flake update` to refresh nixpkgs and home-manager inputs
-4. Rebuilds with `nixos-rebuild switch`
+Nightly GC at 03:00 keeps the 3 most recent generations; store optimization runs automatically. See `modules/upgrade.nix`.
 
-This means pushing config changes to `main` **and** upstream nixpkgs updates both propagate automatically overnight.
-
-A nightly garbage collection follows at 03:00, keeping the 3 most recent generations. Nix store optimization runs automatically as well.
-
-See `modules/upgrade.nix` for the full configuration.
-
-## Bootstrapping `ghost` from a fresh install
-
-Start from the standard NixOS graphical installer ISO.
-
-### 1. Install NixOS
-
-Run through the graphical installer with these settings:
-
-- Hostname: `ghost`
-- Primary user: `bws428` (with sudo/wheel)
-- Disk partitioning and bootloader as appropriate for the machine
-- Desktop environment doesn't matter — niri and the full desktop come from the flake
-
-Reboot into the fresh install when prompted.
-
-### 2. Clone this repo
-
-Flakes aren't enabled yet on a stock install, so use `nix-shell` to get git:
+Check on the last run:
 
 ```sh
-nix-shell -p git --run 'git clone https://github.com/bws428/nixos-config ~/.nixos-config'
-cd ~/.nixos-config
+systemctl status nixos-upgrade.service     # exit code + recent log tail
+systemctl list-timers nixos-upgrade.timer  # last and next fire times
 ```
 
-### 3. Replace the hardware config
+## Bootstrapping a fresh install
 
-The repo commits `ghost`'s hardware config, but the installer generated a fresh one for this disk/partition layout. Overwrite it:
+1. Install NixOS from the graphical ISO. Hostname `ghost`, primary user `bws428` with wheel. Desktop choice doesn't matter — niri comes from the flake.
+2. Clone and rebuild:
 
-```sh
-sudo cp /etc/nixos/hardware-configuration.nix ./hardware-configuration.nix
-```
+   ```sh
+   nix-shell -p git --run 'git clone https://github.com/bws428/nixos-config ~/.nixos-config'
+   sudo cp /etc/nixos/hardware-configuration.nix ~/.nixos-config/hardware-configuration.nix
+   sudo nixos-rebuild switch --flake ~/.nixos-config#ghost \
+     --extra-experimental-features 'nix-command flakes'
+   ```
 
-If re-installing on the same machine with the same disk layout, you can skip this — the committed config should still be correct.
+3. `sudo passwd bws428` and reboot.
 
-### 4. First rebuild
-
-Flakes must be enabled explicitly for this first command. After this rebuild, `nix.settings.experimental-features` in the config takes over:
-
-```sh
-sudo nixos-rebuild switch \
-  --flake ~/.nixos-config#ghost \
-  --extra-experimental-features 'nix-command flakes'
-```
-
-### 5. Set passwords and reboot
-
-The flake defines users declaratively but doesn't set passwords. Set them now:
-
-```sh
-sudo passwd bws428
-sudo reboot
-```
-
-After reboot you'll land in the full niri desktop with all packages and configs applied. The nightly auto-upgrade timer is already active.
+The hardware copy in step 2 can be skipped when reinstalling on the same disk layout. Flakes only need the `--extra-experimental-features` flag on this first rebuild; afterwards `nix.settings` takes over.
 
 ## New machine
 
-Same steps as above, plus:
-
 - Change `networking.hostName` in `modules/networking.nix` and the `nixosConfigurations.<name>` key in `flake.nix`.
-- Review `modules/nvidia.nix` — drop it from `flake.nix` if the new box isn't NVIDIA.
-- Adjust or remove the `lyndsey` user in `modules/users.nix`.
-- Update `modules/upgrade.nix` to point at the correct local flake path if the username differs.
+- Review `modules/nvidia.nix` — drop it from `flake.nix` if the box isn't NVIDIA.
+- Update `flakePath` in `flake.nix` if the username differs.
 
 ## Layout
 
 - `flake.nix` — single `nixosConfigurations.ghost`; imports every file in `modules/` and mounts `home.nix` under Home Manager.
-- `hardware-configuration.nix` — machine-specific; committed for `ghost`. Regenerate with `nixos-generate-config` when moving to a new box.
+- `hardware-configuration.nix` — machine-specific; regenerate with `nixos-generate-config` on a new box.
 - `modules/` — system-level NixOS modules split by concern.
 - `home.nix` + `config/` — Home Manager entry point and per-program user configs (shell, helix, alacritty, niri).
