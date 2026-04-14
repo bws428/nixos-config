@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakePath, ... }:
 
 {
   # Automatic system upgrades (with flakes)
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    flake = "/home/bws428/.nixos-config#ghost";
+    flake = "${flakePath}#ghost";
     flags = [
       "--print-build-logs"
     ];
@@ -17,9 +17,9 @@
   systemd.services.nixos-upgrade = {
     path = [ pkgs.git ];
     preStart = ''
-      cd /home/bws428/.nixos-config
-      git -c safe.directory=/home/bws428/.nixos-config checkout -- flake.lock
-      git -c safe.directory=/home/bws428/.nixos-config pull
+      cd ${flakePath}
+      git -c safe.directory=${flakePath} checkout -- flake.lock
+      git -c safe.directory=${flakePath} pull
       nix flake update
     '';
   };

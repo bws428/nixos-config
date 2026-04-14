@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, flakePath, ... }:
 
 {
   programs.zsh = {
@@ -11,7 +11,7 @@
     shellAliases = {
       ls = "eza -lh --group-directories-first --icons=auto";
       lsa = "ls -la";
-      rebuild = "cd /home/bws428/.nixos-config && git add . && git commit -m 'NixOS rebuild' && git push origin main && nh os switch";
+      rebuild = "cd ${flakePath} && git add . && git commit -m 'NixOS rebuild' && git push origin main && nh os switch";
       clean = "nh clean all --keep 3";
     };
     

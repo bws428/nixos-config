@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakePath, ... }:
 
 {
   # Enable Flatpaks (Bambu Studio, etc.)
@@ -34,7 +34,7 @@
   # https://github.com/nix-community/nh
   programs.nh = {
     enable = true;
-    flake = "/home/bws428/.nixos-config";
+    flake = flakePath;
   };
 
   # List of installed packages
@@ -44,9 +44,6 @@
     git
     wget
     curl
-    alacritty
-    zsh-autosuggestions
-    zsh-syntax-highlighting
 
     # Desktop utilities
     loupe # image viewer
@@ -127,9 +124,7 @@
 
     # My Apps
     gh # Github CLI
-    starship # custom shell prompt
-    helix # code editor
-    # zed-editor # gui code editor
+    zed-editor # gui code editor
     obsidian # a second brain
     signal-desktop # secure comms
     proton-pass # password manager

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades nightly from `github:bws428/nixos-config` (see `modules/upgrade.nix`), so changes pushed to `main` propagate to the live machine — test before pushing.
+Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades nightly from the local clone (see `modules/upgrade.nix`), pulling latest commits and updating flake inputs before rebuilding — so changes pushed to `main` propagate to the live machine. Test before pushing.
 
 ## Common Commands
 
@@ -29,3 +29,14 @@ Home Manager is wired into the NixOS config (not a standalone `home-manager swit
 - `config/` — user-space program configs. `.nix` files are Home Manager modules; `config/niri/config.kdl` is a raw dotfile symlinked through XDG.
 
 When adding user-facing programs, prefer a new `config/<name>.nix` imported from `home.nix`. System-wide packages/services go in the appropriate `modules/*.nix`.
+
+## Before Making Config Changes
+
+Before writing or modifying any Nix configuration, consult the relevant documentation to ensure you are using canonical NixOS/Home Manager patterns:
+
+- **NixOS options**: search https://search.nixos.org/options for the correct option names, types, and defaults.
+- **Home Manager options**: search https://home-manager-options.extranix.com for Home Manager module options.
+- **Nixpkgs packages**: search https://search.nixos.org/packages to verify package attribute names.
+- **NixOS Wiki**: check https://wiki.nixos.org for recommended patterns and common pitfalls.
+
+Prefer declarative NixOS/Home Manager module options over raw file writes or imperative workarounds. If a program has a dedicated `programs.<name>` or `services.<name>` module, use it rather than adding the package manually and writing config files by hand.

@@ -60,19 +60,19 @@
     ];
   };
 
-    # CUDA support
-    # Make CUDA available system-wide
-    environment.systemPackages = with pkgs; [
-      cudaPackages.cudatoolkit
-      cudaPackages.cudnn
-      cudaPackages.nccl
-    ];
+  # CUDA support
+  # Make CUDA available system-wide
+  environment.systemPackages = with pkgs; [
+    cudaPackages.cudatoolkit
+    cudaPackages.cudnn
+    cudaPackages.nccl
+  ];
 
-    # Set CUDA environment variables system-wide
-    environment.variables = {
-      CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
-      CUDA_ROOT = "${pkgs.cudaPackages.cudatoolkit}";
-      EXTRA_LDFLAGS = "-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib";
-      EXTRA_CCFLAGS = "-I/usr/include";
-    };
+  # Set CUDA environment variables system-wide
+  environment.variables = {
+    CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
+    CUDA_ROOT = "${pkgs.cudaPackages.cudatoolkit}";
+    EXTRA_LDFLAGS = "-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib";
+    EXTRA_CCFLAGS = "-I/usr/include";
+  };
 }

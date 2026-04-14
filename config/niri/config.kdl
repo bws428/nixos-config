@@ -56,10 +56,7 @@ layout {
 environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORM "wayland"
-  QT_QPA_PLATFORMTHEME "gtk3"
   QT_QPA_PLATFORMTHEME_QT6 "gtk3"
-  GTK_THEME "Adwaita:dark"
-  QT_STYLE_OVERRIDE "adwaita-dark"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
@@ -414,8 +411,3 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
-
-// The next niri release will support automatic gap and colors with DMS.
-// Not available in current stable release.
-// include "dms/colors.kdl"
-// include "dms/layout.kdl"

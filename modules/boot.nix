@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   # Bootloader (systemd)
@@ -8,7 +8,7 @@
   # Bootloader configuration
   boot.loader.timeout = 5;
 
-  # Linux kernel packages (LTS for best GPU support)
+  # Linux LTS kernel (best stability with Nvidia drivers)
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Nix settings (use flakes)

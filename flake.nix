@@ -12,8 +12,12 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }: {
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+  let
+    flakePath = "/home/bws428/.nixos-config";
+  in {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit flakePath; };
           modules = [
             # Hardware configuration
             ./hardware-configuration.nix
@@ -39,6 +43,7 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit flakePath; };
               home-manager.users.bws428 = {
                 imports = [
                   ./home.nix
