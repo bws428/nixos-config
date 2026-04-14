@@ -16,10 +16,8 @@
   # Pull latest commits and update flake inputs before rebuilding
   systemd.services.nixos-upgrade = {
     path = [ pkgs.git ];
-    environment.GIT_CONFIG_COUNT = "1";
-    environment.GIT_CONFIG_KEY_0 = "safe.directory";
-    environment.GIT_CONFIG_VALUE_0 = flakePath;
     preStart = ''
+      git config --global safe.directory ${flakePath}
       cd ${flakePath}
       git checkout -- flake.lock
       git pull
