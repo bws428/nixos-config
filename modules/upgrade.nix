@@ -65,16 +65,23 @@
     # so the repo stays in sync with the running system. This means
     # the lock file on GitHub always reflects what was actually built.
     #
-    # The git operations run as the repo-owning user (not root) to
-    # avoid creating root-owned objects in .git/, which would break
-    # normal user git operations.
+    # Since this service runs as root but the repo is owned by bws428,
+    # git operations must run as the repo-owning user — otherwise root
+    # creates root-owned files in .git/objects/, which breaks normal
+    # user git operations (git add, git commit, etc.).
+    #
+    # We use `runuser -u bws428 --` (from util-linux) to execute each
+    # git command as the correct user. runuser is designed for exactly
+    # this use case in system services: it switches the effective UID
+    # without spawning a subshell or altering PATH, unlike sudo which
+    # drops PATH and requires bash to be explicitly available.
     #
     # Authentication uses a GitHub Personal Access Token (PAT) stored
-    # in /root/.github-token (chmod 600). The token is read at runtime
-    # and embedded in the push URL, avoiding any persistent credential
-    # storage in git config. The ''${TOKEN} syntax is Nix's escape for
-    # a literal ${...} inside a multi-line string — it ensures the
-    # shell (not Nix) expands the variable.
+    # in /root/.github-token (chmod 600). The token is read as root
+    # (only root can access the file) then passed into the push URL.
+    # The ''${TOKEN} syntax is Nix's escape for a literal ${...}
+    # inside a multi-line string — it ensures the shell (not Nix)
+    # expands the variable.
     #
     # The `git diff --cached --quiet` check ensures we only commit
     # when flake.lock actually changed, keeping the git history clean.
