@@ -20,7 +20,58 @@
         "type": "github"
       }
     },
+    "mediatek-mt7927-dkms": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775684717,
+        "narHash": "sha256-8vcBSICbuc1DkmwV211z9U015NFYaRLTIyR2R8nX3zw=",
+        "owner": "jetm",
+        "repo": "mediatek-mt7927-dkms",
+        "rev": "db471c6bfbf0f0948bf9159090e6cbcd0c18e399",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jetm",
+        "repo": "mediatek-mt7927-dkms",
+        "type": "github"
+      }
+    },
+    "mt7927": {
+      "inputs": {
+        "mediatek-mt7927-dkms": "mediatek-mt7927-dkms",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1775798991,
+        "narHash": "sha256-KD5dJcwByr0OSKxhqK1kCLd/A25dSl/+KLxwS2nTuhg=",
+        "owner": "cmspam",
+        "repo": "mt7927-nixos",
+        "rev": "a3713331d6099820b9bfbe435dce8ea3e2a1332a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmspam",
+        "repo": "mt7927-nixos",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1775710090,
+        "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4c1018dae018162ec878d42fec712642d214fdfa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1775710090,
         "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
@@ -39,7 +90,8 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "mt7927": "mt7927",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },
