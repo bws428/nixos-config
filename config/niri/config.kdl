@@ -135,7 +135,7 @@ binds {
         spawn "alacritty";
     }
     Mod+B hotkey-overlay-title="Open a Web Browser" {
-        spawn "firefox";
+        spawn "chromium";
     }
     Mod+S hotkey-overlay-title="Open Signal Messenger" {
         spawn "signal-desktop";

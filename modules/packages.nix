@@ -130,7 +130,6 @@
     vulkan-tools        # vulkaninfo, etc.
 
     # ── Web browsers ─────────────────────────────────────────────────
-    chromium            # Google Chromium
     ungoogled-chromium  # Chromium without Google services
 
     # ── Applications ─────────────────────────────────────────────────

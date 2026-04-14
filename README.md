@@ -8,7 +8,7 @@ Two shell aliases cover almost everything (defined in `config/shell.nix`):
 
 ```sh
 rebuild   # cd to the flake, commit, push, then `nh os switch`
-clean     # `nh clean all --keep 3`
+clean     # `nh clean all --keep 5`
 ```
 
 `rebuild` commits any local changes with a stock message and pushes before switching, so the live machine and `origin/main` stay in sync. Home Manager runs inside the rebuild — there's no separate `home-manager switch`.
@@ -25,13 +25,20 @@ nix flake update                            # refresh flake.lock
 
 A systemd timer runs at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate overnight.
 
-Nightly GC at 03:00 keeps the 3 most recent generations; store optimization runs automatically. See `modules/upgrade.nix`.
+Nightly GC at 03:00 keeps the 5 most recent generations; store optimization runs automatically. See `modules/upgrade.nix`.
 
 Check on the last run:
 
 ```sh
 systemctl status nixos-upgrade.service     # exit code + recent log tail
 systemctl list-timers nixos-upgrade.timer  # last and next fire times
+```
+
+Manually trigger an upgrade to verify everything works:
+
+```sh
+sudo systemctl start nixos-upgrade.service
+journalctl -u nixos-upgrade.service -f     # follow the live output
 ```
 
 ## Bootstrapping a fresh install
