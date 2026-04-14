@@ -1,16 +1,20 @@
 { config, pkgs, flakePath, ... }:
 
 {
-  # Enable Flatpaks (Bambu Studio, etc.)
+  # ── Flatpak ────────────────────────────────────────────────────────
+  # Some apps (Bambu Studio, etc.) are easiest to run as Flatpaks.
   # https://flathub.org/en/setup/NixOS
-  # https://flathub.org/en/apps/com.bambulab.BambuStudio
   services.flatpak.enable = true;
 
-  # Enable Space Mouse drivers
+  # ── SpaceMouse ─────────────────────────────────────────────────────
+  # 3Dconnexion SpaceMouse driver. The wantedBy override ensures the
+  # daemon starts at boot even if no device is plugged in yet.
   hardware.spacenavd.enable = true;
   systemd.services.spacenavd.wantedBy = [ "multi-user.target" ];
 
-  # Steam and firewall configs
+  # ── Gaming ─────────────────────────────────────────────────────────
+  # Steam with firewall rules for Remote Play, dedicated servers,
+  # and local network game transfers (LAN play).
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -18,139 +22,146 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # Enable gamemode for better gaming performance
+  # Feral GameMode — optimizes CPU governor, I/O priority, and GPU
+  # clocks while a game is running.
   programs.gamemode.enable = true;
 
-  # Zsh shell
+  # ── Shell & browser ────────────────────────────────────────────────
+  # System-level Zsh enablement (the actual config lives in config/shell.nix
+  # via Home Manager). Must be enabled here so NixOS registers it as a
+  # valid login shell.
   programs.zsh.enable = true;
 
-  # Firefox bloat browser
+  # Firefox as the default browser.
   programs.firefox.enable = true;
 
-  # LocalSend and firewall configs
+  # ── Networking programs ────────────────────────────────────────────
+  # LocalSend — local network file transfer (AirDrop alternative).
+  # Automatically opens the required firewall port.
   programs.localsend.enable = true;
 
-  # Enable nh
+  # ── Nix helper (nh) ───────────────────────────────────────────────
   # https://github.com/nix-community/nh
+  # A friendlier wrapper around nixos-rebuild and nix-collect-garbage.
+  # `flake` tells it where to find the system flake by default.
   programs.nh = {
     enable = true;
     flake = flakePath;
   };
 
-  # List of installed packages
+  # ── System packages ───────────────────────────────────────────────
   environment.systemPackages = with pkgs; [
 
-    # Required system utilities
+    # ── Core utilities ───────────────────────────────────────────────
     git
     wget
     curl
 
-    # Desktop utilities
-    loupe # image viewer
-    wl-clipboard # wayland clipboard
-    ghostty
-    wiremix
-    wireplumber
-    libnotify
-    playerctl  # Media player control for waybar mpris module
-    chafa  # Terminal image viewer for wallpaper preview
+    # ── Desktop utilities ────────────────────────────────────────────
+    loupe               # GNOME image viewer
+    wl-clipboard        # Wayland clipboard (wl-copy / wl-paste)
+    wiremix             # PipeWire audio mixer
+    wireplumber         # PipeWire session manager
+    libnotify           # Desktop notification CLI (notify-send)
+    playerctl           # MPRIS media player control (play/pause/next)
+    chafa               # Terminal image viewer (wallpaper preview, etc.)
 
-    # File managers
-    yazi
-    nautilus
+    # ── File managers ────────────────────────────────────────────────
+    yazi                # Terminal file manager
+    nautilus            # GNOME graphical file manager
 
-    # Archive tools
+    # ── Archive tools ────────────────────────────────────────────────
     zip
     xz
     unzip
     p7zip
 
-    # Utils
-    ripgrep # search tool
-    fzf # fuzzy finder
-    tree # recursive directory listing
-    eza # a better `ls`
-    zoxide # a better `cd`
-    alejandra # nix code formatter
-    tldr # abbreviated man pages
+    # ── CLI productivity ─────────────────────────────────────────────
+    ripgrep             # Fast recursive search (rg)
+    fzf                 # Fuzzy finder for files, history, etc.
+    tree                # Recursive directory listing
+    eza                 # Modern ls replacement with icons
+    zoxide              # Smart cd that learns your directories
+    alejandra           # Nix code formatter
+    tldr                # Community-maintained command cheatsheets
 
-    # Networking tools
-    mtr
-    iperf3
-    dnsutils
-    ldns
-    aria2
-    socat
-    nmap
-    ipcalc
+    # ── Networking tools ─────────────────────────────────────────────
+    mtr                 # Traceroute + ping combined
+    iperf3              # Network bandwidth measurement
+    dnsutils            # dig, nslookup, host
+    ldns                # drill (DNS debugging)
+    aria2               # Multi-protocol download accelerator
+    socat               # Multipurpose network relay
+    nmap                # Network scanner
+    ipcalc              # IP subnet calculator
 
-    # Misc
-    uv
-    bat
-    file
-    which
-    gawk
-    zstd
-    gnupg
+    # ── Misc CLI ─────────────────────────────────────────────────────
+    uv                  # Fast Python package manager
+    bat                 # Cat with syntax highlighting
+    file                # File type identification
+    which               # Locate commands in PATH
+    gawk                # GNU awk
+    zstd                # Zstandard compression
+    gnupg               # GPG encryption
 
-    # Oddities
-    cmatrix
-    unimatrix
-    fortune-kind
+    # ── Fun ──────────────────────────────────────────────────────────
+    cmatrix             # Matrix rain animation
+    unimatrix           # Unicode matrix rain
+    fortune-kind        # Random kind/wholesome quotes
 
-    # Monitoring
-    btop # cool resource monitor
-    nvtopPackages.nvidia # nvidia gpu monitor
-    speedtest-cli # test ISP speed
+    # ── Monitoring ───────────────────────────────────────────────────
+    btop                # Interactive resource monitor
+    nvtopPackages.nvidia # Nvidia GPU process monitor
+    speedtest-cli       # ISP speed test
 
-    # System call monitoring
-    strace
-    ltrace
-    lsof
+    # ── System debugging ─────────────────────────────────────────────
+    strace              # Trace system calls
+    ltrace              # Trace library calls
+    lsof                # List open files / sockets
 
-    # System tools
-    sysstat
-    lm_sensors
-    ethtool
-    pciutils
-    usbutils
-    microfetch # very fast system info
-    fastfetch # fast system info
-    vulkan-tools # Vulkan driver info
+    # ── System information ───────────────────────────────────────────
+    sysstat             # sar, iostat, mpstat
+    lm_sensors          # CPU/GPU temperature readings
+    ethtool             # Ethernet adapter diagnostics
+    pciutils            # lspci
+    usbutils            # lsusb
+    microfetch          # Minimal system info (shown on shell startup)
+    fastfetch           # Detailed system info
+    vulkan-tools        # vulkaninfo, etc.
 
-    # Web broswers, other than Firefox
-    chromium # google chrome browser
-    ungoogled-chromium # chrome, sans spyware
+    # ── Web browsers ─────────────────────────────────────────────────
+    chromium            # Google Chromium
+    ungoogled-chromium  # Chromium without Google services
 
-    # My Apps
-    gh # Github CLI
-    zed-editor # gui code editor
-    obsidian # a second brain
-    signal-desktop # secure comms
-    proton-pass # password manager
-    proton-vpn # VPN client
-    proton-authenticator # 2FA manager
-    rawtherapee # raw photo editor
-    obs-studio # screencasting
-    vlc # media player
-    mpd # music player daemon
-    rmpc # rusty music player client
-    spotify # streaming music
-    spicetify-cli # spice up spotify
-    shotcut # video editor
-    gimp3-with-plugins # image manipulation
-    discord # voice and text chat
-    halloy # irc client in Rust
-    libreoffice # office apps for Linux
-    hunspell # spellcheck for libreoffice
+    # ── Applications ─────────────────────────────────────────────────
+    gh                  # GitHub CLI
+    zed-editor          # GPU-accelerated code editor
+    obsidian            # Markdown knowledge base
+    signal-desktop      # Encrypted messaging
+    proton-pass         # Password manager
+    proton-vpn          # VPN client
+    proton-authenticator # TOTP 2FA manager
+    rawtherapee         # RAW photo editor
+    obs-studio          # Screen recording / streaming
+    vlc                 # Media player
+    mpd                 # Music Player Daemon
+    rmpc                # Rusty MPD client
+    spotify             # Streaming music
+    spicetify-cli       # Spotify UI customization
+    shotcut             # Video editor
+    gimp3-with-plugins  # Image manipulation
+    discord             # Voice and text chat
+    halloy              # IRC client (Rust)
+    libreoffice         # Office suite
+    hunspell            # Spell checker (for LibreOffice)
     hunspellDicts.en_US # US English dictionary
-    libgen-cli # CLI tool for the Library Genesis dataset
+    libgen-cli          # Library Genesis CLI
 
-    # Obligatory AI inclusion
+    # ── AI ───────────────────────────────────────────────────────────
     claude-code
 
-    # Test SpaceMouse devices
-    spacenav-cube-example
+    # ── Hardware testing ─────────────────────────────────────────────
+    spacenav-cube-example # 3Dconnexion SpaceMouse test app
 
   ];
 

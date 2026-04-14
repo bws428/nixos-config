@@ -1,10 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  # Time zone
+  # ── Time zone ──────────────────────────────────────────────────────
   time.timeZone = "America/New_York";
 
-  # Locale
+  # ── Locale ─────────────────────────────────────────────────────────
+  # Set the system-wide locale and all LC_* categories to US English.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -18,7 +19,9 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Keyboard layout
+  # ── Keyboard layout ────────────────────────────────────────────────
+  # Used by X11/XWayland clients. Native Wayland compositors typically
+  # handle keyboard layout in their own config (e.g. niri's config.kdl).
   services.xserver.xkb = {
     layout = "us";
     variant = "";

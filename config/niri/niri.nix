@@ -1,19 +1,12 @@
 { pkgs, ... }:
 
 {
-  # Niri support packages
+  # ── Niri support packages ──────────────────────────────────────────
+  # Niri is a scrollable-tiling Wayland compositor with no built-in
+  # shell components. DMS (Dank Material Shell) provides the bar,
+  # notifications, wallpaper, launcher, and idle/lock screen, so the
+  # only companion package Niri needs is XWayland support.
   home.packages = with pkgs; [
-    # Most of these aren't needed with DMS working...
-    mako # notification daemon
-    waybar # desktop menu bar
-    swaybg # desktop wallpaper
-    swayidle # idle management
-    swaylock # lockscreen
-    fuzzel # app launcher
-    xwayland-satellite # xwayland support
+    xwayland-satellite  # Rootless XWayland for Niri (X11 app compat)
   ];
-
-  # Niri services
-  services.mako.enable = true;
-  services.swayidle.enable = true;
 }

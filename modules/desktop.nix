@@ -1,27 +1,35 @@
 { config, pkgs, ... }:
 
 {
-  # Niri, a scrollable-tiling Wayland compositor
+  # ── Wayland compositors ────────────────────────────────────────────
+
+  # Niri — a scrollable-tiling Wayland compositor.
   # https://wiki.nixos.org/wiki/Niri
   programs.niri.enable = true;
 
-  # Dank Material Shell
+  # Dank Material Shell — a desktop shell environment.
   # https://danklinux.com
   programs.dms-shell.enable = true;
 
-  # Enable XWayland for compatibility (Steam, etc.)
+  # Enable XWayland for X11 compatibility (needed by Steam, Electron
+  # apps, and other programs that don't support Wayland natively).
   programs.xwayland.enable = true;
 
-  # Gnome Display Manager (NixOS 25.11+)
+  # ── Display manager ────────────────────────────────────────────────
+  # GDM (GNOME Display Manager) handles the graphical login screen
+  # and session selection. Wayland mode avoids an unnecessary X server.
   services.displayManager.gdm = {
     enable = true;
     wayland = true;
   };
 
-  # Security
+  # ── Security ───────────────────────────────────────────────────────
+  # Polkit handles privilege escalation prompts (e.g. "enter password
+  # to install software") for desktop applications.
   security.polkit.enable = true;
   # security.pam.services.swaylock = {};
 
-  # Keyring
+  # GNOME Keyring stores secrets (SSH keys, Wi-Fi passwords, app tokens)
+  # and unlocks automatically on login.
   services.gnome.gnome-keyring.enable = true;
 }
