@@ -147,6 +147,8 @@
     rmpc                # Rusty MPD client
     spotify             # Streaming music
     spicetify-cli       # Spotify UI customization
+    ffmpeg              # Audio/video conversion and processing
+    imagemagick         # Image conversion, resizing, and manipulation
     shotcut             # Video editor
     gimp3-with-plugins  # Image manipulation
     discord             # Voice and text chat
