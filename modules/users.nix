@@ -23,5 +23,20 @@ in
     mkdir -p /var/lib/AccountsService/icons
     cp ${avatar} /var/lib/AccountsService/icons/bws428
     chmod 644 /var/lib/AccountsService/icons/bws428
+
+    # AccountsService reads this metadata file to find the icon path
+    mkdir -p /var/lib/AccountsService/users
+    if [ ! -f /var/lib/AccountsService/users/bws428 ]; then
+      cat > /var/lib/AccountsService/users/bws428 <<USEREOF
+    [User]
+    Icon=/var/lib/AccountsService/icons/bws428
+    USEREOF
+    else
+      # Ensure Icon line exists even if the file was created by the system
+      if ! grep -q '^Icon=' /var/lib/AccountsService/users/bws428; then
+        echo 'Icon=/var/lib/AccountsService/icons/bws428' >> /var/lib/AccountsService/users/bws428
+      fi
+    fi
+    chmod 644 /var/lib/AccountsService/users/bws428
   '';
 }
