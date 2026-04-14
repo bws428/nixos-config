@@ -21,9 +21,9 @@ sudo nixos-rebuild test   --flake .#ghost   # try without a boot entry
 nix flake update                            # refresh flake.lock
 ```
 
-## Nightly auto-upgrade
+## Weekly auto-upgrade
 
-A systemd timer runs at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate overnight.
+A systemd timer runs Sunday at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate weekly.
 
 Nightly GC at 03:00 keeps the 5 most recent generations; store optimization runs automatically. See `modules/upgrade.nix`.
 

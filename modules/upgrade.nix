@@ -20,9 +20,11 @@
       "--print-build-logs"
     ];
 
-    # Run nightly at 02:00, with up to 45 minutes of random delay
-    # to avoid thundering-herd issues if multiple machines upgrade.
-    dates = "02:00";
+    # Run weekly on Sunday at 02:00, with up to 45 minutes of random
+    # delay. Weekly (vs. nightly) reduces exposure to unstable-channel
+    # regressions and avoids GC evicting the last-known-good generation
+    # during long idle periods.
+    dates = "Sun 02:00";
     randomizedDelaySec = "45min";
   };
 
