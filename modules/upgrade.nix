@@ -35,7 +35,7 @@
   # back to GitHub after a successful rebuild.
   systemd.services.nixos-upgrade = {
     # Make git available to the pre/post scripts.
-    path = [ pkgs.git ];
+    path = [ pkgs.git pkgs.sudo ];
 
     # ── preStart: runs before nixos-rebuild ─────────────────────────
     #
