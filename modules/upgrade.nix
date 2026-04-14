@@ -23,6 +23,15 @@
       git pull
       nix flake update
     '';
+    postStart = ''
+      cd ${flakePath}
+      git add flake.lock
+      if ! git diff --cached --quiet; then
+        git commit -m "flake.lock: update inputs"
+        TOKEN=$(cat /root/.github-token)
+        git push "https://''${TOKEN}@github.com/bws428/nixos-config.git" main
+      fi
+    '';
   };
 
   # Automatic system cleanup
