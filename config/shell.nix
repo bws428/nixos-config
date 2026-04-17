@@ -20,10 +20,6 @@
       # Modern ls with icons and directories grouped first.
       ls = "eza -lh --group-directories-first --icons=auto";
       lsa = "ls -la";
-      # One-shot rebuild: stage, commit, push, then switch.
-      # Uses `nh os switch` (from programs.nh) which already knows
-      # the flake path.
-      rebuild = "cd ${flakePath} && git add . && git commit -m 'NixOS rebuild' && git push origin main && nh os switch";
       # Clean old generations, keeping only the 5 most recent.
       clean = "nh clean all --keep 5";
     };
@@ -32,6 +28,21 @@
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
       microfetch                        # Show system info on shell startup
+
+      # One-shot rebuild: stage and commit if there are local changes,
+      # push, then `nh os switch`. A function rather than an alias so
+      # the commit step is skipped cleanly when the tree is already
+      # clean (e.g. right after `git pull`) instead of aborting the
+      # whole chain. Uses `nh os switch` (from programs.nh), which
+      # already knows the flake path.
+      rebuild() {
+        cd "${flakePath}" || return
+        git add .
+        if ! git diff --cached --quiet; then
+          git commit -m 'NixOS rebuild' && git push origin main || return
+        fi
+        nh os switch
+      }
     '';
   };
 
