@@ -27,7 +27,8 @@ output "DP-1" {
 layout {
     gaps 8
     background-color "transparent"
-    center-focused-column "never"
+    center-focused-column "on-overflow"
+    always-center-single-column
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
@@ -188,7 +189,12 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     // Window management
-    Mod+Q repeat=false { close-window; }
+    Mod+Q repeat=false hotkey-overlay-title="Close Window" {
+        close-window;
+    }
+    Mod+C hotkey-overlay-title="Center Window" {
+        center-column;
+    }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -351,8 +357,6 @@ binds {
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
     Mod+Ctrl+F { expand-column-to-available-width; }
-
-    Mod+C { center-column; }
 
     // Center all fully visible columns on screen.
     Mod+Ctrl+C { center-visible-columns; }
