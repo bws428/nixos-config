@@ -96,7 +96,6 @@
     ipcalc              # IP subnet calculator
 
     # ── Misc CLI ─────────────────────────────────────────────────────
-    uv                  # Fast Python package manager
     bat                 # Cat with syntax highlighting
     file                # File type identification
     which               # Locate commands in PATH

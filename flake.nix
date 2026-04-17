@@ -68,6 +68,12 @@
             ./modules/fonts.nix
             ./modules/packages.nix
 
+            # ── Development environment ────────────────────────────────
+            # nix-ld, envfs, and native language toolchains (rustup,
+            # nodejs, bun, uv). Lets prebuilt binaries from outside
+            # nixpkgs run without per-project `nix develop` shells.
+            ./modules/dev.nix
+
             # ── Home Manager ───────────────────────────────────────────
             # Integrated as a NixOS module so `nixos-rebuild` applies
             # both system and user config in one step (no separate
