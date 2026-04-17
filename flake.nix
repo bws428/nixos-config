@@ -21,13 +21,20 @@
     # Patched kernel modules + firmware for the MediaTek MT7927
     # (Filogic 380) WiFi/BT card. Mainline support is not yet merged.
     mt7927.url = "github:clemenscodes/linux-mt7927";
+
+    # Quickshell from master — DMS idle monitoring requires unreleased
+    # IdleMonitor API not yet in any tagged release.
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # ── Flake outputs ────────────────────────────────────────────────────
   #
   # This flake produces a single NixOS system configuration named "ghost".
   # `nixos-rebuild switch --flake .#ghost` builds and activates it.
-  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, quickshell, ... }:
   let
     # Absolute path to this repo on disk. Passed to modules that need
     # to reference the flake directory at runtime (e.g. the auto-upgrade
@@ -37,7 +44,7 @@
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           # specialArgs makes extra values available to every module's
           # function arguments (the { config, pkgs, ... } header).
-          specialArgs = { inherit flakePath mt7927; };
+          specialArgs = { inherit flakePath mt7927 quickshell; };
 
           modules = [
             # ── Hardware ───────────────────────────────────────────────

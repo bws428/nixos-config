@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, quickshell, ... }:
 
 {
   # ── Wayland compositors ────────────────────────────────────────────
@@ -10,6 +10,9 @@
   # Dank Material Shell — a desktop shell environment.
   # https://danklinux.com
   programs.dms-shell.enable = true;
+
+  # Use quickshell from master for idle monitoring (IdleMonitor API).
+  programs.dms-shell.quickshell.package = quickshell.packages.x86_64-linux.default;
 
   # Enable XWayland for X11 compatibility (needed by Steam, Electron
   # apps, and other programs that don't support Wayland natively).
