@@ -32,6 +32,7 @@
   # and appending it here.
   imports = [
     ./config/niri/niri.nix
+    ./config/polkit.nix
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
