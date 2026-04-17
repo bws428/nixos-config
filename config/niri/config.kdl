@@ -129,9 +129,6 @@ binds {
     Mod+Space hotkey-overlay-title="App Launcher" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }
-    Mod+D hotkey-overlay-title="App Launcher - Walker" {
-        spawn "walker";
-    }
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "alacritty";
     }
@@ -195,6 +192,10 @@ binds {
     Mod+C hotkey-overlay-title="Center Window" {
         center-column;
     }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+T       { toggle-window-floating; }
+    Mod+Shift+T { switch-focus-between-floating-and-tiling; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -375,10 +376,6 @@ binds {
     // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
-
-    // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
