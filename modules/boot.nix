@@ -15,6 +15,14 @@
   # upgrade.nix so that boot entries match the retained generations.
   boot.loader.systemd-boot.configurationLimit = 5;
 
+  # ── Plymouth boot splash ────────────────────────────────────────────
+  # Show a graphical splash screen instead of text scroll during boot.
+  # The default "bgrt" theme displays the motherboard vendor logo with
+  # a NixOS-branded spinner. Press Escape to toggle back to text mode.
+  boot.plymouth.enable = true;
+  boot.consoleLogLevel = 3;
+  boot.initrd.verbose = false;
+
   # Linux LTS kernel (best stability with Nvidia drivers)
   boot.kernelPackages = pkgs.linuxPackages;
 

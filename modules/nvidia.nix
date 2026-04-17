@@ -18,6 +18,10 @@
     "nvidia-drm.fbdev=1"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+    # Silent boot — let Plymouth handle the visuals.
+    "quiet"
+    "splash"
+    "udev.log_level=3"
   ];
 
   # Load Nvidia modules early in the boot process (initrd) so the
