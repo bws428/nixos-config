@@ -46,4 +46,29 @@
   # Monitors SSH logs and bans IPs after repeated failed login attempts,
   # reducing brute-force exposure.
   services.fail2ban.enable = true;
+
+  # ── Niri desktop plumbing ──────────────────────────────────────────
+  # GNOME/KDE pull these in transitively; on niri we have to enable
+  # them explicitly or a handful of things silently don't work.
+
+  # Avahi — mDNS / DNS-SD. Without it, Brother network printers do not
+  # show up in CUPS auto-discovery (you'd have to add them by raw IP),
+  # `.local` hostnames don't resolve, and Chromecast/AirPlay targets
+  # are invisible. `nssmdns4` wires mDNS into glibc's name resolution
+  # so ordinary tools (ping, curl, browsers) can hit `.local` names.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  # gvfs — virtual filesystem layer used by Nautilus (and anything
+  # GIO-based). Without it Nautilus has no Trash, can't browse SMB /
+  # SFTP / MTP, and won't show mountable volumes in the sidebar.
+  services.gvfs.enable = true;
+
+  # udisks2 — powers click-to-mount for removable drives in Nautilus
+  # and lets non-root users mount USB sticks / external disks without
+  # editing fstab.
+  services.udisks2.enable = true;
 }
