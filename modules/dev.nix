@@ -37,13 +37,13 @@
       libxkbcommon
       fontconfig
       freetype
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libxcb
+      libx11
+      libxcomposite
+      libxdamage
+      libxext
+      libxfixes
+      libxrandr
+      libxcb
 
       # Pulled in by miscellaneous prebuilt binaries (Chromium, etc.).
       nspr
