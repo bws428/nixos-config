@@ -135,19 +135,16 @@ binds {
     Mod+B hotkey-overlay-title="Open a Web Browser" {
         spawn "chromium";
     }
-    Mod+S hotkey-overlay-title="Open Signal Messenger" {
-        spawn "signal-desktop";
-    }
     Mod+M hotkey-overlay-title="System Monitor" {
         spawn "dms" "ipc" "call" "processlist" "toggle";
     }
     Mod+Comma hotkey-overlay-title="Settings" {
         spawn "dms" "ipc" "call" "settings" "toggle";
     }
-    Mod+N hotkey-overlay-title="Notification Center" {
+    Mod+N {
         spawn "dms" "ipc" "call" "notifications" "toggle";
     }
-    Mod+Y hotkey-overlay-title="Browse Wallpapers" {
+    Mod+Y {
         spawn "dms" "ipc" "call" "dankdash" "wallpaper";
     }
 
@@ -189,7 +186,7 @@ binds {
     Mod+Q repeat=false hotkey-overlay-title="Close Window" {
         close-window;
     }
-    Mod+C hotkey-overlay-title="Center Window" {
+    Mod+Shift+C hotkey-overlay-title="Center Window" {
         center-column;
     }
 
@@ -360,7 +357,7 @@ binds {
     Mod+Ctrl+F { expand-column-to-available-width; }
 
     // Center all fully visible columns on screen.
-    Mod+Ctrl+C { center-visible-columns; }
+    Mod+Ctrl+Shift+C { center-visible-columns; }
 
     // Finer width adjustments.
     // This command can also:
