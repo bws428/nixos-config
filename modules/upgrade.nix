@@ -18,6 +18,7 @@
     # Show full build output in the journal for easier debugging.
     flags = [
       "--print-build-logs"
+      "--no-link"
     ];
 
     # Run weekly on Sunday at 02:00, with up to 45 minutes of random
