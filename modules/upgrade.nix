@@ -25,7 +25,7 @@
     # delay. Weekly (vs. nightly) reduces exposure to unstable-channel
     # regressions and avoids GC evicting the last-known-good generation
     # during long idle periods.
-    dates = "Sun 02:00";
+    dates = "Tue 02:00";
     randomizedDelaySec = "45min";
   };
 
