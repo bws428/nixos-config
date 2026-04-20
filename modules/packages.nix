@@ -111,7 +111,7 @@
     # ── Monitoring ───────────────────────────────────────────────────
     btop                # Interactive resource monitor
     nvtopPackages.nvidia # Nvidia GPU process monitor
-    speedtest-cli       # ISP speed test
+    ookla-speedtest     # ISP speed test (official Ookla binary)
 
     # ── System debugging ─────────────────────────────────────────────
     strace              # Trace system calls
