@@ -38,6 +38,11 @@
     ./config/alacritty.nix
   ];
 
+  # ── Session PATH additions ──────────────────────────────────────────
+  # npm global installs land in ~/.npm-global/bin (see config/shell.nix
+  # for the NPM_CONFIG_PREFIX variable that redirects them there).
+  home.sessionPath = [ "$HOME/.npm-global/bin" ];
+
   # ── Environment session variables ──────────────────────────────────
   # Force dark theme for GTK and Qt apps across all desktop environments.
   home.sessionVariables = {

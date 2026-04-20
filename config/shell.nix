@@ -26,6 +26,12 @@
       zed = "zeditor";
     };
 
+    # Redirect npm global installs to a writable directory.
+    # The Nix store is read-only, so `npm install -g` fails without this.
+    sessionVariables = {
+      NPM_CONFIG_PREFIX = "$HOME/.npm-global";
+    };
+
     # Extra Zsh init sourced at the end of .zshrc.
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
