@@ -62,6 +62,13 @@
     openFirewall = true;
   };
 
+  # Prevent stale PID file from blocking avahi-daemon restarts during
+  # switch-to-configuration. The old daemon sometimes dies without
+  # cleaning up /run/avahi-daemon/pid, causing the new instance to
+  # refuse to start.
+  systemd.services.avahi-daemon.serviceConfig.ExecStartPre =
+    "-/run/current-system/sw/bin/rm -f /run/avahi-daemon/pid";
+
   # gvfs — virtual filesystem layer used by Nautilus (and anything
   # GIO-based). Without it Nautilus has no Trash, can't browse SMB /
   # SFTP / MTP, and won't show mountable volumes in the sidebar.
