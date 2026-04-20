@@ -21,8 +21,8 @@
       "--no-link"
     ];
 
-    # Run weekly on Sunday at 02:00, with up to 45 minutes of random
-    # delay. Weekly (vs. nightly) reduces exposure to unstable-channel
+    # Run weekly at 02:00, with up to 45 minutes of random delay.
+    # Weekly (vs. nightly) reduces exposure to unstable-channel
     # regressions and avoids GC evicting the last-known-good generation
     # during long idle periods.
     dates = "Tue 02:00";
