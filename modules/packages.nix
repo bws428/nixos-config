@@ -100,6 +100,7 @@
     file                # File type identification
     which               # Locate commands in PATH
     gawk                # GNU awk
+    jq                  # JSON processor
     zstd                # Zstandard compression
     gnupg               # GPG encryption
 
