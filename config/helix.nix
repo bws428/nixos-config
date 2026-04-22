@@ -7,6 +7,17 @@
   programs.helix = {
     enable = true;
 
+    # ── Custom themes ────────────────────────────────────────────────
+    # Transparent variant of the built-in carbonfox. Inherits all
+    # syntax/UI colors and just clears the editor background so the
+    # terminal's opacity (Alacritty at 0.9) shows through.
+    themes = {
+      carbonfox_transparent = {
+        inherits = "carbonfox";
+        "ui.background" = { };
+      };
+    };
+
     # ── Language overrides ───────────────────────────────────────────
     languages = {
       language = [
@@ -24,7 +35,7 @@
     # ── Editor settings ──────────────────────────────────────────────
     settings = {
 
-      theme = "catppuccin_macchiato";
+      theme = "carbonfox_transparent";
 
       editor = {
         # Relative line numbers for easier vim-style motions (5j, 12k).
