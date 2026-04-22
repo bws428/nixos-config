@@ -36,6 +36,7 @@
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
+    ./config/tmux.nix
   ];
 
   # ── Session PATH additions ──────────────────────────────────────────
