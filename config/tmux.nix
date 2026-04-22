@@ -56,6 +56,31 @@
 
       # Advertise 24-bit color to programs running inside tmux.
       set -ga terminal-overrides ",alacritty:Tc,xterm-256color:Tc"
+
+      # ── Theme: carbonfox (matches alacritty + helix) ─────────────────
+      # Palette from EdenEast/nightfox.nvim carbonfox.
+      # Status bar uses the default bg so it blends with alacritty's
+      # 0.9 opacity / blur — no opaque strip at the bottom.
+      set -g status-style "bg=default,fg=#b6b8bb"
+      set -g status-left  "#[fg=#0c0c0c,bg=#78a9ff,bold] #S #[fg=#78a9ff,bg=default,nobold] "
+      set -g status-right "#[fg=#7b7c7e] %Y-%m-%d #[fg=#78a9ff] %H:%M "
+      set -g status-left-length 40
+
+      set -g window-status-format         "#[fg=#7b7c7e] #I:#W "
+      set -g window-status-current-format "#[fg=#0c0c0c,bg=#ff7eb6,bold] #I:#W "
+      set -g window-status-separator ""
+
+      set -g pane-border-style        "fg=#353535"
+      set -g pane-active-border-style "fg=#78a9ff"
+
+      set -g message-style         "bg=#252525,fg=#f2f4f8"
+      set -g message-command-style "bg=#252525,fg=#f2f4f8"
+
+      set -g mode-style "bg=#525253,fg=#f2f4f8"
+      set -g clock-mode-colour "#78a9ff"
+
+      set -g copy-mode-match-style         "bg=#525253,fg=#f2f4f8"
+      set -g copy-mode-current-match-style "bg=#ff7eb6,fg=#0c0c0c"
     '';
   };
 }
