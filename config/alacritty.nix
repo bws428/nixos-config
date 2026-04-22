@@ -7,7 +7,8 @@
   programs.alacritty = {
     enable = true;
     # Pre-built color scheme from the alacritty-theme collection.
-    theme = "github_dark";
+    # https://github.com/alacritty/alacritty-theme/tree/master/themes
+    theme = "carbonfox";
     settings = {
       font.size = 15;
       font.normal = {
