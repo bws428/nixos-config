@@ -18,7 +18,7 @@
       # Ensure 256-color support in remote sessions.
       env.TERM = "xterm-256color";
       # Semi-transparent window with blur for a frosted-glass look.
-      window.opacity = 0.85;
+      window.opacity = 0.9;
       window.blur = true;
       # Inner padding so text doesn't touch the window edges.
       window.padding = { x = 25; y = 10; };
