@@ -35,6 +35,7 @@
     ./config/polkit.nix
     ./config/shell.nix
     ./config/helix.nix
+    ./config/nvim.nix
     ./config/alacritty.nix
     ./config/tmux.nix
   ];
