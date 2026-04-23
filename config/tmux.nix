@@ -60,12 +60,12 @@
       # ── Theme: carbonfox (matches alacritty + helix) ─────────────────
       # Palette from EdenEast/nightfox.nvim carbonfox.
       set -g status-style "bg=#78a9ff,fg=#0c0c0c"
-      set -g status-left  "#[fg=#f2f4f8,bg=#0c0c0c,bold] #S #[default] "
-      set -g status-right "#[fg=#0c0c0c] %Y-%m-%d #[fg=#f2f4f8,bg=#0c0c0c,bold] %H:%M "
+      set -g status-left  "#[fg=#f2f4f8,bg=#252525,bold] #S #[default] "
+      set -g status-right "#[fg=#0c0c0c] %Y-%m-%d #[fg=#f2f4f8,bg=#252525,bold] %H:%M "
       set -g status-left-length 40
 
       set -g window-status-format         "#[fg=#0c0c0c] #I:#W "
-      set -g window-status-current-format "#[fg=#0c0c0c,bg=#ff7eb6,bold] #I:#W "
+      set -g window-status-current-format "#[fg=#f2f4f8,bg=#be95ff,bold] #I:#W "
       set -g window-status-separator ""
 
       set -g pane-border-style        "fg=#353535"
