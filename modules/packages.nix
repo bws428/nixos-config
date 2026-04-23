@@ -161,14 +161,9 @@
     hunspellDicts.en_US # US English dictionary
     libgen-cli          # Library Genesis CLI
 
-    # ── Neovim / LazyVim runtime ────────────────────────────────────
-    # Neovim binary + tools LazyVim invokes. The config at
-    # ~/.config/nvim is managed by lazy.nvim (not Home Manager) so it
-    # can write its own lockfile and plugin cache.
-    # Bootstrap a fresh machine with:
-    #   git clone https://github.com/LazyVim/starter ~/.config/nvim
-    #   rm -rf ~/.config/nvim/.git
-    #   nvim
+    # ── Neovim  ──────────────────────────────────────────────────────
+    # Config is managed by lazy.nvim (not Home Manager)
+    # https://www.lazyvim.org/installation
     neovim
     gcc                 # C compiler for nvim-treesitter
     tree-sitter         # tree-sitter CLI (parser builds)
