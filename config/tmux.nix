@@ -59,10 +59,8 @@
 
       # ── Theme: carbonfox (matches alacritty + helix) ─────────────────
       # Palette from EdenEast/nightfox.nvim carbonfox.
-      # Status bar uses the default bg so it blends with alacritty's
-      # 0.9 opacity / blur — no opaque strip at the bottom.
-      set -g status-style "bg=default,fg=#b6b8bb"
-      set -g status-left  "#[fg=#0c0c0c,bg=#78a9ff,bold] #S #[fg=#78a9ff,bg=default,nobold] "
+      set -g status-style "bg=#0c0c0c,fg=#b6b8bb"
+      set -g status-left  "#[fg=#0c0c0c,bg=#78a9ff,bold] #S #[fg=#78a9ff,bg=#0c0c0c,nobold] "
       set -g status-right "#[fg=#7b7c7e] %Y-%m-%d #[fg=#78a9ff] %H:%M "
       set -g status-left-length 40
 
