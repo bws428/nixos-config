@@ -65,7 +65,7 @@
       set -g status-left-length 40
 
       set -g window-status-format         "#[fg=#0c0c0c] #I:#W "
-      set -g window-status-current-format "#[fg=#f2f4f8,bg=#be95ff,bold] #I:#W "
+      set -g window-status-current-format "#[fg=#78a9ff,bg=#161616,bold] #I:#W "
       set -g window-status-separator ""
 
       set -g pane-border-style        "fg=#353535"
