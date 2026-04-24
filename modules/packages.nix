@@ -161,6 +161,9 @@
     hunspellDicts.en_US # US English dictionary
     libgen-cli          # Library Genesis CLI
 
+    # ── Database clients ─────────────────────────────────────────────
+    postgresql          # psql, pg_dump, etc. (client only; no server)
+
     # ── Neovim  ──────────────────────────────────────────────────────
     # Config is managed by lazy.nvim (not Home Manager)
     # https://www.lazyvim.org/installation
