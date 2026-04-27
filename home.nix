@@ -37,6 +37,8 @@
     ./config/helix.nix
     ./config/alacritty.nix
     ./config/tmux.nix
+    ./config/ssh.nix
+    ./config/claude-nas-sync.nix
   ];
 
   # ── Session PATH additions ──────────────────────────────────────────

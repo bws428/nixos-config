@@ -97,6 +97,7 @@
     socat               # Multipurpose network relay
     nmap                # Network scanner
     ipcalc              # IP subnet calculator
+    rsync               # File sync (used by claude-nas-sync)
 
     # ── Misc CLI ─────────────────────────────────────────────────────
     bat                 # Cat with syntax highlighting
