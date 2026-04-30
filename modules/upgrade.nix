@@ -15,6 +15,15 @@
     # flakePath is passed in from flake.nix and points to this repo.
     flake = "${flakePath}#ghost";
 
+    # Build and stage the new generation as the default boot entry,
+    # but do NOT activate it on the running system. This avoids
+    # `switch-to-configuration` failing its pre-switch checks when
+    # nixpkgs flips a critical component (e.g. dbus -> dbus-broker),
+    # which would block live activation but is safe across a reboot.
+    # The user is reminded to reboot via a login-time check in
+    # config/shell.nix.
+    operation = "boot";
+
     # Show full build output in the journal for easier debugging.
     flags = [
       "--print-build-logs"

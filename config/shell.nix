@@ -37,6 +37,15 @@
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
       microfetch                        # Show system info on shell startup
 
+      # Warn if a newer system generation has been built but not booted
+      # into. Happens after `nixos-rebuild boot` — most notably the
+      # weekly auto-upgrade (modules/upgrade.nix), which uses `boot`
+      # mode so critical-component changes can't fail live activation.
+      if [[ "$(readlink -f /nix/var/nix/profiles/system 2>/dev/null)" \
+         != "$(readlink -f /run/booted-system 2>/dev/null)" ]]; then
+        print -P "%F{yellow}NixOS has been updated. Please reboot for the changes to take effect.%f"
+      fi
+
       # One-shot rebuild: stage and commit if there are local changes,
       # push, then `nh os switch`. A function rather than an alias so
       # the commit step is skipped cleanly when the tree is already
