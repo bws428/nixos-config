@@ -107,6 +107,7 @@
     jq                  # JSON processor
     zstd                # Zstandard compression
     gnupg               # GPG encryption
+    openssl             # TLS/SSL toolkit and crypto CLI
 
     # ── Fun ──────────────────────────────────────────────────────────
     cmatrix             # Matrix rain animation
