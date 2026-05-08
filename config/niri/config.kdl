@@ -35,17 +35,18 @@ layout {
         proportion 0.66667
     }
     default-column-width { proportion 0.5; }
+    // Kape colors: active = foreground (#d4be98), inactive = bright black (#2e2a2a).
     focus-ring {
         width 1.5
-        active-color "#7fc8ff"
-        inactive-color "#505050"
+        active-color "#d4be98"
+        inactive-color "#2e2a2a"
     }
     border {
         off
         width 1.5
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
+        active-color "#e7bb5c"
+        inactive-color "#2e2a2a"
+        urgent-color "#c94040"
     }
     shadow {
     }
