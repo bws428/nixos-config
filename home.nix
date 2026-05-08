@@ -36,6 +36,7 @@
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
+    ./config/ghostty.nix
     ./config/tmux.nix
   ];
 
