@@ -115,7 +115,7 @@
     fortune-kind        # Random kind/wholesome quotes
 
     # ── Monitoring ───────────────────────────────────────────────────
-    btop                # Interactive resource monitor
+    # btop is managed via Home Manager (config/btop.nix) for theming.
     nvtopPackages.nvidia # Nvidia GPU process monitor
     ookla-speedtest     # ISP speed test (official Ookla binary)
 
