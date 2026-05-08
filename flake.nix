@@ -90,6 +90,11 @@
               home-manager.useGlobalPkgs = true;
               # Install user packages to /etc/profiles (visible to systemd, etc.)
               home-manager.useUserPackages = true;
+              # On conflict (HM trying to write a file the user already has),
+              # rename the existing file with this extension instead of
+              # failing activation. Recovery: inspect *.hm-bak files and
+              # delete them once you're sure HM's version is what you want.
+              home-manager.backupFileExtension = "hm-bak";
               # Pass flakePath into Home Manager modules the same way
               # we do for NixOS modules above.
               home-manager.extraSpecialArgs = { inherit flakePath; };
