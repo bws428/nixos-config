@@ -35,8 +35,11 @@ layout {
         proportion 0.66667
     }
     default-column-width { proportion 0.5; }
-    // Kape colors: active = second text (#bdae8b), inactive = bright black (#2e2a2a).
+    // Focus-ring disabled — unfocused windows are already dimmed via the
+    // `is-active=false` opacity 0.9 window-rule below, so a colored ring
+    // is redundant. Colors retained in case it's re-enabled.
     focus-ring {
+        off
         width 1.5
         active-color "#bdae8b"
         inactive-color "#2e2a2a"
