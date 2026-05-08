@@ -34,6 +34,16 @@
     "zed/themes/kape.json".source = ./assets/themes/kape/zed.json;
   };
 
+  # Obsidian themes live inside the vault, not under $XDG_CONFIG_HOME,
+  # so they're symlinked via home.file (path is relative to $HOME).
+  # Update the vault path here if the vault is renamed or moved.
+  home.file = {
+    "Documents/Obsidian/Notes/.obsidian/themes/Kape/manifest.json".source =
+      ./assets/themes/kape/obsidian/manifest.json;
+    "Documents/Obsidian/Notes/.obsidian/themes/Kape/theme.css".source =
+      ./assets/themes/kape/obsidian/theme.css;
+  };
+
   # ── Per-program configs ────────────────────────────────────────────
   # Each file in config/ is a Home Manager module that manages one
   # program's settings. Add new programs by creating config/<name>.nix

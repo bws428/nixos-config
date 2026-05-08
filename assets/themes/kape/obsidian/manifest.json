@@ -1,0 +1,7 @@
+{
+  "name": "Kape",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "author": "gabiuz (palette) — Obsidian port via NixOS config",
+  "authorUrl": "https://github.com/gabiuz/kape"
+}

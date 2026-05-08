@@ -1,0 +1,96 @@
+/*
+ * Kape — a warm dark color scheme rooted in coffee, earth, and amber.
+ * Palette: https://github.com/gabiuz/kape
+ *
+ * Implemented as overrides of Obsidian's standard CSS color variables,
+ * scoped to .theme-dark. Light mode falls back to Obsidian default.
+ */
+
+.theme-dark {
+  /* ── Base palette: backgrounds and grayscale ──────────────────── */
+  --color-base-00:  #181616;
+  --color-base-05:  #1e1b1b;
+  --color-base-10:  #1e1b1b;
+  --color-base-20:  #2e2a2a;
+  --color-base-25:  #2e2a2a;
+  --color-base-30:  #3a3434;
+  --color-base-35:  #5a524c;
+  --color-base-40:  #665c54;
+  --color-base-50:  #928374;
+  --color-base-60:  #928374;
+  --color-base-70:  #bdae8b;
+  --color-base-100: #d4be98;
+
+  /* ── Accent palette ───────────────────────────────────────────── */
+  --color-red:        #b53535;
+  --color-red-rgb:    181, 53, 53;
+  --color-orange:     #c87941;
+  --color-orange-rgb: 200, 121, 65;
+  --color-yellow:     #e7bb5c;
+  --color-yellow-rgb: 231, 187, 92;
+  --color-green:      #b4c76e;
+  --color-green-rgb:  180, 199, 110;
+  --color-cyan:       #689d8a;
+  --color-cyan-rgb:   104, 157, 138;
+  --color-blue:       #7b8fd4;
+  --color-blue-rgb:   123, 143, 212;
+  --color-purple:     #b06880;
+  --color-purple-rgb: 176, 104, 128;
+  --color-pink:       #c8889a;
+  --color-pink-rgb:   200, 136, 154;
+
+  /* ── Backgrounds ──────────────────────────────────────────────── */
+  --background-primary:               #181616;
+  --background-primary-alt:           #1e1b1b;
+  --background-secondary:             #1e1b1b;
+  --background-secondary-alt:         #2e2a2a;
+  --background-modifier-border:       #3a3434;
+  --background-modifier-border-hover: #5a524c;
+  --background-modifier-border-focus: #e7bb5c;
+  --background-modifier-active-hover: #2e2a2a;
+  --background-modifier-hover:        #2e2a2a;
+  --background-modifier-form-field:   #1e1b1b;
+
+  /* ── Text ─────────────────────────────────────────────────────── */
+  --text-normal:        #d4be98;
+  --text-muted:         #bdae8b;
+  --text-faint:         #928374;
+  --text-error:         #b53535;
+  --text-accent:        #e7bb5c;
+  --text-accent-hover:  #f0cc7a;
+  --text-on-accent:     #181616;
+  --text-selection:     #2e2a2a;
+  --text-highlight-bg:  rgba(231, 187, 92, 0.35);
+
+  /* ── Interactive ──────────────────────────────────────────────── */
+  --interactive-normal:        #1e1b1b;
+  --interactive-hover:          #2e2a2a;
+  --interactive-accent:         #e7bb5c;
+  --interactive-accent-hover:   #f0cc7a;
+
+  /* ── Code (syntax highlighting in code blocks) ────────────────── */
+  --code-background:  #1e1b1b;
+  --code-normal:      #d4be98;
+  --code-comment:     #928374;
+  --code-keyword:     #7b8fd4;
+  --code-string:      #b4c76e;
+  --code-function:    #689d8a;
+  --code-property:    #b53535;
+  --code-tag:         #b06880;
+  --code-value:       #b06880;
+  --code-important:   #c87941;
+  --code-punctuation: #bdae8b;
+
+  /* ── Chrome / structural ──────────────────────────────────────── */
+  --titlebar-background:         #181616;
+  --titlebar-background-focused: #181616;
+  --status-bar-background:       #1e1b1b;
+  --hr-color:                    #3a3434;
+  --tab-outline-color:           #3a3434;
+
+  /* ── Misc accents ─────────────────────────────────────────────── */
+  --blockquote-border-color: #e7bb5c;
+  --checklist-done-color:    #928374;
+  --tag-color:               #c87941;
+  --tag-background:          rgba(200, 121, 65, 0.15);
+}
