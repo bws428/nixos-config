@@ -29,6 +29,9 @@
     # Theme & Colors → Custom, then pick this file.
     "DankMaterialShell/themes/kape/theme.json".source =
       ./assets/themes/kape/theme.json;
+    # Custom Zed theme — kape palette mapped onto Zed's theme schema.
+    # Pick "Kape" via Zed's theme selector (Cmd-K Cmd-T).
+    "zed/themes/kape.json".source = ./assets/themes/kape/zed.json;
   };
 
   # ── Per-program configs ────────────────────────────────────────────
