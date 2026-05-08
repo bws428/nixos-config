@@ -24,6 +24,11 @@
   # These are symlinked into ~/.config/ via the Nix store.
   xdg.configFile = {
     "niri/config.kdl".source = ./config/niri/config.kdl;
+    # Custom DMS theme — Material 3 mapping of the kape palette
+    # (https://github.com/gabiuz/kape). Select via DMS Settings →
+    # Theme & Colors → Custom, then pick this file.
+    "DankMaterialShell/themes/kape/theme.json".source =
+      ./assets/themes/kape/theme.json;
   };
 
   # ── Per-program configs ────────────────────────────────────────────

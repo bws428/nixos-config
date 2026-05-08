@@ -1,0 +1,28 @@
+{
+  "id": "kape",
+  "name": "Kape",
+  "version": "1.0.0",
+  "author": "gabiuz (palette) — DMS port via NixOS config",
+  "description": "A warm dark color scheme rooted in coffee, earth, and amber.",
+  "dark": {
+    "primary": "#e7bb5c",
+    "primaryText": "#181616",
+    "primaryContainer": "#c87941",
+    "secondary": "#c87941",
+    "surface": "#1e1b1b",
+    "surfaceText": "#d4be98",
+    "surfaceVariant": "#2e2a2a",
+    "surfaceVariantText": "#bdae8b",
+    "surfaceTint": "#e7bb5c",
+    "background": "#181616",
+    "backgroundText": "#d4be98",
+    "outline": "#928374",
+    "surfaceContainer": "#1e1b1b",
+    "surfaceContainerHigh": "#2e2a2a",
+    "surfaceContainerHighest": "#3a3434",
+    "error": "#b53535",
+    "warning": "#c87941",
+    "info": "#689d8a",
+    "matugen_type": "scheme-tonal-spot"
+  }
+}
