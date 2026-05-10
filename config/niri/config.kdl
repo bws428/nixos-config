@@ -47,7 +47,7 @@ layout {
     border {
         off
         width 1.5
-        active-color "#e7bb5c"
+        active-color "#d99a4a"
         inactive-color "#2e2a2a"
         urgent-color "#c94040"
     }

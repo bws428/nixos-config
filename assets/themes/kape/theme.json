@@ -5,15 +5,15 @@
   "author": "gabiuz (palette) — DMS port via NixOS config",
   "description": "A warm dark color scheme rooted in coffee, earth, and amber.",
   "dark": {
-    "primary": "#e7bb5c",
+    "primary": "#d99a4a",
     "primaryText": "#181616",
-    "primaryContainer": "#c87941",
-    "secondary": "#c87941",
+    "primaryContainer": "#b8642e",
+    "secondary": "#b8642e",
     "surface": "#1e1b1b",
     "surfaceText": "#d4be98",
     "surfaceVariant": "#2e2a2a",
     "surfaceVariantText": "#bdae8b",
-    "surfaceTint": "#e7bb5c",
+    "surfaceTint": "#d99a4a",
     "background": "#181616",
     "backgroundText": "#d4be98",
     "outline": "#928374",
@@ -21,7 +21,7 @@
     "surfaceContainerHigh": "#2e2a2a",
     "surfaceContainerHighest": "#3a3434",
     "error": "#b53535",
-    "warning": "#c87941",
+    "warning": "#b8642e",
     "info": "#689d8a",
     "matugen_type": "scheme-tonal-spot"
   }

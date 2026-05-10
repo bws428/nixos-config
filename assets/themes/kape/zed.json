@@ -9,8 +9,8 @@
       "style": {
         "border": "#3a3434",
         "border.variant": "#1e1b1b",
-        "border.focused": "#e7bb5c",
-        "border.selected": "#e7bb5c",
+        "border.focused": "#d99a4a",
+        "border.selected": "#d99a4a",
         "border.transparent": null,
         "border.disabled": null,
         "elevated_surface.background": "#2e2a2a",
@@ -100,8 +100,8 @@
         "info.background": "#7b8fd433",
         "info.border": "#3a3434",
 
-        "modified": "#e7bb5c",
-        "modified.background": "#e7bb5c33",
+        "modified": "#d99a4a",
+        "modified.background": "#d99a4a33",
         "modified.border": "#3a3434",
 
         "predictive": "#b06880",
@@ -120,18 +120,18 @@
         "unreachable.background": "#18161633",
         "unreachable.border": "#3a3434",
 
-        "warning": "#e7bb5c",
-        "warning.background": "#e7bb5c33",
+        "warning": "#d99a4a",
+        "warning.background": "#d99a4a33",
         "warning.border": "#3a3434",
 
         "players": [
           { "cursor": "#689d8a", "background": "#689d8a20", "selection": "#689d8a30" },
           { "cursor": "#b06880", "background": "#b0688020", "selection": "#b0688030" },
           { "cursor": "#c8889a", "background": "#c8889a20", "selection": "#c8889a30" },
-          { "cursor": "#c87941", "background": "#c8794120", "selection": "#c8794130" },
+          { "cursor": "#b8642e", "background": "#b8642e20", "selection": "#b8642e30" },
           { "cursor": "#89b8a8", "background": "#89b8a820", "selection": "#89b8a830" },
           { "cursor": "#b53535", "background": "#b5353520", "selection": "#b5353530" },
-          { "cursor": "#e7bb5c", "background": "#e7bb5c20", "selection": "#e7bb5c30" },
+          { "cursor": "#d99a4a", "background": "#d99a4a20", "selection": "#d99a4a30" },
           { "cursor": "#b4c76e", "background": "#b4c76e20", "selection": "#b4c76e30" }
         ],
 
@@ -190,9 +190,9 @@
         "terminal.ansi.green": "#b4c76eff",
         "terminal.ansi.bright_green": "#cad98aff",
         "terminal.ansi.dim_green": "#b4c76eff",
-        "terminal.ansi.yellow": "#e7bb5cff",
-        "terminal.ansi.bright_yellow": "#f0cc7aff",
-        "terminal.ansi.dim_yellow": "#e7bb5cff",
+        "terminal.ansi.yellow": "#d99a4aff",
+        "terminal.ansi.bright_yellow": "#e6ad60ff",
+        "terminal.ansi.dim_yellow": "#d99a4aff",
         "terminal.ansi.blue": "#7b8fd4ff",
         "terminal.ansi.bright_blue": "#9aaae0ff",
         "terminal.ansi.dim_blue": "#7b8fd4ff",

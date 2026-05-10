@@ -42,7 +42,7 @@
           black = "#181616";
           red = "#b53535";
           green = "#b4c76e";
-          yellow = "#e7bb5c";
+          yellow = "#d99a4a";
           blue = "#7b8fd4";
           magenta = "#b06880";
           cyan = "#689d8a";
@@ -52,7 +52,7 @@
           black = "#2e2a2a";
           red = "#c94040";
           green = "#cad98a";
-          yellow = "#f0cc7a";
+          yellow = "#e6ad60";
           blue = "#9aaae0";
           magenta = "#c8889a";
           cyan = "#89b8a8";

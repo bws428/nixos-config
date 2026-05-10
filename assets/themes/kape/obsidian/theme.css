@@ -24,10 +24,10 @@
   /* ── Accent palette ───────────────────────────────────────────── */
   --color-red:        #b53535;
   --color-red-rgb:    181, 53, 53;
-  --color-orange:     #c87941;
-  --color-orange-rgb: 200, 121, 65;
-  --color-yellow:     #e7bb5c;
-  --color-yellow-rgb: 231, 187, 92;
+  --color-orange:     #b8642e;
+  --color-orange-rgb: 184, 100, 46;
+  --color-yellow:     #d99a4a;
+  --color-yellow-rgb: 217, 154, 74;
   --color-green:      #b4c76e;
   --color-green-rgb:  180, 199, 110;
   --color-cyan:       #689d8a;
@@ -46,7 +46,7 @@
   --background-secondary-alt:         #2e2a2a;
   --background-modifier-border:       #3a3434;
   --background-modifier-border-hover: #5a524c;
-  --background-modifier-border-focus: #e7bb5c;
+  --background-modifier-border-focus: #d99a4a;
   --background-modifier-active-hover: #2e2a2a;
   --background-modifier-hover:        #2e2a2a;
   --background-modifier-form-field:   #1e1b1b;
@@ -56,17 +56,17 @@
   --text-muted:         #bdae8b;
   --text-faint:         #928374;
   --text-error:         #b53535;
-  --text-accent:        #e7bb5c;
-  --text-accent-hover:  #f0cc7a;
+  --text-accent:        #d99a4a;
+  --text-accent-hover:  #e6ad60;
   --text-on-accent:     #181616;
   --text-selection:     #2e2a2a;
-  --text-highlight-bg:  rgba(231, 187, 92, 0.35);
+  --text-highlight-bg:  rgba(217, 154, 74, 0.35);
 
   /* ── Interactive ──────────────────────────────────────────────── */
   --interactive-normal:        #1e1b1b;
   --interactive-hover:          #2e2a2a;
-  --interactive-accent:         #e7bb5c;
-  --interactive-accent-hover:   #f0cc7a;
+  --interactive-accent:         #d99a4a;
+  --interactive-accent-hover:   #e6ad60;
 
   /* ── Code (syntax highlighting in code blocks) ────────────────── */
   --code-background:  #1e1b1b;
@@ -78,7 +78,7 @@
   --code-property:    #b53535;
   --code-tag:         #b06880;
   --code-value:       #b06880;
-  --code-important:   #c87941;
+  --code-important:   #b8642e;
   --code-punctuation: #bdae8b;
 
   /* ── Chrome / structural ──────────────────────────────────────── */
@@ -89,8 +89,8 @@
   --tab-outline-color:           #3a3434;
 
   /* ── Misc accents ─────────────────────────────────────────────── */
-  --blockquote-border-color: #e7bb5c;
+  --blockquote-border-color: #d99a4a;
   --checklist-done-color:    #928374;
-  --tag-color:               #c87941;
-  --tag-background:          rgba(200, 121, 65, 0.15);
+  --tag-color:               #b8642e;
+  --tag-background:          rgba(184, 100, 46, 0.15);
 }
