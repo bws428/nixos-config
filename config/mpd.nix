@@ -1,0 +1,47 @@
+{ config, ... }:
+
+{
+  # ── Music Player Daemon ────────────────────────────────────────────
+  # Single-user desktop setup: MPD runs as a Home Manager *user* service
+  # (not a system service), so it can read $HOME/Music without uid/gid
+  # gymnastics and is tied to the login session.
+  #
+  # `network.startWhenNeeded = true` enables socket activation — the
+  # daemon spins up on first client connect, idles to zero otherwise.
+  # No always-on process.
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/Music";
+    network.startWhenNeeded = true;
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "PipeWire"
+      }
+    '';
+  };
+
+  # MPRIS bridge — without this, `playerctl`, the DMS bar widget, and
+  # the keyboard media keys can't see MPD. With it, MPD appears alongside
+  # Spotify in the same control surface.
+  services.mpd-mpris.enable = true;
+
+  # ── rmpc (Rusty MPD client, TUI) ───────────────────────────────────
+  # The HM module writes `~/.config/rmpc/config.ron` from `config` below;
+  # theme files are separate, so the kape theme is dropped via
+  # xdg.configFile and referenced by name.
+  programs.rmpc = {
+    enable = true;
+    config = ''
+      (
+        address: "127.0.0.1:6600",
+        theme: Some("kape"),
+        volume_step: 5,
+        enable_mouse: true,
+        enable_config_hot_reload: true,
+      )
+    '';
+  };
+
+  xdg.configFile."rmpc/themes/kape.ron".source = ./rmpc/kape.ron;
+}

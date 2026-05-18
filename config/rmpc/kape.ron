@@ -1,0 +1,69 @@
+// Kape theme for rmpc — autumn-amber variant.
+// Anchors: amber #d99a4a for focus / now-playing,
+//          burnt sienna #b8642e for resting borders.
+// Kept visually consistent with the rest of the kape stack
+// (alacritty, ghostty, btop, DMS, Zed, Obsidian).
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+    default_album_art_path: None,
+    format_tag_separator: " | ",
+    browser_column_widths: [20, 38, 42],
+
+    background_color: "#181616",
+    text_color: "#d4be98",
+    header_background_color: "#181616",
+    modal_background_color: "#2e2a2a",
+    modal_backdrop: true,
+
+    preview_label_style:          (fg: "#d99a4a", modifiers: "Bold"),
+    preview_metadata_group_style: (fg: "#e6ad60", modifiers: "Bold"),
+    highlighted_item_style:       (fg: "#d99a4a", modifiers: "Bold"),
+    current_item_style:           (fg: "#181616", bg: "#d99a4a", modifiers: "Bold"),
+    borders_style:                (fg: "#b8642e"),
+    highlight_border_style:       (fg: "#d99a4a"),
+
+    symbols: (
+        song: "♪",
+        dir: "📁",
+        playlist: "≡",
+        marker: "▶",
+        ellipsis: "…",
+        song_style: None,
+        dir_style: None,
+        playlist_style: None,
+    ),
+
+    level_styles: (
+        info:  (fg: "#7b8fd4", bg: "#181616"),
+        warn:  (fg: "#d99a4a", bg: "#181616"),
+        error: (fg: "#c94040", bg: "#181616"),
+        debug: (fg: "#b4c76e", bg: "#181616"),
+        trace: (fg: "#b06880", bg: "#181616"),
+    ),
+
+    progress_bar: (
+        symbols: ["█", "█", "█", " ", "█"],
+        track_style: None,
+        elapsed_style: (fg: "#d99a4a"),
+        thumb_style:   (fg: "#e6ad60"),
+        use_track_when_empty: true,
+    ),
+
+    scrollbar: (
+        symbols: ["│", "█", "▲", "▼"],
+        track_style: (),
+        ends_style:  (),
+        thumb_style: (fg: "#d99a4a"),
+    ),
+
+    tab_bar: (
+        active_style:   (fg: "#181616", bg: "#d99a4a", modifiers: "Bold"),
+        inactive_style: (fg: "#d4be98"),
+    ),
+
+    lyrics: (
+        timestamp: false,
+    ),
+)

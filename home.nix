@@ -57,6 +57,7 @@
     ./config/btop.nix
     ./config/ghostty.nix
     ./config/tmux.nix
+    ./config/mpd.nix
   ];
 
   # ── Session PATH additions ──────────────────────────────────────────
