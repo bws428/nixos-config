@@ -80,7 +80,16 @@
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
+    # Adopt the post-26.05 default: don't push a theme name into GTK4.
+    # libadwaita apps (Nautilus, Loupe, etc.) ignore theme names anyway
+    # — dark mode is driven by the dconf color-scheme key set below.
+    gtk4.theme = null;
   };
+
+  # ── libadwaita / GNOME app dark mode ───────────────────────────────
+  # Single source of truth for "prefer dark" across libadwaita apps.
+  # Reads as `org.gnome.desktop.interface color-scheme = 'prefer-dark'`.
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   # ── Qt theme ───────────────────────────────────────────────────────
   # Route Qt apps through the GTK3 platform plugin so they pick up the
