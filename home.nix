@@ -64,11 +64,30 @@
   # for the NPM_CONFIG_PREFIX variable that redirects them there).
   home.sessionPath = [ "$HOME/.npm-global/bin" ];
 
-  # ── Environment session variables ──────────────────────────────────
-  # Force dark theme for GTK and Qt apps across all desktop environments.
-  home.sessionVariables = {
-    GTK_THEME = "Adwaita:dark";
-    QT_STYLE_OVERRIDE = "adwaita-dark";
-    QT_QPA_PLATFORMTHEME = "gtk3";
+  # ── GTK theme + icon theme ─────────────────────────────────────────
+  # Canonical HM shape (writes gtk-3.0/settings.ini, gtk-4.0/settings.ini,
+  # .gtkrc-2.0). Replaces the older GTK_THEME env-var approach, which set
+  # the widget theme but had no equivalent for `gtk-icon-theme-name` —
+  # so app-icon lookups had nothing to prefer over (mostly-empty)
+  # hicolor and rendered as broken-image placeholders.
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
+
+  # ── Qt theme ───────────────────────────────────────────────────────
+  # Route Qt apps through the GTK3 platform plugin so they pick up the
+  # GTK theme above. Replaces QT_STYLE_OVERRIDE / QT_QPA_PLATFORMTHEME
+  # env vars with the canonical HM module.
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk3";
   };
 }

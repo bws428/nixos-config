@@ -19,12 +19,15 @@
   programs.xwayland.enable = true;
 
   # ── Display manager ────────────────────────────────────────────────
-  # GDM (GNOME Display Manager) handles the graphical login screen
-  # and session selection. Wayland mode avoids an unnecessary X server.
-  services.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
+  # Login screen is handled by the DMS greeter under greetd; see
+  # modules/greeter.nix. GDM is kept here, commented, as a one-edit
+  # fallback if the greeter/greetd path needs to be reverted without
+  # rolling back the whole generation.
+  #
+  # services.displayManager.gdm = {
+  #   enable = true;
+  #   wayland = true;
+  # };
 
   # ── Security ───────────────────────────────────────────────────────
   # Polkit handles privilege escalation prompts (e.g. "enter password
@@ -35,4 +38,15 @@
   # GNOME Keyring stores secrets (SSH keys, Wi-Fi passwords, app tokens)
   # and unlocks automatically on login.
   services.gnome.gnome-keyring.enable = true;
+
+  # ── GTK / icon theme plumbing ──────────────────────────────────────
+  # dconf is the settings backend GNOME apps (Nautilus, Loupe, etc.)
+  # read their prefs from. GDM pulled this in transitively; without
+  # it Nautilus can't persist sort order, sidebar pins, view mode, etc.
+  programs.dconf.enable = true;
+
+  # Rebuild the system-wide hicolor icon cache on activation so newly
+  # added icon themes are discoverable to GTK apps. Auto-enabled when
+  # GNOME is the DE; needs to be explicit now that it isn't.
+  gtk.iconCache.enable = true;
 }

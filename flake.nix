@@ -70,6 +70,7 @@
 
             # ── Desktop environments ───────────────────────────────────
             ./modules/desktop.nix
+            ./modules/greeter.nix
 
             # ── Fonts & packages ───────────────────────────────────────
             ./modules/fonts.nix

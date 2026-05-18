@@ -69,6 +69,16 @@
     playerctl           # MPRIS media player control (play/pause/next)
     chafa               # Terminal image viewer (wallpaper preview, etc.)
 
+    # ── Icon & GTK themes ────────────────────────────────────────────
+    # GDM used to pull these in transitively. Now that the greeter is
+    # DMS-under-greetd, no GNOME component drags them in — install
+    # explicitly so the DMS dock/launcher, Nautilus, and other GTK
+    # apps can resolve icon names instead of falling back to hicolor
+    # (which is mostly empty) and rendering broken-image placeholders.
+    papirus-icon-theme  # primary: broad app + folder + MIME coverage
+    adwaita-icon-theme  # fallback Papirus inherits from; Nautilus chrome
+    gnome-themes-extra  # provides the Adwaita-dark GTK widget theme
+
     # ── File managers ────────────────────────────────────────────────
     yazi                # Terminal file manager
     nautilus            # GNOME graphical file manager
