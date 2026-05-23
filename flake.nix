@@ -28,13 +28,18 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Declarative Flatpak management. Lets us list flatpaks in the
+    # config and have nixos-rebuild install/update/remove them to match
+    # — keeps Flathub apps in the same source-of-truth as everything else.
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   # ── Flake outputs ────────────────────────────────────────────────────
   #
   # This flake produces a single NixOS system configuration named "ghost".
   # `nixos-rebuild switch --flake .#ghost` builds and activates it.
-  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, quickshell, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, quickshell, nix-flatpak, ... }:
   let
     # Absolute path to this repo on disk. Passed to modules that need
     # to reference the flake directory at runtime (e.g. the auto-upgrade
@@ -54,6 +59,10 @@
 
             # Out-of-tree MT7927 WiFi/BT driver (until mainline support lands).
             mt7927.nixosModules.default
+
+            # nix-flatpak — adds services.flatpak.{packages,remotes,update,…}
+            # on top of the upstream services.flatpak module.
+            nix-flatpak.nixosModules.nix-flatpak
 
             # ── System modules ─────────────────────────────────────────
             # Each file in modules/ owns one concern. Add a new module by

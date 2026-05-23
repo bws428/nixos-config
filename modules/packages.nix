@@ -2,9 +2,26 @@
 
 {
   # ── Flatpak ────────────────────────────────────────────────────────
-  # Some apps (Bambu Studio, etc.) are easiest to run as Flatpaks.
-  # https://flathub.org/en/setup/NixOS
-  services.flatpak.enable = true;
+  # Declarative Flatpak management via nix-flatpak (flake input).
+  # Bambu Studio is here (not in systemPackages) because the nixpkgs
+  # `bambu-studio` build currently ships a blank 3D viewport on
+  # NVIDIA+Wayland — tracked by nixpkgs#498311 and PR #522161. The
+  # Flathub build bundles its own GL/WebKit deps and works reliably.
+  # Revisit moving to native once #522161 merges.
+  services.flatpak = {
+    enable = true;
+    # Refresh installed flatpaks on every rebuild — keeps them in sync
+    # with the weekly auto-upgrade rather than drifting out-of-band.
+    update.onActivation = true;
+    # Treat the `packages` list as the source of truth: any flatpak
+    # installed imperatively that isn't listed here gets removed on
+    # rebuild. Comment this out if you want to experiment with ad-hoc
+    # `flatpak install` without losing the app on the next switch.
+    uninstallUnmanaged = true;
+    packages = [
+      "com.bambulab.BambuStudio"
+    ];
+  };
 
   # ── SpaceMouse ─────────────────────────────────────────────────────
   # 3Dconnexion SpaceMouse driver. The wantedBy override ensures the
