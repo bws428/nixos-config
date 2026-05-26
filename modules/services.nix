@@ -2,15 +2,31 @@
 
 {
   # ── Printing (CUPS) ────────────────────────────────────────────────
+  # Declarative IPP Everywhere queue for the office Brother MFC-L3720CDW.
+  # The printer advertises driverless IPP (URF / PWG-Raster) over mDNS,
+  # so no vendor driver is needed and no PPD has to be carried — `model =
+  # "everywhere"` tells lpadmin to fetch the printer's own IPP attributes.
+  #
+  # cups-browsed is intentionally disabled: it auto-creates ephemeral
+  # `implicitclass://` queues from mDNS adverts that silently fail to
+  # forward jobs, and it has been deprecated upstream in favour of
+  # permanent driverless queues. Disabling it leaves a single, declared,
+  # reproducible queue that survives reboots and rebuilds.
   services.printing.enable = true;
+  services.printing.browsed.enable = false;
 
-  # Brother printer drivers. brlaser covers most Brother laser printers;
-  # brgenml1* adds support for older models via generic Brother drivers.
-  services.printing.drivers = [
-    pkgs.brlaser
-    pkgs.brgenml1lpr
-    pkgs.brgenml1cupswrapper
-  ];
+  hardware.printers = {
+    ensurePrinters = [{
+      name = "Brother_MFC_L3720CDW";
+      location = "Office";
+      deviceUri = "ipp://BRWE86538073798.local/ipp/print";
+      model = "everywhere";
+      ppdOptions = {
+        PageSize = "Letter";
+      };
+    }];
+    ensureDefaultPrinter = "Brother_MFC_L3720CDW";
+  };
 
   # ── Audio (PipeWire) ───────────────────────────────────────────────
   # PipeWire replaces PulseAudio and provides low-latency audio,
