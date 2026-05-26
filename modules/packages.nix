@@ -189,6 +189,7 @@
     libreoffice         # Office suite
     hunspell            # Spell checker (for LibreOffice)
     hunspellDicts.en_US # US English dictionary
+    kdePackages.okular  # PDF viewer (annotations, forms, signatures)
     libgen-cli          # Library Genesis CLI
 
     # ── Database clients ─────────────────────────────────────────────
