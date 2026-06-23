@@ -79,6 +79,13 @@
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
     size = 24;
+    # Don't let HM manage ~/.icons: a pre-existing manual symlink
+    # (~/.icons -> .local/share/icons) lives there, so HM's dotIcons
+    # writes collide with it (mkdir "File exists" → activation fails).
+    # The cursor theme is still written to ~/.local/share/icons via the
+    # module's unconditional xdg.dataFile, which is where that symlink
+    # points — so this is fully covered without touching ~/.icons.
+    dotIcons.enable = false;
   };
 
   # ── GTK theme + icon theme ─────────────────────────────────────────
