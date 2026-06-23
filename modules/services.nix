@@ -3,9 +3,22 @@
 {
   # ── Printing (CUPS) ────────────────────────────────────────────────
   # Declarative IPP Everywhere queue for the office Brother MFC-L3720CDW.
-  # The printer advertises driverless IPP (URF / PWG-Raster) over mDNS,
-  # so no vendor driver is needed and no PPD has to be carried — `model =
-  # "everywhere"` tells lpadmin to fetch the printer's own IPP attributes.
+  # The printer advertises driverless IPP (URF / PWG-Raster), so no vendor
+  # driver is needed and no PPD has to be carried — `model = "everywhere"`
+  # tells lpadmin to fetch the printer's own IPP attributes.
+  #
+  # deviceUri uses the printer's IP, NOT its mDNS .local name. The
+  # everywhere model is resolved by cupsd (lpadmin hands the URI to the
+  # local scheduler, which connects to the printer to fetch attributes),
+  # and cupsd cannot resolve `.local` in its own context — an
+  # `ipp://…​.local/…` URI fails at queue-creation time with
+  # "Unable to connect … System error" even though the printer is
+  # reachable and shell tools (avahi/ipptool) resolve it fine. Using the
+  # IP sidesteps that entirely. Tradeoff: the IP must stay put — set a
+  # DHCP reservation for the printer's MAC on the router (e86538073798) so
+  # a lease change can't silently break the queue. If printing ever stops,
+  # confirm the current address with `avahi-resolve -n
+  # BRWE86538073798.local` and update the IP below.
   #
   # cups-browsed is intentionally disabled: it auto-creates ephemeral
   # `implicitclass://` queues from mDNS adverts that silently fail to
@@ -19,7 +32,7 @@
     ensurePrinters = [{
       name = "Brother_MFC_L3720CDW";
       location = "Office";
-      deviceUri = "ipp://BRWE86538073798.local/ipp/print";
+      deviceUri = "ipp://192.168.100.73/ipp/print";
       model = "everywhere";
       ppdOptions = {
         PageSize = "Letter";
