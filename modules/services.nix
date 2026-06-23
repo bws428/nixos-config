@@ -28,6 +28,31 @@
     ensureDefaultPrinter = "Brother_MFC_L3720CDW";
   };
 
+  # The ensure-printers oneshot calls `lpadmin`, which must resolve and
+  # contact the printer over the network to fetch its driverless IPP
+  # attributes (model = "everywhere", deviceUri uses the mDNS .local
+  # name). The upstream unit is ordered only After=cups.service, so at
+  # boot it can run before the network is up and before avahi-daemon is
+  # answering mDNS — `.local` fails to resolve, lpadmin errors, and the
+  # queue is never created. Order it after the network and avahi so the
+  # lookup actually works.
+  #
+  # Belt-and-suspenders: treat exit 1 as success so a genuinely offline
+  # printer (asleep / off-network) at switch time can't fail the whole
+  # `nixos-rebuild switch` (status 4), which would also wedge the weekly
+  # unattended upgrade (see modules/upgrade.nix). The queue is persistent
+  # once created, so it only needs one successful run.
+  #
+  # Tradeoff: SuccessExitStatus also masks genuine lpadmin
+  # misconfigurations that exit 1 (bad option, unknown model). If the
+  # queue silently stops appearing, run `ensure-printers-start` by hand
+  # (as root) to see the real error.
+  systemd.services.ensure-printers = {
+    after = [ "network-online.target" "avahi-daemon.service" "nss-lookup.target" ];
+    wants = [ "network-online.target" "avahi-daemon.service" ];
+    serviceConfig.SuccessExitStatus = "0 1";
+  };
+
   # ── Audio (PipeWire) ───────────────────────────────────────────────
   # PipeWire replaces PulseAudio and provides low-latency audio,
   # screen sharing, and Bluetooth codec support. The PulseAudio
