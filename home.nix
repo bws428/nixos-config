@@ -63,7 +63,13 @@
   # ── Session PATH additions ──────────────────────────────────────────
   # npm global installs land in ~/.npm-global/bin (see config/shell.nix
   # for the NPM_CONFIG_PREFIX variable that redirects them there).
-  home.sessionPath = [ "$HOME/.npm-global/bin" ];
+  # ~/.local/bin holds user-installed binaries (e.g. the native
+  # Claude Code install), which expect this on PATH per the XDG/systemd
+  # user convention.
+  home.sessionPath = [
+    "$HOME/.npm-global/bin"
+    "$HOME/.local/bin"
+  ];
 
   # ── Mouse cursor theme ─────────────────────────────────────────────
   # Single source of truth for the pointer cursor across Wayland (niri
