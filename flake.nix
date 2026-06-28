@@ -68,7 +68,6 @@
             # Each file in modules/ owns one concern. Add a new module by
             # creating the file and appending it to this list.
             ./modules/boot.nix
-            ./modules/usb.nix
             ./modules/users.nix
             ./modules/locale.nix
             ./modules/nvidia.nix
