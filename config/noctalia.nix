@@ -26,6 +26,19 @@
         mode = "dark";
         source = "custom";
         custom_palette = "kape";
+
+        # ── User templates ───────────────────────────────────────────
+        # Apps outside Noctalia's built-in template catalog. Rendered
+        # from the {{...}}-tokenized input on every theme/wallpaper
+        # apply. The Obsidian output lands in the vault's snippets
+        # dir; enable the "noctalia" snippet once in Obsidian
+        # (Settings → Appearance → CSS snippets) and Obsidian
+        # hot-reloads it on every rewrite. output_path takes a list
+        # if more vaults appear later.
+        templates.user.obsidian = {
+          input_path = "$XDG_CONFIG_HOME/noctalia/templates/obsidian.css";
+          output_path = "/home/bws428/Documents/Obsidian/Notes/.obsidian/snippets/noctalia.css";
+        };
       };
     };
 
@@ -38,6 +51,9 @@
     # (config/ghostty.nix), which is the authoritative 16-color set.
     # No light variant is defined; Noctalia falls back to dark.
     customPalettes.kape = {
+      # NOTE: the user runs wallpaper-driven colors at runtime (set in
+      # the Settings UI, which merges over this file) — this palette
+      # is the declared base/fallback, not necessarily what's active.
       dark = {
         mPrimary = "#d99a4a";          # amber
         mOnPrimary = "#181616";
@@ -86,4 +102,8 @@
       };
     };
   };
+
+  # Obsidian template source for theme.templates.user.obsidian above.
+  # Deployed next to where Noctalia looks for user template inputs.
+  xdg.configFile."noctalia/templates/obsidian.css".source = ./noctalia/obsidian.css;
 }

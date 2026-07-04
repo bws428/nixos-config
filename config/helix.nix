@@ -8,10 +8,22 @@
     enable = true;
 
     # ── Custom themes ────────────────────────────────────────────────
-    # Transparent variant of the built-in carbonfox. Inherits all
-    # syntax/UI colors and just clears the editor background so the
-    # terminal's opacity (Alacritty at 0.9) shows through.
+    # Transparent wrappers: inherit a full theme and just clear the
+    # editor background so the terminal's opacity (0.9) shows through.
     themes = {
+      # Noctalia's wallpaper-driven theme. The base theme is written
+      # to ~/.config/helix/themes/noctalia.toml by the Helix template
+      # (enabled in Noctalia settings → color scheme templates; no
+      # post-hook, so unlike alacritty it never touches HM symlinks).
+      # Helix doesn't watch theme files — run :config-reload in live
+      # instances after a wallpaper change; new ones pick it up.
+      # Until the template's first render, helix warns and falls back
+      # to its default theme.
+      noctalia_transparent = {
+        inherits = "noctalia";
+        "ui.background" = { };
+      };
+      # Static fallback (:theme carbonfox_transparent).
       carbonfox_transparent = {
         inherits = "carbonfox";
         "ui.background" = { };
@@ -35,7 +47,7 @@
     # ── Editor settings ──────────────────────────────────────────────
     settings = {
 
-      theme = "carbonfox_transparent";
+      theme = "noctalia_transparent";
 
       editor = {
         # Relative line numbers for easier vim-style motions (5j, 12k).
