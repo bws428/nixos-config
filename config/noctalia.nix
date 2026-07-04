@@ -42,6 +42,18 @@
           input_path = "$XDG_CONFIG_HOME/noctalia/templates/obsidian.css";
           output_path = "/home/bws428/Documents/Obsidian/Notes/.obsidian/snippets/noctalia.css";
         };
+
+        # rmpc reads its theme by name from ~/.config/rmpc/themes/; the
+        # output is a NEW file there (not an HM symlink — see the
+        # alacritty clobber lesson), referenced as theme "noctalia" in
+        # config/mpd.nix. The post_hook live-swaps the theme in any
+        # running instances; `|| true` keeps the hook quiet when none
+        # are running (new instances pick it up from config.ron).
+        templates.user.rmpc = {
+          input_path = "$XDG_CONFIG_HOME/noctalia/templates/rmpc.ron";
+          output_path = "/home/bws428/.config/rmpc/themes/noctalia.ron";
+          post_hook = "sh -c 'rmpc remote set theme /home/bws428/.config/rmpc/themes/noctalia.ron || true'";
+        };
       };
     };
 
@@ -106,7 +118,8 @@
     };
   };
 
-  # Obsidian template source for theme.templates.user.obsidian above.
+  # User template sources for theme.templates.user.* above.
   # Deployed next to where Noctalia looks for user template inputs.
   xdg.configFile."noctalia/templates/obsidian.css".source = ./noctalia/obsidian.css;
+  xdg.configFile."noctalia/templates/rmpc.ron".source = ./noctalia/rmpc.ron;
 }

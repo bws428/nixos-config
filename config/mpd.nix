@@ -28,14 +28,19 @@
 
   # ── rmpc (Rusty MPD client, TUI) ───────────────────────────────────
   # The HM module writes `~/.config/rmpc/config.ron` from `config` below;
-  # theme files are separate, so the kape theme is dropped via
-  # xdg.configFile and referenced by name.
+  # theme files are separate. The active "noctalia" theme is RENDERED by
+  # Noctalia (theme.templates.user.rmpc in config/noctalia.nix) into
+  # ~/.config/rmpc/themes/noctalia.ron on every theme/wallpaper apply,
+  # so rmpc follows the shell's colors. The static kape theme stays on
+  # disk as a fallback — if noctalia.ron is ever missing (fresh machine
+  # before the first theme apply), switch theme back to "kape" or
+  # re-apply the color scheme in Noctalia's settings.
   programs.rmpc = {
     enable = true;
     config = ''
       (
         address: "127.0.0.1:6600",
-        theme: Some("kape"),
+        theme: Some("noctalia"),
         volume_step: 5,
         enable_mouse: true,
         enable_config_hot_reload: true,
