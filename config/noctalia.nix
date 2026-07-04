@@ -22,6 +22,12 @@
     # the rebuild instead of the session. Runtime changes made in the
     # Settings UI are merged on top of this file, not written to it.
     settings = {
+      # Greeter sync escalates via pkexec, not run0: pkexec triggers the
+      # org.noctalia.greeter.apply-appearance polkit action our YES rule
+      # in modules/greeter.nix matches; run0 would instead hit the generic
+      # org.freedesktop.systemd1.manage-units action and prompt every time.
+      shell.greeter_sync.privilege_command = "pkexec";
+
       theme = {
         mode = "dark";
         source = "custom";

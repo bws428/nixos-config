@@ -1,7 +1,7 @@
 /* Obsidian ← Noctalia wallpaper-driven theme.
  *
  * This file is a Noctalia TEMPLATE (see theme.templates.user.obsidian
- * in config/noctalia.nix). Noctalia renders the {{...}} tokens with
+ * in config/noctalia.nix). Noctalia renders the double-brace tokens with
  * the current Material palette and writes the result to the vault's
  * .obsidian/snippets/noctalia.css on every theme/wallpaper apply.
  * Obsidian hot-reloads enabled snippets, so changes land live.
@@ -9,7 +9,7 @@
  * CSS snippets → enable "noctalia".
  *
  * Token syntax follows the shipped templates (Noctalia 5.0.0):
- *   {{colors.<material_token>.default.hex}}
+ *   colors.<material_token>.default.hex, wrapped in double braces.
  */
 
 .theme-dark {
