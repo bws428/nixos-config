@@ -74,11 +74,10 @@ cursor {
 }
 
 // Startup programs
-// --gtk-single-instance=false avoids ghostty's D-Bus single-instance
-// race at session start, which can eat the window silently
-// (ghostty-org/ghostty#8770).
-spawn-at-startup "ghostty" "--gtk-single-instance=false"
-spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
+// Ghostty autostart is handled by a Noctalia start hook (set in the
+// Noctalia settings UI, not in this repo): launching it there dodges
+// the session-start race that made a niri-spawned ghostty exit
+// silently (ghostty-org/ghostty#8770).
 
 hotkey-overlay {
 }

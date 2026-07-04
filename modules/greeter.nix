@@ -39,6 +39,25 @@
     };
   };
 
+  # ── Passwordless greeter appearance sync ───────────────────────────
+  # The shell→greeter sync (Settings → Security → Noctalia Greeter)
+  # runs the noctalia-greeter-apply-appearance helper via pkexec,
+  # gated by a polkit action whose upstream policy is auth_admin on
+  # every axis — a password prompt on every sync, which Auto-Sync
+  # turns into a prompt on every wallpaper change. Upstream exposes
+  # no knob for this (checked rev 3dcf1e4), so authorize the action
+  # here, scoped to this user's active local session. The action's
+  # exec.path annotation pins it to that one helper binary.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.noctalia.greeter.apply-appearance" &&
+          subject.user == "bws428" &&
+          subject.active && subject.local) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
+
   # ── Keyring auto-unlock under greetd ───────────────────────────────
   # GDM's PAM stack ran pam_gnome_keyring.so so the login password
   # unlocked the user's default keyring as a side effect. greetd's

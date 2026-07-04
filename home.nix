@@ -46,7 +46,6 @@
   imports = [
     ./config/niri/niri.nix
     ./config/noctalia.nix
-    ./config/polkit.nix
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix
