@@ -2,14 +2,18 @@
 
 {
   # ── btop — interactive resource monitor ────────────────────────────
-  # Uses the kape theme (themes.<name> writes to
-  # ~/.config/btop/themes/<name>.theme; color_theme references it by name).
-  # Source: https://github.com/gabiuz/kape/blob/main/ports/btop/kape.theme
+  # Uses Noctalia's wallpaper-driven theme, written by its btop template
+  # to ~/.config/btop/themes/noctalia.theme. Declaring it here (rather
+  # than letting Noctalia sed it in) keeps btop.conf an intact HM
+  # symlink: Noctalia's post-hook no-ops when color_theme is already
+  # "noctalia". The static kape theme stays installed as a manual
+  # fallback (color_theme = "kape").
+  # Kape source: https://github.com/gabiuz/kape/blob/main/ports/btop/kape.theme
   programs.btop = {
     enable = true;
     themes.kape = ./../assets/themes/kape/btop.theme;
     settings = {
-      color_theme = "kape";
+      color_theme = "noctalia";
       theme_background = false;
     };
   };
