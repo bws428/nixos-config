@@ -74,7 +74,10 @@ cursor {
 }
 
 // Startup programs
-spawn-at-startup "ghostty"
+// --gtk-single-instance=false avoids ghostty's D-Bus single-instance
+// race at session start, which can eat the window silently
+// (ghostty-org/ghostty#8770).
+spawn-at-startup "ghostty" "--gtk-single-instance=false"
 spawn-at-startup "zsh" "-c" "wl-paste --watch cliphist store &"
 
 hotkey-overlay {
