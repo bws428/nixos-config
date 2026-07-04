@@ -12,9 +12,16 @@
   # the user's theme on every greetd start), this one runs its own
   # bundled wlroots compositor, and wallpaper/palette sync is a
   # polkit-gated push FROM the shell: Noctalia Settings → Security →
-  # Noctalia Greeter → Sync Now (or enable Auto-Sync there). Until the
-  # first sync it shows Noctalia's default look. State lives in
-  # /var/lib/noctalia-greeter; logs in /var/log/noctalia-greeter.log.
+  # Noctalia Greeter → Sync Now. Every sync prompts for an admin
+  # password and can't be made passwordless: upstream's .policy file
+  # (checked rev 3dcf1e4) gives the exec.path annotation a bare
+  # filename instead of an absolute path, so pkexec never matches the
+  # custom action and falls back to the generic auth_admin one — a
+  # polkit YES rule for the action ID is dead code (tried and removed
+  # 2026-07-04). Auto-Sync is therefore kept OFF (GUI state); the
+  # greeter keeps whatever look the last manual sync pushed. State
+  # lives in /var/lib/noctalia-greeter; logs in
+  # /var/log/noctalia-greeter.log.
   #
   # Test path:
   #   sudo nixos-rebuild boot --flake .#ghost
@@ -38,25 +45,6 @@
       };
     };
   };
-
-  # ── Passwordless greeter appearance sync ───────────────────────────
-  # The shell→greeter sync (Settings → Security → Noctalia Greeter)
-  # runs the noctalia-greeter-apply-appearance helper via pkexec,
-  # gated by a polkit action whose upstream policy is auth_admin on
-  # every axis — a password prompt on every sync, which Auto-Sync
-  # turns into a prompt on every wallpaper change. Upstream exposes
-  # no knob for this (checked rev 3dcf1e4), so authorize the action
-  # here, scoped to this user's active local session. The action's
-  # exec.path annotation pins it to that one helper binary.
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if (action.id == "org.noctalia.greeter.apply-appearance" &&
-          subject.user == "bws428" &&
-          subject.active && subject.local) {
-        return polkit.Result.YES;
-      }
-    });
-  '';
 
   # ── Keyring auto-unlock under greetd ───────────────────────────────
   # GDM's PAM stack ran pam_gnome_keyring.so so the login password
