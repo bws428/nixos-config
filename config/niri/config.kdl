@@ -99,7 +99,17 @@ window-rule {
     open-fullscreen true
 }
 
-// DMS recommended window rules, tailor to your prefs:
+// Noctalia recommended window rules, tailored to local prefs
+// (corner radius kept at 8; upstream docs suggest 20):
+
+// Float the Noctalia settings window at its designed size.
+window-rule {
+    match app-id="dev.noctalia.Noctalia.Settings"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
 window-rule {
     match app-id=r#"^org\.gnome\."#
     draw-border-with-background false
@@ -123,6 +133,26 @@ window-rule {
     clip-to-geometry true
 }
 
+// Noctalia's wallpaper layer is placed within niri's backdrop so it
+// stays visible behind workspaces in the overview (the layout
+// background-color above is already "transparent" to let it show).
+layer-rule {
+    match namespace="^noctalia-wallpaper"
+    place-within-backdrop true
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
+}
+
+// Let Noctalia's launcher focus the windows it activates even when
+// the xdg-activation serial is stale (recommended by Noctalia docs).
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
 // Keybinds
 binds {
 
@@ -131,7 +161,7 @@ binds {
 
     // Application Launchers
     Mod+Space hotkey-overlay-title="App Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle";
+        spawn "noctalia" "msg" "panel-toggle" "launcher";
     }
     Mod+Return hotkey-overlay-title="Open a Terminal" {
         spawn "ghostty";
@@ -139,33 +169,40 @@ binds {
     Mod+B hotkey-overlay-title="Open a Web Browser" {
         spawn "chromium";
     }
+    // Noctalia has no processlist panel (DMS did); btop is the
+    // system monitor here, in the kape-themed terminal.
     Mod+M hotkey-overlay-title="System Monitor" {
-        spawn "dms" "ipc" "call" "processlist" "toggle";
+        spawn "ghostty" "-e" "btop";
+    }
+    Mod+S hotkey-overlay-title="Control Center" {
+        spawn "noctalia" "msg" "panel-toggle" "control-center";
     }
     Mod+Comma hotkey-overlay-title="Settings" {
-        spawn "dms" "ipc" "call" "settings" "toggle";
+        spawn "noctalia" "msg" "settings-toggle";
     }
-    Mod+N hotkey-overlay-title="Notification Center" {
-        spawn "dms" "ipc" "call" "notifications" "toggle";
+    // Notification history lives in the Control Center; this bind
+    // toggles Do Not Disturb instead (closest to DMS's Mod+N).
+    Mod+N hotkey-overlay-title="Notifications: Toggle Do Not Disturb" {
+        spawn "noctalia" "msg" "notification-dnd-toggle";
     }
     Mod+Y hotkey-overlay-title="Browse Wallpapers" {
-        spawn "dms" "ipc" "call" "dankdash" "wallpaper";
+        spawn "noctalia" "msg" "panel-toggle" "wallpaper";
     }
 
     // Security
     Mod+Alt+L hotkey-overlay-title="Lock Screen" {
-        spawn "dms" "ipc" "call" "lock" "lock";
+        spawn "noctalia" "msg" "session" "lock";
     }
 
     // Audio Controls
     XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "increment" "3";
+        spawn "noctalia" "msg" "volume-up" "3";
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "decrement" "3";
+        spawn "noctalia" "msg" "volume-down" "3";
     }
     XF86AudioMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "mute";
+        spawn "noctalia" "msg" "volume-mute";
     }
 
     // Example media keys mapping using playerctl.
@@ -175,12 +212,13 @@ binds {
     XF86AudioPrev allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext allow-when-locked=true { spawn-sh "playerctl next"; }
 
-    // Brightness Controls
+    // Brightness Controls (default step; first arg would be a
+    // monitor selector, so no bare step is passed here)
     XF86MonBrightnessUp allow-when-locked=true {
-        spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+        spawn "noctalia" "msg" "brightness-up";
     }
     XF86MonBrightnessDown allow-when-locked=true {
-        spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+        spawn "noctalia" "msg" "brightness-down";
     }
 
     // Overview

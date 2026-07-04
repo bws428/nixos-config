@@ -21,7 +21,7 @@
     '';
   };
 
-  # MPRIS bridge — without this, `playerctl`, the DMS bar widget, and
+  # MPRIS bridge — without this, `playerctl`, the shell's media widget, and
   # the keyboard media keys can't see MPD. With it, MPD appears alongside
   # Spotify in the same control surface.
   services.mpd-mpris.enable = true;

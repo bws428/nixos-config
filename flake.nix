@@ -22,10 +22,19 @@
     # (Filogic 380) WiFi/BT card. Mainline support is not yet merged.
     mt7927.url = "github:clemenscodes/linux-mt7927";
 
-    # Quickshell from master — DMS idle monitoring requires unreleased
-    # IdleMonitor API not yet in any tagged release.
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+    # Noctalia v5 — native C++/OpenGL ES Wayland shell (bar, launcher,
+    # lock screen, notifications). Not yet in nixpkgs; consumed from the
+    # upstream flake. Deliberately NOT following our nixpkgs: doing so
+    # would rebuild against a different package set and forfeit the
+    # noctalia.cachix.org binary cache (substituters in desktop.nix).
+    noctalia.url = "github:noctalia-dev/noctalia";
+
+    # Noctalia greeter — greetd login screen matching the shell's look.
+    # Separate upstream repo with its own flake + NixOS module. No
+    # binary cache is published for it, so following our nixpkgs costs
+    # nothing and avoids evaluating a second nixpkgs tree.
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,7 +48,7 @@
   #
   # This flake produces a single NixOS system configuration named "ghost".
   # `nixos-rebuild switch --flake .#ghost` builds and activates it.
-  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, quickshell, nix-flatpak, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, mt7927, noctalia, noctalia-greeter, nix-flatpak, ... }:
   let
     # Absolute path to this repo on disk. Passed to modules that need
     # to reference the flake directory at runtime (e.g. the auto-upgrade
@@ -49,7 +58,7 @@
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
           # specialArgs makes extra values available to every module's
           # function arguments (the { config, pkgs, ... } header).
-          specialArgs = { inherit flakePath mt7927 quickshell; };
+          specialArgs = { inherit flakePath mt7927; };
 
           modules = [
             # ── Hardware ───────────────────────────────────────────────
@@ -63,6 +72,10 @@
             # nix-flatpak — adds services.flatpak.{packages,remotes,update,…}
             # on top of the upstream services.flatpak module.
             nix-flatpak.nixosModules.nix-flatpak
+
+            # Noctalia greeter — adds programs.noctalia-greeter and wires
+            # greetd's default_session to it (see modules/greeter.nix).
+            noctalia-greeter.nixosModules.default
 
             # ── System modules ─────────────────────────────────────────
             # Each file in modules/ owns one concern. Add a new module by
@@ -110,6 +123,10 @@
               home-manager.extraSpecialArgs = { inherit flakePath; };
               home-manager.users.bws428 = {
                 imports = [
+                  # Adds programs.noctalia.* and defaults its package to
+                  # the upstream flake build (cachix-cached). Configured
+                  # in config/noctalia.nix.
+                  noctalia.homeModules.default
                   ./home.nix
                 ];
               };
