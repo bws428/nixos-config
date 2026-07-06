@@ -18,9 +18,13 @@
       directory = "${config.home.homeDirectory}/Music";
 
       plugins = [
+        "musicbrainz"   # metadata source — in beets 2.x this is a
+                        # plugin, and an explicit `plugins` list like
+                        # this one drops it unless named (without it,
+                        # beets has NO candidate source and every
+                        # import is skipped)
         "chroma"        # AcoustID fingerprinting — identifies untagged
-                        # files by audio content (85% of the YT Music
-                        # takeout has no embedded tags)
+                        # files by audio content
         "fromfilename"  # fallback guess from filename when fingerprint
                         # and tags both come up empty
         "fetchart"      # album art on import
