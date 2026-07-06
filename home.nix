@@ -45,7 +45,7 @@
   # and appending it here.
   imports = [
     ./config/niri/niri.nix
-    ./config/noctalia.nix
+    ./config/noctalia/noctalia.nix
     ./config/shell.nix
     ./config/helix.nix
     ./config/alacritty.nix

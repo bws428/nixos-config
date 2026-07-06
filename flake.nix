@@ -125,7 +125,7 @@
                 imports = [
                   # Adds programs.noctalia.* and defaults its package to
                   # the upstream flake build (cachix-cached). Configured
-                  # in config/noctalia.nix.
+                  # in config/noctalia/noctalia.nix.
                   noctalia.homeModules.default
                   ./home.nix
                 ];

@@ -9,7 +9,7 @@
 
   # ── Desktop shell: Noctalia v5 ─────────────────────────────────────
   # Noctalia (bar, launcher, lock screen, notifications, OSD) is a
-  # Home Manager program — see config/noctalia.nix for the shell config
+  # Home Manager program — see config/noctalia/noctalia.nix for the shell config
   # and flake.nix for the module wiring. It runs as a systemd user
   # service tied to graphical-session.target, so it starts with niri
   # and restarts on failure; no spawn-at-startup in niri's config.

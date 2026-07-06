@@ -355,6 +355,6 @@ in
 
   # User template sources for theme.templates.user.* above.
   # Deployed next to where Noctalia looks for user template inputs.
-  xdg.configFile."noctalia/templates/obsidian.css".source = ./noctalia/obsidian.css;
-  xdg.configFile."noctalia/templates/rmpc.ron".source = ./noctalia/rmpc.ron;
+  xdg.configFile."noctalia/templates/obsidian.css".source = ./obsidian.css;
+  xdg.configFile."noctalia/templates/rmpc.ron".source = ./rmpc.ron;
 }

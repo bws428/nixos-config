@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   # ── beets (music library manager) ──────────────────────────────────
@@ -12,6 +12,28 @@
   # selects which ones are active — no package override needed.
   programs.beets = {
     enable = true;
+
+    # Make the chroma plugin read its AcoustID client key from a local
+    # file, falling back to the stock key. The key is a module constant
+    # in beetsplug/chroma.py (no config option exists for it), and the
+    # stock key is shared by every beets install worldwide against a
+    # global 10 req/s budget — fingerprint lookups randomly fail with
+    # rate-limit errors that beets logs as "no match found". A personal
+    # key (free, https://acoustid.org/new-application) fixes that, but
+    # this repo is public, so the key itself lives OUTSIDE the repo:
+    #
+    #   echo -n '<key>' > ~/.config/beets/acoustid-client-key
+    #
+    # One-time imperative step on a fresh install; without the file,
+    # chroma still works on the (unreliable) shared key.
+    package = pkgs.python3Packages.toPythonApplication (
+      pkgs.python3Packages.beets.overridePythonAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace beetsplug/chroma.py \
+            --replace-fail 'API_KEY = "1vOwZtEn"' 'import pathlib; _KEYFILE = pathlib.Path.home() / ".config/beets/acoustid-client-key"; API_KEY = ((_KEYFILE.read_text().strip() if _KEYFILE.exists() else "") or "1vOwZtEn")'
+        '';
+      })
+    );
 
     settings = {
       # Same tree MPD serves (services.mpd.musicDirectory).
