@@ -70,11 +70,33 @@
       # Fingerprint every import candidate, not just on demand.
       chroma.auto = true;
 
-      # Beets' default layout, declared for visibility:
-      #   Artist/Album/01 Track.mp3, singletons under Non-Album/.
+      # Kill the "≠ data source" penalty on MusicBrainz candidates.
+      # Whenever >1 metadata plugin is loaded (musicbrainz + chroma
+      # here), beets docks EVERY candidate for a never-imported file by
+      # this amount (default 0.5, weighted 2.0) — capping otherwise
+      # correct matches at ~86-89%, below any auto-accept threshold.
+      # Benchmarked on the takeout pile 2026-07-06: 0/40 auto-imports
+      # with the default, 28/40 with it zeroed. The knob lives on the
+      # plugin that PROVIDES the candidates (musicbrainz), not chroma.
+      musicbrainz.data_source_mismatch_penalty = 0.0;
+
+      # Auto-accept matches scoring >= 90% in quiet mode (default is a
+      # brutal 96%: popular songs with many near-identical MusicBrainz
+      # recordings get confidence-downgraded below it even when the
+      # match is right). Tradeoff: slightly higher odds of a
+      # wrong-release match (e.g. greatest-hits instead of the studio
+      # album) — acceptable for this library, and fixable per-file
+      # later with `beet import -L`.
+      match.strong_rec_thresh = 0.10;
+
+      # Library layout. This library is mostly loose tracks (YT Music
+      # takeout), so singletons file directly under Artist/ rather than
+      # beets' default Non-Album/Artist/ — a wrapper dir around ~90% of
+      # the library would be pointless nesting. Real album matches and
+      # compilations keep their trees.
       paths = {
         default = "$albumartist/$album%aunique{}/$track $title";
-        singleton = "Non-Album/$artist/$title";
+        singleton = "$artist/$title";
         comp = "Compilations/$album%aunique{}/$track $title";
       };
     };
