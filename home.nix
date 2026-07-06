@@ -53,6 +53,7 @@
     ./config/ghostty.nix
     ./config/tmux.nix
     ./config/mpd.nix
+    ./config/beets.nix
   ];
 
   # ── Session PATH additions ──────────────────────────────────────────

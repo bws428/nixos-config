@@ -175,9 +175,6 @@
     rawtherapee         # RAW photo editor
     obs-studio          # Screen recording / streaming
     vlc                 # Media player
-    amberol             # GTK4 music player (minimal, album-focused)
-    mpd                 # Music Player Daemon
-    rmpc                # Rusty MPD client
     spotify             # Streaming music
     spicetify-cli       # Spotify UI customization
     ffmpeg              # Audio/video conversion and processing
