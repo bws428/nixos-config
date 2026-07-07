@@ -88,6 +88,7 @@
             ./modules/mt7927-wifi.nix
             ./modules/bluetooth.nix
             ./modules/services.nix
+            ./modules/storage.nix
             ./modules/upgrade.nix
 
             # ── Desktop environments ───────────────────────────────────
