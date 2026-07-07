@@ -1,5 +1,20 @@
 { ... }:
 
+let
+  # Shared between the local and NAS jobs so the two repos always
+  # cover the same data.
+  backupPaths = [
+    "/home/bws428"
+    "/mnt/seagate500"
+  ];
+  backupExclude = [
+    "/home/bws428/.cache"
+    "/home/bws428/.local/share/Trash"
+    # Rebuildable package/build trees anywhere in the home dir.
+    "node_modules"
+    "/mnt/seagate500/lost+found"
+  ];
+in
 {
   # ── Restic backups ─────────────────────────────────────────────────
   # Snapshot-based, encrypted, deduplicated backups. Unlike the rsync
@@ -24,17 +39,8 @@
     # Create the repo on first run if it doesn't exist.
     initialize = true;
 
-    paths = [
-      "/home/bws428"
-      "/mnt/seagate500"
-    ];
-    exclude = [
-      "/home/bws428/.cache"
-      "/home/bws428/.local/share/Trash"
-      # Rebuildable package/build trees anywhere in the home dir.
-      "node_modules"
-      "/mnt/seagate500/lost+found"
-    ];
+    paths = backupPaths;
+    exclude = backupExclude;
 
     # Runs as root (module default) so it can read everything under
     # both paths regardless of ownership.
@@ -58,11 +64,54 @@
     checkOpts = [ "--with-cache" ];
   };
 
-  # Tie the service to the automounted drives: starting it triggers
+  # ── Leg 2: NAS repo (Synology DS725+, rest-server) ─────────────────
+  # Same data, second medium. Talks to a restic rest-server container
+  # on the NAS (Container Manager, restic/rest-server image) running
+  # with --append-only: ghost's credentials can add snapshots but can
+  # NOT delete or rewrite history, so a compromised or misbehaving
+  # client can't destroy the NAS copy.
+  #
+  # Consequences of append-only:
+  #   * No pruneOpts here — `forget --prune` would be rejected by the
+  #     server. The repo grows until pruned manually. Ritual (a few
+  #     times a year): in Container Manager stop the container, remove
+  #     --append-only from OPTIONS, start, run
+  #     `sudo restic-nas forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 6`,
+  #     then restore --append-only and restart.
+  #   * `check` is read-only and still allowed (runs after each backup).
+  #
+  # /etc/restic/nas-repo (root-only, NOT in git) holds the repo URL
+  # including the rest-server HTTP basic-auth credentials:
+  #   rest:http://ghost:<password>@192.168.100.72:8000/ghost
+  # Repo *encryption* uses the same password file as the local repo,
+  # so one password in the password manager unlocks both.
+  services.restic.backups.nas = {
+    repositoryFile = "/etc/restic/nas-repo";
+    passwordFile = "/etc/restic/password";
+    initialize = true;
+
+    paths = backupPaths;
+    exclude = backupExclude;
+
+    # 03:00, offset from the local job (midnight) so the two runs
+    # don't read the same 100G concurrently.
+    timerConfig = {
+      OnCalendar = "03:00";
+      Persistent = true;
+      RandomizedDelaySec = "15m";
+    };
+
+    checkOpts = [ "--with-cache" ];
+  };
+
+  # Tie the services to the automounted drives: starting one triggers
   # the automounts and fails cleanly if a drive is missing, rather
   # than backing up into an empty mountpoint directory.
   systemd.services.restic-backups-local.unitConfig.RequiresMountsFor = [
     "/mnt/toshiba250"
+    "/mnt/seagate500"
+  ];
+  systemd.services.restic-backups-nas.unitConfig.RequiresMountsFor = [
     "/mnt/seagate500"
   ];
 }
