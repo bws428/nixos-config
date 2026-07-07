@@ -106,7 +106,14 @@ in
       # Ghostty is spawned by Noctalia's started hook rather than niri
       # spawn-at-startup: the hook fires only once the shell (and thus
       # the session) is fully up, which fixed the ghostty startup race.
-      hooks.started = "ghostty";
+      #
+      # systemd-run detaches ghostty into its own transient scope
+      # instead of living in noctalia.service's cgroup. Without it,
+      # every noctalia restart (any rebuild after a flake-input bump
+      # that touches noctalia) kills all terminals — including, on
+      # 2026-07-07, the very shell running the rebuild, which aborted
+      # the switch mid-activation.
+      hooks.started = "systemd-run --user ghostty";
 
       # ── Idle / lock ──────────────────────────────────────────────────
       idle = {
