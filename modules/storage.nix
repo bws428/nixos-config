@@ -11,22 +11,26 @@
   #
   # UUIDs from `lsblk -f` (2026-07-07). If a drive is replaced, update
   # its UUID here.
+  #
+  # x-gvfs-show: GIO hides fstab-declared mounts outside /media from
+  # file managers by default; this opts each drive back into the
+  # Nautilus sidebar.
   fileSystems."/mnt/crucial500" = {
     device = "/dev/disk/by-uuid/631819dd-b905-4090-a3b3-e6f6df04f3ac";
     fsType = "ext4";
-    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" ];
+    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" "x-gvfs-show" ];
   };
 
   fileSystems."/mnt/seagate500" = {
     device = "/dev/disk/by-uuid/f250b534-1c8c-40c8-ac40-b83c51d2e349";
     fsType = "ext4";
-    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" ];
+    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" "x-gvfs-show" ];
   };
 
   fileSystems."/mnt/toshiba250" = {
     device = "/dev/disk/by-uuid/da0b4442-6972-4a68-beae-b047e182e7b9";
     fsType = "ext4";
-    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" ];
+    options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" "x-gvfs-show" ];
   };
 
   # ── Music library mirror ───────────────────────────────────────────

@@ -89,6 +89,7 @@
             ./modules/bluetooth.nix
             ./modules/services.nix
             ./modules/storage.nix
+            ./modules/backups.nix
             ./modules/upgrade.nix
 
             # ── Desktop environments ───────────────────────────────────
