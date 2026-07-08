@@ -52,13 +52,15 @@
     # ── preStart: runs before nixos-rebuild ─────────────────────────
     #
     # This service runs as root, but the flake repo is owned by the
-    # user. Git's "safe.directory" check (introduced in Git 2.35.2)
-    # blocks root from operating on user-owned repos by default.
-    # We mark flakePath as safe in root's global gitconfig so that
-    # both the git CLI and Nix's internal libgit2 (which reads
-    # gitconfig but ignores GIT_CONFIG_* env vars) can access it.
+    # user, so every command that WRITES to the repo (git and
+    # `nix flake update`, which rewrites flake.lock) runs as the owner
+    # via runuser — root-created files in .git/ break later user git
+    # operations. The safe.directory entry in root's gitconfig is
+    # still required for READING: nixos-rebuild evaluates the flake as
+    # root, and Nix's internal libgit2 (which reads gitconfig but
+    # ignores GIT_CONFIG_* env vars) refuses user-owned repos without it.
     #
-    # Then we discard any local flake.lock changes (left over from a
+    # We discard any local flake.lock changes (left over from a
     # previous run), pull the latest commits from the remote, and
     # update the flake inputs that are safe to take unattended.
     #
@@ -73,9 +75,9 @@
     preStart = ''
       git config --global safe.directory ${flakePath}
       cd ${flakePath}
-      git checkout -- flake.lock
-      git pull
-      nix flake update nixpkgs home-manager nix-flatpak
+      runuser -u bws428 -- git checkout -- flake.lock
+      runuser -u bws428 -- git pull
+      runuser -u bws428 -- nix flake update nixpkgs home-manager nix-flatpak
     '';
 
     # ── postStart: runs after a successful nixos-rebuild ────────────
