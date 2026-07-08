@@ -84,21 +84,8 @@
     ];
   };
 
-  # ── CUDA ───────────────────────────────────────────────────────────
-  # Make CUDA libraries available system-wide for GPU-accelerated
-  # workloads (machine learning, scientific computing, etc.).
-  environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
-    cudaPackages.nccl
-  ];
-
-  # Point build tools at the CUDA installation so compilers and
-  # linkers can find headers and shared libraries.
-  environment.variables = {
-    CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
-    CUDA_ROOT = "${pkgs.cudaPackages.cudatoolkit}";
-    EXTRA_LDFLAGS = "-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib";
-    EXTRA_CCFLAGS = "-I/usr/include";
-  };
+  # No system-wide CUDA: GPU compute via Python wheels (torch etc.)
+  # bundles its own CUDA runtime and needs only the driver above.
+  # For compiling CUDA code, use a project dev shell with
+  # cudaPackages.cudatoolkit instead of polluting the system closure.
 }
