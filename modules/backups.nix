@@ -104,6 +104,43 @@ in
     checkOpts = [ "--with-cache" ];
   };
 
+  # ── Leg 3: offsite repo (Backblaze B2) ─────────────────────────────
+  # Third independent repo, built from the live data like the other
+  # two (not a copy of a copy — corruption in one repo can't reach
+  # the others). Uses restic's native B2 backend.
+  #
+  # /etc/restic/b2-env (root-only, NOT in git) holds:
+  #   B2_ACCOUNT_ID=<application key ID>
+  #   B2_ACCOUNT_KEY=<application key>
+  # The key is deliberately created WITHOUT the deleteFiles capability
+  # (listBuckets,listFiles,readFiles,writeFiles only), so ghost can add
+  # snapshots but cannot destroy cloud history — the B2 equivalent of
+  # the NAS repo's --append-only.
+  #
+  # Consequence, same as the NAS leg: no pruneOpts (forget --prune
+  # would be rejected). Ritual a few times a year: create a temporary
+  # B2 key WITH deleteFiles, export it in a shell, run
+  # `restic-cloud forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 6`,
+  # then delete the temporary key.
+  services.restic.backups.cloud = {
+    repository = "b2:bws428-ghost-restic:restic";
+    environmentFile = "/etc/restic/b2-env";
+    passwordFile = "/etc/restic/password";
+    initialize = true;
+
+    paths = backupPaths;
+    exclude = backupExclude;
+
+    # 04:30 — after the local (midnight) and NAS (03:00) jobs.
+    timerConfig = {
+      OnCalendar = "04:30";
+      Persistent = true;
+      RandomizedDelaySec = "15m";
+    };
+
+    checkOpts = [ "--with-cache" ];
+  };
+
   # Tie the services to the automounted drives: starting one triggers
   # the automounts and fails cleanly if a drive is missing, rather
   # than backing up into an empty mountpoint directory.
@@ -112,6 +149,9 @@ in
     "/mnt/seagate500"
   ];
   systemd.services.restic-backups-nas.unitConfig.RequiresMountsFor = [
+    "/mnt/seagate500"
+  ];
+  systemd.services.restic-backups-cloud.unitConfig.RequiresMountsFor = [
     "/mnt/seagate500"
   ];
 }
