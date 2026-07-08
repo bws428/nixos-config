@@ -8,12 +8,13 @@ Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS m
 
 ## Common Commands
 
-Two shell aliases (defined in `config/shell.nix`) cover day-to-day use:
+One shell alias (defined in `config/shell.nix`) covers day-to-day use:
 
 ```sh
 rebuild   # commit, push, then `nh os switch`
-clean     # `nh clean all --keep 5`
 ```
+
+Garbage collection is automatic — nightly `nh clean all --keep 5` via `programs.nh.clean` in `modules/upgrade.nix`. Run the same command manually for an immediate sweep.
 
 Raw equivalents:
 

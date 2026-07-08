@@ -111,15 +111,15 @@
   };
 
   # ── Automatic garbage collection ──────────────────────────────────
-  # https://wiki.nixos.org/wiki/Storage_optimization
-  #
-  # Removes old system generations and their unreachable store paths
-  # nightly, keeping the 5 most recent generations as rollback targets.
-  # This should be kept in sync with boot.loader.systemd-boot.configurationLimit
-  # in boot.nix so that boot entries and retained generations match.
-  nix.gc = {
-    automatic = true;
+  # Nightly `nh clean all --keep 5`: removes old system and user
+  # generations and their unreachable store paths, keeping the 5 most
+  # recent as rollback targets. Keep in sync with
+  # boot.loader.systemd-boot.configurationLimit in boot.nix.
+  # (nh asserts mutual exclusion with nix.gc.automatic — don't re-add
+  # a nix.gc block.)
+  programs.nh.clean = {
+    enable = true;
     dates = "03:00";
-    options = "--keep 5";
+    extraArgs = "--keep 5";
   };
 }

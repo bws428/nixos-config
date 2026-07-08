@@ -20,8 +20,6 @@
       # Modern ls with icons and directories grouped first.
       ls = "eza -lh --group-directories-first --icons=auto";
       lsa = "ls -la";
-      # Clean old generations, keeping only the 5 most recent.
-      clean = "nh clean all --keep 5";
       # Zed editor
       zed = "zeditor";
     };

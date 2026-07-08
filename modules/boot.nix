@@ -11,8 +11,8 @@
   # Limit the number of NixOS generations listed in the boot menu.
   # Each `nixos-rebuild switch` adds a new entry; without a limit, old
   # entries accumulate and can fill the (often small) EFI System Partition.
-  # This should be kept in sync with nix.gc.options "--keep N" in
-  # upgrade.nix so that boot entries match the retained generations.
+  # This should be kept in sync with programs.nh.clean.extraArgs "--keep N"
+  # in upgrade.nix so that boot entries match the retained generations.
   boot.loader.systemd-boot.configurationLimit = 5;
 
   # ── Plymouth boot splash ────────────────────────────────────────────

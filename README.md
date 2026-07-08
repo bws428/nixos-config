@@ -4,11 +4,10 @@ Personal NixOS flake for host `ghost`, with Home Manager wired in as a NixOS mod
 
 ## Day-to-day
 
-Two shell aliases cover almost everything (defined in `config/shell.nix`):
+One shell alias covers almost everything (defined in `config/shell.nix`):
 
 ```sh
 rebuild   # cd to the flake, commit, push, then `nh os switch`
-clean     # `nh clean all --keep 5`
 ```
 
 `rebuild` commits any local changes with a stock message and pushes before switching, so the live machine and `origin/main` stay in sync. Home Manager runs inside the rebuild — there's no separate `home-manager switch`.
@@ -23,9 +22,9 @@ nix flake update                            # refresh flake.lock
 
 ## Weekly auto-upgrade
 
-A systemd timer runs Sunday at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate weekly.
+A systemd timer runs Tuesday at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate weekly.
 
-Nightly GC at 03:00 keeps the 5 most recent generations; store optimization runs automatically. See `modules/upgrade.nix`.
+Nightly GC at 03:00 (`nh clean all --keep 5`) keeps the 5 most recent generations; store optimization runs automatically. See `programs.nh.clean` in `modules/upgrade.nix`.
 
 Check on the last run:
 
