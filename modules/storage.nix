@@ -33,33 +33,4 @@
     options = [ "nofail" "x-systemd.automount" "x-systemd.device-timeout=5s" "x-gvfs-show" ];
   };
 
-  # ── Music library mirror ───────────────────────────────────────────
-  # Daily one-way mirror of ~/Music (the beets-managed library) to the
-  # Crucial500 as a hard backup. --delete keeps the mirror an exact
-  # copy, so library culls propagate. Runs as bws428 (the drive's
-  # filesystem root is owned by that user; no root needed).
-  #
-  # System-level (not Home Manager) service so Persistent=true can fire
-  # a missed run at boot, before any user session exists.
-  systemd.services.music-mirror = {
-    description = "Mirror ~/Music to Crucial500";
-    unitConfig.RequiresMountsFor = "/mnt/crucial500";
-    serviceConfig = {
-      Type = "oneshot";
-      User = "bws428";
-      Group = "users";
-      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /home/bws428/Music/ /mnt/crucial500/Music/";
-    };
-  };
-
-  systemd.timers.music-mirror = {
-    description = "Daily music library mirror";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      # Fire a missed run at next boot instead of skipping the day.
-      Persistent = true;
-      RandomizedDelaySec = "15m";
-    };
-  };
 }

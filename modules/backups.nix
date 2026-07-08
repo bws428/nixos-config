@@ -17,9 +17,8 @@ let
 in
 {
   # ── Restic backups ─────────────────────────────────────────────────
-  # Snapshot-based, encrypted, deduplicated backups. Unlike the rsync
-  # music mirror (an exact copy where deletions propagate), restic
-  # keeps history: any file can be restored as it was at any retained
+  # Snapshot-based, encrypted, deduplicated backups. Restic keeps
+  # history: any file can be restored as it was at any retained
   # snapshot. Repo password lives in /etc/restic/password (root-only,
   # NOT in git — this repo is public). Losing that password means
   # losing the backups; a copy belongs in a password manager.
