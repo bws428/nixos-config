@@ -7,10 +7,11 @@ Personal NixOS flake for host `ghost`, with Home Manager wired in as a NixOS mod
 One shell alias covers almost everything (defined in `config/shell.nix`):
 
 ```sh
-rebuild   # cd to the flake, commit, push, then `nh os switch`
+rebuild                    # commit, `nh os switch`, push on success
+rebuild "why I changed it" # same, with a real commit message
 ```
 
-`rebuild` commits any local changes with a stock message and pushes before switching, so the live machine and `origin/main` stay in sync. Home Manager runs inside the rebuild — there's no separate `home-manager switch`.
+`rebuild` commits any local changes, switches, and pushes only if the switch succeeded — so `origin/main` (which the weekly auto-upgrade consumes) only receives configs that actually built. Home Manager runs inside the rebuild — there's no separate `home-manager switch`.
 
 Raw equivalents, if needed:
 

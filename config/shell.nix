@@ -44,19 +44,20 @@
         print -P "%F{yellow}NixOS has been updated. Please reboot for the changes to take effect.%f"
       fi
 
-      # One-shot rebuild: stage and commit if there are local changes,
-      # push, then `nh os switch`. A function rather than an alias so
-      # the commit step is skipped cleanly when the tree is already
-      # clean (e.g. right after `git pull`) instead of aborting the
-      # whole chain. Uses `nh os switch` (from programs.nh), which
-      # already knows the flake path.
+      # One-shot rebuild: stage and commit local changes, `nh os switch`,
+      # then push only if the switch succeeded — so origin/main (which
+      # the weekly auto-upgrade consumes) only ever receives configs
+      # that just built on this machine. The `git add .` must precede
+      # the build: Nix's git fetcher ignores untracked files, so a new
+      # module would otherwise be invisible to the switch.
+      # Optional argument = commit message: rebuild "gc: fix flags"
       rebuild() {
         cd "${flakePath}" || return
         git add .
         if ! git diff --cached --quiet; then
-          git commit -m 'NixOS rebuild' && git push origin main || return
+          git commit -m "''${1:-NixOS rebuild}" || return
         fi
-        nh os switch
+        nh os switch && git push origin main
       }
     '';
   };

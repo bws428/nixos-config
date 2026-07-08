@@ -11,7 +11,7 @@ Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS m
 One shell alias (defined in `config/shell.nix`) covers day-to-day use:
 
 ```sh
-rebuild   # commit, push, then `nh os switch`
+rebuild [commit-msg]   # commit, `nh os switch`, then push on success
 ```
 
 Garbage collection is automatic — nightly `nh clean all --keep 5` via `programs.nh.clean` in `modules/upgrade.nix`. Run the same command manually for an immediate sweep.
