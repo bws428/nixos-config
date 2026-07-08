@@ -107,15 +107,22 @@ in
   # ── Leg 3: offsite repo (Backblaze B2) ─────────────────────────────
   # Third independent repo, built from the live data like the other
   # two (not a copy of a copy — corruption in one repo can't reach
-  # the others). Uses restic's native B2 backend.
+  # the others). Talks to B2 through its S3-compatible API: restic's
+  # native b2: backend uses a retired authorization API version and
+  # fails against accounts created after early 2026 (restic #5741).
+  # Once that's fixed upstream, this can revert to
+  # "b2:bws428-ghost-restic:restic" — the repo format is identical.
   #
-  # /etc/restic/b2-env (root-only, NOT in git) holds:
-  #   B2_ACCOUNT_ID=<application key ID>
-  #   B2_ACCOUNT_KEY=<application key>
+  # /etc/restic/b2-env (root-only, NOT in git) holds the B2 key pair
+  # under the names restic's S3 backend expects:
+  #   AWS_ACCESS_KEY_ID=<application key ID>
+  #   AWS_SECRET_ACCESS_KEY=<application key>
   # The key is deliberately created WITHOUT the deleteFiles capability
   # (listBuckets,listFiles,readFiles,writeFiles only), so ghost can add
   # snapshots but cannot destroy cloud history — the B2 equivalent of
-  # the NAS repo's --append-only.
+  # the NAS repo's --append-only. (S3 deletes on a versioned B2 bucket
+  # only write hide-markers, so restic can clear its own lock files but
+  # past versions remain recoverable.)
   #
   # Consequence, same as the NAS leg: no pruneOpts (forget --prune
   # would be rejected). Ritual a few times a year: create a temporary
@@ -123,7 +130,7 @@ in
   # `restic-cloud forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 6`,
   # then delete the temporary key.
   services.restic.backups.cloud = {
-    repository = "b2:bws428-ghost-restic:restic";
+    repository = "s3:https://s3.us-west-004.backblazeb2.com/bws428-ghost-restic/restic";
     environmentFile = "/etc/restic/b2-env";
     passwordFile = "/etc/restic/password";
     initialize = true;
