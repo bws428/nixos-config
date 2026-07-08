@@ -130,7 +130,7 @@
     # restic itself comes with services.restic (modules/backups.nix);
     # this is the Backblaze CLI for B2 bucket/key management. NOTE: the
     # binary is `backblaze-b2`, not `b2` (nixpkgs renames it to avoid
-    # clashing with boost-build's b2). Runbook: docs/backups-leg3.md
+    # clashing with boost-build's b2). Runbook: docs/system-backups.md
     backblaze-b2
 
     # ── Misc CLI ─────────────────────────────────────────────────────

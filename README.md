@@ -41,6 +41,17 @@ sudo systemctl start nixos-upgrade.service
 journalctl -u nixos-upgrade.service -f     # follow the live output
 ```
 
+## Backups
+
+3-2-1 scheme via restic (`modules/backups.nix`): nightly snapshots of `/home/bws428` and `/mnt/seagate500` to three independent repos — Toshiba250 (00:00, self-pruning), Synology rest-server (03:00, append-only), Backblaze B2 (04:30, append-only). Quick look:
+
+```sh
+sudo restic-local snapshots        # also: restic-nas, restic-cloud
+systemctl list-timers 'restic-*'   # last and next fire times
+```
+
+Primer, restore procedures, the append-only prune ritual, and the bare-metal disaster drill all live in [`docs/system-backups.md`](docs/system-backups.md).
+
 ## Bootstrapping a fresh install
 
 1. Install NixOS from the graphical ISO. Hostname `ghost`, primary user `bws428` with wheel. Desktop choice doesn't matter — niri comes from the flake.
@@ -54,6 +65,7 @@ journalctl -u nixos-upgrade.service -f     # follow the live output
    ```
 
 3. `sudo passwd bws428` and reboot.
+4. Recreate the backup secrets — root-only files deliberately absent from this (public) repo: `/etc/restic/password` (repo encryption password, copy in the password manager), `/etc/restic/nas-repo` (rest-server URL with credentials), `/etc/restic/b2-env` (B2 key pair). Formats and recovery details: [`docs/system-backups.md`](docs/system-backups.md). Until these exist the restic timers fail harmlessly.
 
 The hardware copy in step 2 can be skipped when reinstalling on the same disk layout. Flakes only need the `--extra-experimental-features` flag on this first rebuild; afterwards `nix.settings` takes over.
 
@@ -68,4 +80,5 @@ The hardware copy in step 2 can be skipped when reinstalling on the same disk la
 - `flake.nix` — single `nixosConfigurations.ghost`; imports every file in `modules/` and mounts `home.nix` under Home Manager.
 - `hardware-configuration.nix` — machine-specific; regenerate with `nixos-generate-config` on a new box.
 - `modules/` — system-level NixOS modules split by concern.
-- `home.nix` + `config/` — Home Manager entry point and per-program user configs (shell, helix, alacritty, niri).
+- `home.nix` + `config/` — Home Manager entry point and per-program user configs (shell, tmux, helix, ghostty, alacritty, btop, rofi, beets, mpd, niri, noctalia).
+- `docs/` — operational runbooks (currently: backups & restore).
