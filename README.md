@@ -22,7 +22,9 @@ nix flake update                            # refresh flake.lock
 
 ## Weekly auto-upgrade
 
-A systemd timer runs Tuesday at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate weekly.
+A systemd timer runs Tuesday at 02:00 (±45 min). It resets `flake.lock`, pulls `origin/main`, runs `nix flake update nixpkgs home-manager nix-flatpak`, and rebuilds. So pushed config changes **and** upstream nixpkgs updates both propagate weekly.
+
+The remaining inputs (`mt7927`, `noctalia`, `noctalia-greeter`) are third-party code that runs in kernel space or arrives via an external binary cache, so they stay pinned until a deliberate `nix flake update <input>` + `rebuild`.
 
 Nightly GC at 03:00 (`nh clean all --keep 5`) keeps the 5 most recent generations; store optimization runs automatically. See `programs.nh.clean` in `modules/upgrade.nix`.
 

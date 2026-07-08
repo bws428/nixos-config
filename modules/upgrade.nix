@@ -60,15 +60,22 @@
     #
     # Then we discard any local flake.lock changes (left over from a
     # previous run), pull the latest commits from the remote, and
-    # run `nix flake update` to refresh all flake inputs. The rebuilt
-    # system will use whatever nixpkgs (and other inputs) are current
-    # at the time of the upgrade.
+    # update the flake inputs that are safe to take unattended.
+    #
+    # Only well-governed inputs auto-update (nixpkgs, home-manager,
+    # nix-flatpak). Inputs that ship kernel-space code from a personal
+    # repo (mt7927) or binaries signed by a third-party cache key
+    # (noctalia, noctalia-greeter) stay pinned to flake.lock until a
+    # deliberate manual bump:
+    #
+    #   nix flake update mt7927 noctalia noctalia-greeter   # any subset
+    #   rebuild
     preStart = ''
       git config --global safe.directory ${flakePath}
       cd ${flakePath}
       git checkout -- flake.lock
       git pull
-      nix flake update
+      nix flake update nixpkgs home-manager nix-flatpak
     '';
 
     # ── postStart: runs after a successful nixos-rebuild ────────────

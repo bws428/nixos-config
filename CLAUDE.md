@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades weekly from the local clone (see `modules/upgrade.nix`), pulling latest commits and updating flake inputs before rebuilding — so changes pushed to `main` propagate to the live machine. Test before pushing.
+Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades weekly from the local clone (see `modules/upgrade.nix`), pulling latest commits and updating the well-governed flake inputs (nixpkgs, home-manager, nix-flatpak) before rebuilding — so changes pushed to `main` propagate to the live machine. Test before pushing. The third-party inputs (mt7927, noctalia, noctalia-greeter) are deliberately excluded from auto-update; bump them only when asked, via `nix flake update <input>`.
 
 ## Common Commands
 
