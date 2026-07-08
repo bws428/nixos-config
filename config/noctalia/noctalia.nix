@@ -112,8 +112,16 @@ in
       # every noctalia restart (any rebuild after a flake-input bump
       # that touches noctalia) kills all terminals — including, on
       # 2026-07-07, the very shell running the rebuild, which aborted
-      # the switch mid-activation.
-      hooks.started = "systemd-run --user ghostty";
+      # the switch mid-activation. (Validated in prod 2026-07-08:
+      # terminals survived a rebuild-triggered noctalia restart.)
+      #
+      # The pgrep guard spawns only when no ghostty is running, so a
+      # noctalia restart mid-session doesn't add a window on top of the
+      # survivors; a fresh login (no ghostty yet) still gets one. The
+      # pattern is deliberately unanchored: the NixOS wrapper names the
+      # process ".ghostty-wrappe" (comm, truncated to 15 chars), so an
+      # exact-match `pgrep -x ghostty` would never fire.
+      hooks.started = "sh -c 'pgrep ghostty >/dev/null || systemd-run --user ghostty'";
 
       # ── Idle / lock ──────────────────────────────────────────────────
       idle = {
