@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Noctalia greeter (replaces GDM) ────────────────────────────────
   # The Noctalia greeter shares the shell's visual language, so the
   # login screen matches the lock screen — same wallpaper, same
@@ -8,20 +10,15 @@
   # flake.nix); it enables greetd and sets its default_session to
   # noctalia-greeter-session. Docs: https://docs.noctalia.dev/v5/greeter/
   #
-  # Unlike the old DMS greeter (which ran inside niri and re-copied
-  # the user's theme on every greetd start), this one runs its own
-  # bundled wlroots compositor, and wallpaper/palette sync is a
-  # polkit-gated push FROM the shell: Noctalia Settings → Security →
-  # Noctalia Greeter → Sync Now. Every sync prompts for an admin
-  # password and can't be made passwordless: upstream's .policy file
-  # (checked rev 3dcf1e4) gives the exec.path annotation a bare
-  # filename instead of an absolute path, so pkexec never matches the
-  # custom action and falls back to the generic auth_admin one — a
-  # polkit YES rule for the action ID is dead code (tried and removed
-  # 2026-07-04). Auto-Sync is therefore kept OFF (GUI state); the
-  # greeter keeps whatever look the last manual sync pushed. State
-  # lives in /var/lib/noctalia-greeter; logs in
-  # /var/log/noctalia-greeter.log.
+  # The greeter runs its own bundled wlroots compositor; wallpaper/
+  # palette sync is a polkit-gated push FROM the shell (Settings →
+  # Security → Noctalia Greeter → Sync Now). Upstream's .policy file
+  # gives the exec.path annotation a bare filename instead of an
+  # absolute path, so pkexec never matches the custom action and
+  # always falls back to admin-password auth — a passwordless polkit
+  # rule for it cannot work. Auto-Sync is therefore kept OFF (GUI
+  # state); the greeter shows whatever the last manual sync pushed.
+  # State: /var/lib/noctalia-greeter; logs: /var/log/noctalia-greeter.log.
   #
   # Test path:
   #   sudo nixos-rebuild boot --flake .#ghost

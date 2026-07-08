@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   # Assets shipped inside the noctalia package, referenced through the
   # package so the path survives version bumps. (The GUI had baked a
   # versioned /nix/store/...-noctalia-5.0.0 path into settings.toml,
@@ -14,8 +16,7 @@ let
   fallbackWallpaper = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
 
   wallpaperDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
-in
-{
+in {
   # ── Noctalia v5 desktop shell ──────────────────────────────────────
   # Bar, launcher, lock screen, notifications, OSD, wallpaper.
   # https://docs.noctalia.dev/v5/
@@ -47,7 +48,7 @@ in
     settings = {
       # ── Bar ──────────────────────────────────────────────────────────
       bar = {
-        order = [ "Default" ];
+        order = ["Default"];
         Default = {
           background_opacity = 0.6;
           thickness = 40;
@@ -57,9 +58,9 @@ in
           margin_edge = 0;
           margin_ends = 0;
           widget_spacing = 10;
-          start = [ "launcher" "Spacer" "workspaces" "Spacer" ];
-          center = [ "date" "clock" "Spacer" "media" ];
-          end = [ "tray" "notifications" "network" "bluetooth" "Spacer" "volume" "Spacer" "session" ];
+          start = ["launcher" "Spacer" "workspaces" "Spacer"];
+          center = ["date" "clock" "Spacer" "media"];
+          end = ["tray" "notifications" "network" "bluetooth" "Spacer" "volume" "Spacer" "session"];
         };
       };
 
@@ -100,32 +101,28 @@ in
         magnification_scale = 1.35;
         launcher_position = "start";
         show_dots = true;
-        pinned = [ "chromium-browser" "com.mitchellh.ghostty" "obsidian" "signal" "dev.zed.Zed" "steam" ];
+        pinned = ["chromium-browser" "com.mitchellh.ghostty" "obsidian" "signal" "dev.zed.Zed" "steam"];
       };
 
       # Ghostty is spawned by Noctalia's started hook rather than niri
-      # spawn-at-startup: the hook fires only once the shell (and thus
-      # the session) is fully up, which fixed the ghostty startup race.
+      # spawn-at-startup: the hook fires only once the session is fully
+      # up, avoiding ghostty's startup race.
       #
       # systemd-run detaches ghostty into its own transient scope
-      # instead of living in noctalia.service's cgroup. Without it,
-      # every noctalia restart (any rebuild after a flake-input bump
-      # that touches noctalia) kills all terminals — including, on
-      # 2026-07-07, the very shell running the rebuild, which aborted
-      # the switch mid-activation. (Validated in prod 2026-07-08:
-      # terminals survived a rebuild-triggered noctalia restart.)
+      # instead of noctalia.service's cgroup — otherwise every noctalia
+      # restart (any rebuild that touches it) kills all terminals,
+      # including the one running the rebuild.
       #
       # The pgrep guard spawns only when no ghostty is running, so a
-      # noctalia restart mid-session doesn't add a window on top of the
-      # survivors; a fresh login (no ghostty yet) still gets one. The
-      # pattern is deliberately unanchored: the NixOS wrapper names the
-      # process ".ghostty-wrappe" (comm, truncated to 15 chars), so an
-      # exact-match `pgrep -x ghostty` would never fire.
+      # mid-session noctalia restart doesn't add extra windows but a
+      # fresh login still gets one. The pattern must stay unanchored:
+      # the NixOS wrapper's comm is ".ghostty-wrappe" (15-char
+      # truncation), so `pgrep -x ghostty` would never match.
       hooks.started = "sh -c 'pgrep ghostty >/dev/null || systemd-run --user ghostty'";
 
       # ── Idle / lock ──────────────────────────────────────────────────
       idle = {
-        behavior_order = [ "lock" "screen-off" "lock-and-suspend" ];
+        behavior_order = ["lock" "screen-off" "lock-and-suspend"];
         behavior = {
           lock = {
             action = "lock";
@@ -231,7 +228,7 @@ in
       # downloaded imperatively into ~/.local/state/noctalia/plugins; on
       # a fresh install, reinstall from Settings → Plugins if it doesn't
       # fetch on its own.
-      plugins.enabled = [ "noctalia/screen_recorder" ];
+      plugins.enabled = ["noctalia/screen_recorder"];
 
       shell = {
         polkit_agent = true;
@@ -256,11 +253,11 @@ in
         community_palette = "Oxocarbon";
 
         templates = {
-          builtin_ids = [ "alacritty" "btop" "cava" "emacs" "gtk3" "gtk4" "ghostty" "helix" "kitty" "niri" "qt" "wezterm" ];
+          builtin_ids = ["alacritty" "btop" "cava" "emacs" "gtk3" "gtk4" "ghostty" "helix" "kitty" "niri" "qt" "wezterm"];
           # Community templates are fetched into
           # ~/.local/state/noctalia/community-templates and re-download
           # on a fresh install.
-          community_ids = [ "spicetify" "zen-browser" "neovim" "obsidian" "vscode" "zed" "steam" "telegram" "yazi" ];
+          community_ids = ["spicetify" "zen-browser" "neovim" "obsidian" "vscode" "zed" "steam" "telegram" "yazi"];
 
           # ── User templates ─────────────────────────────────────────
           # Apps outside Noctalia's built-in template catalog. Rendered
@@ -297,7 +294,7 @@ in
       # install won't have.
       wallpaper = {
         directory = wallpaperDir;
-        transition = [ "fade" ];
+        transition = ["fade"];
         default.path = fallbackWallpaper;
       };
     };

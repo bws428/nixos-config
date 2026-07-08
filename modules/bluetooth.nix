@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Bluetooth ──────────────────────────────────────────────────────
   # https://nixos.wiki/wiki/Bluetooth
   hardware.bluetooth = {

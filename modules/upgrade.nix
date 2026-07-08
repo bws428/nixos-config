@@ -1,6 +1,9 @@
-{ config, pkgs, flakePath, ... }:
-
 {
+  config,
+  pkgs,
+  flakePath,
+  ...
+}: {
   # ── Automatic system upgrades (with flakes) ────────────────────────
   # https://wiki.nixos.org/wiki/Automatic_system_upgrades
   #
@@ -47,7 +50,7 @@
   # back to GitHub after a successful rebuild.
   systemd.services.nixos-upgrade = {
     # Make git available to the pre/post scripts.
-    path = [ pkgs.git pkgs.util-linux ];
+    path = [pkgs.git pkgs.util-linux];
 
     # ── preStart: runs before nixos-rebuild ─────────────────────────
     #

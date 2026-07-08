@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Printing (CUPS) ────────────────────────────────────────────────
   # Declarative IPP Everywhere queue for the office Brother MFC-L3720CDW.
   # The printer advertises driverless IPP (URF / PWG-Raster), so no vendor
@@ -29,26 +31,27 @@
   services.printing.browsed.enable = false;
 
   hardware.printers = {
-    ensurePrinters = [{
-      name = "Brother_MFC_L3720CDW";
-      location = "Office";
-      deviceUri = "ipp://192.168.100.73/ipp/print";
-      model = "everywhere";
-      ppdOptions = {
-        PageSize = "Letter";
-      };
-    }];
+    ensurePrinters = [
+      {
+        name = "Brother_MFC_L3720CDW";
+        location = "Office";
+        deviceUri = "ipp://192.168.100.73/ipp/print";
+        model = "everywhere";
+        ppdOptions = {
+          PageSize = "Letter";
+        };
+      }
+    ];
     ensureDefaultPrinter = "Brother_MFC_L3720CDW";
   };
 
-  # The ensure-printers oneshot calls `lpadmin`, which must resolve and
-  # contact the printer over the network to fetch its driverless IPP
-  # attributes (model = "everywhere", deviceUri uses the mDNS .local
-  # name). The upstream unit is ordered only After=cups.service, so at
-  # boot it can run before the network is up and before avahi-daemon is
-  # answering mDNS — `.local` fails to resolve, lpadmin errors, and the
-  # queue is never created. Order it after the network and avahi so the
-  # lookup actually works.
+  # The ensure-printers oneshot calls `lpadmin`, which must contact
+  # the printer over the network to fetch its driverless IPP
+  # attributes (model = "everywhere"). The upstream unit is ordered
+  # only After=cups.service, so at boot it can run before the network
+  # is up — lpadmin errors and the queue is never created. Order it
+  # after the network (and avahi, kept for any future .local URI) so
+  # the lookup actually works.
   #
   # Belt-and-suspenders: treat exit 1 as success so a genuinely offline
   # printer (asleep / off-network) at switch time can't fail the whole
@@ -61,8 +64,8 @@
   # queue silently stops appearing, run `ensure-printers-start` by hand
   # (as root) to see the real error.
   systemd.services.ensure-printers = {
-    after = [ "network-online.target" "avahi-daemon.service" "nss-lookup.target" ];
-    wants = [ "network-online.target" "avahi-daemon.service" ];
+    after = ["network-online.target" "avahi-daemon.service" "nss-lookup.target"];
+    wants = ["network-online.target" "avahi-daemon.service"];
     serviceConfig.SuccessExitStatus = "0 1";
   };
 
@@ -71,11 +74,11 @@
   # screen sharing, and Bluetooth codec support. The PulseAudio
   # compatibility layer (pulse.enable) lets legacy apps work unchanged.
   services.pulseaudio.enable = false;
-  security.rtkit.enable = true;  # Realtime scheduling for PipeWire
+  security.rtkit.enable = true; # Realtime scheduling for PipeWire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;  # Needed by 32-bit games (Steam/Proton)
+    alsa.support32Bit = true; # Needed by 32-bit games (Steam/Proton)
     pulse.enable = true;
   };
 
@@ -86,7 +89,7 @@
   # root login is forbidden. Only key-based authentication is accepted.
   services.openssh = {
     enable = true;
-    ports = [ 22 ];
+    ports = [22];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
@@ -120,8 +123,7 @@
   # switch-to-configuration. The old daemon sometimes dies without
   # cleaning up /run/avahi-daemon/pid, causing the new instance to
   # refuse to start.
-  systemd.services.avahi-daemon.serviceConfig.ExecStartPre =
-    "-/run/current-system/sw/bin/rm -f /run/avahi-daemon/pid";
+  systemd.services.avahi-daemon.serviceConfig.ExecStartPre = "-/run/current-system/sw/bin/rm -f /run/avahi-daemon/pid";
 
   # gvfs — virtual filesystem layer used by Nautilus (and anything
   # GIO-based). Without it Nautilus has no Trash, can't browse SMB /

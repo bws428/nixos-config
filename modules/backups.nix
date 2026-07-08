@@ -1,6 +1,4 @@
-{ ... }:
-
-let
+{...}: let
   # Shared between the local and NAS jobs so the two repos always
   # cover the same data.
   backupPaths = [
@@ -14,8 +12,7 @@ let
     "node_modules"
     "/mnt/seagate500/lost+found"
   ];
-in
-{
+in {
   # ── Restic backups ─────────────────────────────────────────────────
   # Snapshot-based, encrypted, deduplicated backups. Restic keeps
   # history: any file can be restored as it was at any retained
@@ -60,7 +57,7 @@ in
     ];
 
     # Verify repo integrity after each run (metadata check; cheap).
-    checkOpts = [ "--with-cache" ];
+    checkOpts = ["--with-cache"];
   };
 
   # ── Leg 2: NAS repo (Synology DS725+, rest-server) ─────────────────
@@ -100,7 +97,7 @@ in
       RandomizedDelaySec = "15m";
     };
 
-    checkOpts = [ "--with-cache" ];
+    checkOpts = ["--with-cache"];
   };
 
   # ── Leg 3: offsite repo (Backblaze B2) ─────────────────────────────
@@ -144,7 +141,7 @@ in
       RandomizedDelaySec = "15m";
     };
 
-    checkOpts = [ "--with-cache" ];
+    checkOpts = ["--with-cache"];
   };
 
   # Tie the services to the automounted drives: starting one triggers

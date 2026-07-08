@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Bootloader (systemd-boot) ───────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -27,35 +29,25 @@
   boot.kernelPackages = pkgs.linuxPackages;
 
   # ── USB phantom-port boot stall mitigation ──────────────────────────
+  # This X870E board's firmware (AGESA bug) advertises a phantom device
+  # on an unrouted internal root-hub port (usb1-port6); the kernel's
+  # retry storm (`device descriptor read/64, error -110`) used to
+  # dominate initrd. Cutting usbcore's 64-byte descriptor timeout from
+  # 5000ms to 100ms makes those retries near-instant (initrd ~64s →
+  # ~25s). Low risk: modern devices answer in well under 100ms. If a
+  # slow USB device ever fails to enumerate at boot, raise to 250-500ms.
   #
-  # This X870E board (ASUS ProArt X870E-CREATOR WIFI, AGESA ComboAM5)
-  # has a phantom root-hub port `usb1-port6` on the 800-series chipset
-  # xHCI: firmware advertises a device that isn't there, so the kernel
-  # loops `device descriptor read/64, error -110` for ~64s during initrd
-  # and dominates boot time (initrd 1min6s of a ~2min total).
-  #
-  # The storm is 5 enumeration retries, each gated by usbcore's 64-byte
-  # descriptor timeout (default 5000ms). Dropping it to 100ms makes each
-  # retry near-instant, collapsing the ~64s stall to ~1-2s. Global, but
-  # low-risk: modern devices answer the initial descriptor in well under
-  # 100ms; the 5000ms default is conservative legacy headroom. If a
-  # genuinely slow USB device ever fails to enumerate at boot, raise this
-  # to 250-500ms (still cuts the stall to a few seconds).
-  #
-  # NOTE: this is a *mitigation*, not elimination — the kernel still
-  # retries, just cheaply. The canonical fix is to disable the dead port
-  # in BIOS (Advanced > USB Configuration > USB Single Port Control on
-  # this ASUS board); the kernel then never enumerates it at all. A udev
-  # `disable`/`early_stop` rule does NOT work here — it races the kernel
-  # hub thread (the udev worker stalls behind the kernel's own probe), so
-  # it's structurally downstream of the storm. See the 2026-06-28 removal
-  # of the old modules/usb.nix, which had zero effect for exactly this
-  # reason.
-  boot.kernelParams = [ "usbcore.initial_descriptor_timeout=100" ];
+  # PARTIAL fix by design: the remaining ~20s is xHCI address-setup
+  # timeouts that no parameter touches. The port is absent from BIOS's
+  # Single Port Control list, so it can't be disabled there; the only
+  # real cure is a BIOS/AGESA update. Don't add udev rules (they race
+  # the kernel hub thread) and don't strip initrd USB modules (caused
+  # a keyboardless emergency-mode boot once).
+  boot.kernelParams = ["usbcore.initial_descriptor_timeout=100"];
 
   # ── Nix settings ───────────────────────────────────────────────────
   # Enable the `nix` CLI and flakes (still marked experimental).
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Deduplicate identical files in the Nix store by hard-linking them
   # at write time. This prevents store bloat between periodic GC runs,

@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # ── btop — interactive resource monitor ────────────────────────────
   # Uses Noctalia's wallpaper-driven theme, written by its btop template
   # to ~/.config/btop/themes/noctalia.theme. Declaring it here (rather

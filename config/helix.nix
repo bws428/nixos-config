@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # ── Helix text editor ──────────────────────────────────────────────
   # Modal editor inspired by Kakoune and Vim. Uses Tree-sitter for
   # syntax highlighting and built-in LSP support.
@@ -21,12 +19,12 @@
       # to its default theme.
       noctalia_transparent = {
         inherits = "noctalia";
-        "ui.background" = { };
+        "ui.background" = {};
       };
       # Static fallback (:theme carbonfox_transparent).
       carbonfox_transparent = {
         inherits = "carbonfox";
-        "ui.background" = { };
+        "ui.background" = {};
       };
     };
 
@@ -46,7 +44,6 @@
 
     # ── Editor settings ──────────────────────────────────────────────
     settings = {
-
       theme = "noctalia_transparent";
 
       editor = {

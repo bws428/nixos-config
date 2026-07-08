@@ -1,11 +1,13 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Kernel module configuration ────────────────────────────────────
 
   # Prevent the AMD GPU driver from loading — this machine uses an
   # Nvidia GPU exclusively and the AMD driver can cause conflicts.
-  boot.blacklistedKernelModules = [ "amdgpu" ];
+  boot.blacklistedKernelModules = ["amdgpu"];
 
   # Nvidia-specific kernel parameters:
   # - modeset/fbdev: enable kernel modesetting and framebuffer device,
@@ -36,7 +38,7 @@
   # ── Nvidia driver ──────────────────────────────────────────────────
 
   # Tell the X/Wayland stack to use the Nvidia driver.
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     # Use the open-source kernel modules (required for RTX 5080).
@@ -79,8 +81,8 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      libva-vdpau-driver  # VDPAU backend for VA-API
-      libvdpau-va-gl      # VA-API backend for VDPAU (OpenGL fallback)
+      libva-vdpau-driver # VDPAU backend for VA-API
+      libvdpau-va-gl # VA-API backend for VDPAU (OpenGL fallback)
     ];
   };
 

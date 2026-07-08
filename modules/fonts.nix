@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Nerd Fonts ─────────────────────────────────────────────────────
   # https://nixos.wiki/wiki/Fonts
   # https://mynixos.com/nixpkgs/packages/nerd-fonts

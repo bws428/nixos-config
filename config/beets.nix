@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── beets (music library manager) ──────────────────────────────────
   # Organizes/tags the library that MPD plays (see config/mpd.nix).
   # The HM module installs pkgs.beets and writes `settings` to
@@ -28,10 +30,12 @@
     # chroma still works on the (unreliable) shared key.
     package = pkgs.python3Packages.toPythonApplication (
       pkgs.python3Packages.beets.overridePythonAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace beetsplug/chroma.py \
-            --replace-fail 'API_KEY = "1vOwZtEn"' 'import pathlib; _KEYFILE = pathlib.Path.home() / ".config/beets/acoustid-client-key"; API_KEY = ((_KEYFILE.read_text().strip() if _KEYFILE.exists() else "") or "1vOwZtEn")'
-        '';
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            substituteInPlace beetsplug/chroma.py \
+              --replace-fail 'API_KEY = "1vOwZtEn"' 'import pathlib; _KEYFILE = pathlib.Path.home() / ".config/beets/acoustid-client-key"; API_KEY = ((_KEYFILE.read_text().strip() if _KEYFILE.exists() else "") or "1vOwZtEn")'
+          '';
       })
     );
 
@@ -40,18 +44,18 @@
       directory = "${config.home.homeDirectory}/Music";
 
       plugins = [
-        "musicbrainz"   # metadata source — in beets 2.x this is a
-                        # plugin, and an explicit `plugins` list like
-                        # this one drops it unless named (without it,
-                        # beets has NO candidate source and every
-                        # import is skipped)
-        "chroma"        # AcoustID fingerprinting — identifies untagged
-                        # files by audio content
-        "fromfilename"  # fallback guess from filename when fingerprint
-                        # and tags both come up empty
-        "fetchart"      # album art on import
-        "embedart"      # embed fetched art into the files
-        "duplicates"    # query tool for finding dupes post-import
+        "musicbrainz" # metadata source — in beets 2.x this is a
+        # plugin, and an explicit `plugins` list like
+        # this one drops it unless named (without it,
+        # beets has NO candidate source and every
+        # import is skipped)
+        "chroma" # AcoustID fingerprinting — identifies untagged
+        # files by audio content
+        "fromfilename" # fallback guess from filename when fingerprint
+        # and tags both come up empty
+        "fetchart" # album art on import
+        "embedart" # embed fetched art into the files
+        "duplicates" # query tool for finding dupes post-import
       ];
       # mpdupdate is appended to this list by mpdIntegration below.
 
@@ -73,10 +77,10 @@
       # Whenever >1 metadata plugin is loaded (musicbrainz + chroma
       # here), beets docks EVERY candidate for a never-imported file by
       # this amount (default 0.5, weighted 2.0) — capping otherwise
-      # correct matches at ~86-89%, below any auto-accept threshold.
-      # Benchmarked 2026-07-06 on a 40-file sample: 0/40 auto-imports
-      # with the default, 28/40 with it zeroed. The knob lives on the
-      # plugin that PROVIDES the candidates (musicbrainz), not chroma.
+      # correct matches at ~86-89%, below any auto-accept threshold
+      # (benchmark: 0/40 auto-imports with the default, 28/40 zeroed).
+      # The knob lives on the plugin that PROVIDES the candidates
+      # (musicbrainz), not chroma.
       musicbrainz.data_source_mismatch_penalty = 0.0;
 
       # Auto-accept matches scoring >= 90% in quiet mode (default is a

@@ -1,6 +1,4 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   # ── Music Player Daemon ────────────────────────────────────────────
   # Single-user desktop setup: MPD runs as a Home Manager *user* service
   # (not a system service), so it can read $HOME/Music without uid/gid

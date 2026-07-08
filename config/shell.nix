@@ -1,6 +1,8 @@
-{ config, flakePath, ... }:
-
 {
+  config,
+  flakePath,
+  ...
+}: {
   # ── Zsh ────────────────────────────────────────────────────────────
   programs.zsh = {
     enable = true;
@@ -82,23 +84,23 @@
 
       username = {
         format = "[$user]($style) ";
-        show_always = false;      # Only show in SSH or root sessions
+        show_always = false; # Only show in SSH or root sessions
       };
 
       hostname = {
         format = "[$hostname]($style) ";
-        ssh_only = true;          # Only show when connected via SSH
+        ssh_only = true; # Only show when connected via SSH
       };
 
       directory = {
         format = "[$path]($style) ";
-        truncation_length = 3;    # Show at most 3 path components
-        truncate_to_repo = true;  # Truncate from the repo root
+        truncation_length = 3; # Show at most 3 path components
+        truncate_to_repo = true; # Truncate from the repo root
       };
 
       git_branch = {
         format = "[$symbol$branch]($style) ";
-        symbol = "";              # No branch icon — just the name
+        symbol = ""; # No branch icon — just the name
       };
 
       git_status = {

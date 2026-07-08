@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Home Manager identity ──────────────────────────────────────────
   # These tell Home Manager which user it manages and where their
   # home directory lives. Must match the NixOS user definition.
@@ -56,12 +58,10 @@
 
   # ── Mouse cursor theme ─────────────────────────────────────────────
   # Single source of truth for the pointer cursor across Wayland (niri
-  # reads XCURSOR_THEME/XCURSOR_SIZE, set here), GTK apps, and X11/XWayland
-  # clients. Adwaita is the stock GNOME cursor — fully FOSS and already a
-  # complete theme (ships the w-resize cursor that the previous "macOS"
-  # theme lacked, since apple-cursor was never installed).
-  # The niri `cursor` block in config/niri/config.kdl is kept in sync
-  # (xcursor-theme "Adwaita", xcursor-size 24).
+  # reads XCURSOR_THEME/XCURSOR_SIZE, set here), GTK apps, and
+  # X11/XWayland clients. Adwaita: stock GNOME cursor, complete glyph
+  # set. The niri `cursor` block in config/niri/config.kdl is kept in
+  # sync (xcursor-theme "Adwaita", xcursor-size 24).
   home.pointerCursor = {
     enable = true;
     gtk.enable = true;

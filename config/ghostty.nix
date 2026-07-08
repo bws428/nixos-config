@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # ── Ghostty terminal emulator ──────────────────────────────────────
   # Primary terminal. Font size, padding, and transparency mirror the
   # alacritty config (config/alacritty.nix) so the two terminals feel

@@ -82,5 +82,5 @@ The hardware copy in step 2 can be skipped when reinstalling on the same disk la
 - `flake.nix` — single `nixosConfigurations.ghost`; imports every file in `modules/` and mounts `home.nix` under Home Manager.
 - `hardware-configuration.nix` — machine-specific; regenerate with `nixos-generate-config` on a new box.
 - `modules/` — system-level NixOS modules split by concern.
-- `home.nix` + `config/` — Home Manager entry point and per-program user configs (shell, tmux, helix, ghostty, alacritty, btop, rofi, beets, mpd, niri, noctalia).
+- `home.nix` + `config/` — Home Manager entry point and per-program user configs (shell, tmux, helix, ghostty, alacritty, btop, beets, mpd, niri, noctalia).
 - `docs/` — operational runbooks (currently: backups & restore).

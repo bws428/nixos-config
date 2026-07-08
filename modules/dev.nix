@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # ── nix-ld: run unpatched dynamic binaries ─────────────────────────
   # https://wiki.nixos.org/wiki/Nix-ld
   #
@@ -19,7 +17,7 @@
     enable = true;
     libraries = with pkgs; [
       # C/C++ runtime — needed by essentially every prebuilt binary.
-      stdenv.cc.cc.lib   # libstdc++
+      stdenv.cc.cc.lib # libstdc++
       zlib
 
       # TLS / networking — rustup downloads, cargo fetch, npm registry,

@@ -1,17 +1,14 @@
-{ ... }:
-
-{
+{...}: {
   # ── Alacritty terminal emulator ────────────────────────────────────
   # GPU-accelerated terminal. Used as a secondary/fallback terminal
   # alongside Ghostty.
 
   # Noctalia's alacritty post-hook rewrites alacritty.toml with
-  # `sed -i` on every theme apply, which replaces the HM symlink with
-  # a regular file (GNU sed doesn't follow symlinks). Content stays
-  # identical thanks to the import declared below, but HM would still
-  # refuse to relink once a .hm-bak backup exists — that broke every
-  # HM activation from 2026-07-04 10:02 until caught at 13:29. force
-  # lets HM reclaim the file without the backup dance.
+  # `sed -i` on every theme apply, replacing the HM symlink with a
+  # regular file (GNU sed doesn't follow symlinks). Content stays
+  # identical thanks to the import declared below, but HM refuses to
+  # relink once a .hm-bak backup exists; force lets HM reclaim the
+  # file on the next activation instead of failing.
   xdg.configFile."alacritty/alacritty.toml".force = true;
 
   programs.alacritty = {
@@ -28,7 +25,10 @@
       window.opacity = 0.9;
       window.blur = true;
       # Inner padding so text doesn't touch the window edges.
-      window.padding = { x = 25; y = 10; };
+      window.padding = {
+        x = 25;
+        y = 10;
+      };
       # Faster scrolling (5 lines per scroll event instead of default 3).
       scrolling.multiplier = 5;
       # Automatically copy selected text to the system clipboard.
@@ -42,7 +42,7 @@
       # colors here would override the Noctalia theme. Until the first
       # wallpaper apply on a fresh install, alacritty falls back to
       # its built-in defaults.
-      general.import = [ "~/.config/alacritty/themes/noctalia.toml" ];
+      general.import = ["~/.config/alacritty/themes/noctalia.toml"];
     };
   };
 }

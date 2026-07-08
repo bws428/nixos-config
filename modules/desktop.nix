@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # ── Wayland compositors ────────────────────────────────────────────
 
   # Niri — a scrollable-tiling Wayland compositor.
@@ -31,7 +33,7 @@
   # compiling the C++ shell locally. (This is why the noctalia input
   # does NOT follow our nixpkgs — see flake.nix.)
   nix.settings = {
-    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-substituters = ["https://noctalia.cachix.org"];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
@@ -56,7 +58,6 @@
   # Polkit handles privilege escalation prompts (e.g. "enter password
   # to install software") for desktop applications.
   security.polkit.enable = true;
-  # security.pam.services.swaylock = {};
 
   # GNOME Keyring stores secrets (SSH keys, Wi-Fi passwords, app tokens)
   # and unlocks automatically on login.
