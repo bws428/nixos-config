@@ -74,9 +74,12 @@
     # Don't install `cargo`/`rustc` directly; rustup overlays them.
     rustup
 
-    # Node.js — pinned to current LTS. Ships corepack, which provides
-    # pnpm and yarn without separate installs (`corepack enable`).
-    nodejs_22
+    # Node.js — pinned to the 24.x LTS line. Ships corepack, which
+    # provides pnpm and yarn without separate installs (`corepack enable`).
+    # The only Node in the config: keep it that way — a second nodejs
+    # elsewhere in systemPackages causes buildEnv collisions, with the
+    # default `node` decided by collision order.
+    nodejs_24
 
     # Bun — nixpkgs ships a patched bun; use this instead of the
     # official `curl | bash` installer, which downloads an FHS-linked

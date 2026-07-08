@@ -81,7 +81,6 @@
     loupe               # GNOME image viewer
     wl-clipboard        # Wayland clipboard (wl-copy / wl-paste)
     wiremix             # PipeWire audio mixer
-    wireplumber         # PipeWire session manager
     libnotify           # Desktop notification CLI (notify-send)
     playerctl           # MPRIS media player control (play/pause/next)
     chafa               # Terminal image viewer (wallpaper preview, etc.)
@@ -207,7 +206,6 @@
     tree-sitter         # tree-sitter CLI (parser builds)
     fd                  # telescope file finder
     lazygit             # lazygit.nvim integration
-    nodejs              # LazyVim Node provider / LSPs
     python3             # LazyVim Python provider / LSPs
 
     # ── AI ───────────────────────────────────────────────────────────
