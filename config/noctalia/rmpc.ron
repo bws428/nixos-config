@@ -7,11 +7,10 @@
 // the post_hook then live-swaps the theme in running instances via
 // `rmpc remote set theme`.
 //
-// Structure mirrors config/rmpc/kape.ron (the static fallback theme);
-// role mapping follows the kape palette in config/noctalia.nix:
-//   amber accents        → primary / terminal_bright_yellow
-//   burnt sienna borders → secondary
-//   ANSI level colors    → terminal_* tokens
+// Role mapping:
+//   accents       → primary / terminal_bright_yellow
+//   borders       → secondary
+//   level colors  → terminal_* tokens
 #![enable(implicit_some)]
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]

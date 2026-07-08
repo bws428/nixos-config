@@ -239,11 +239,9 @@ in
         mode = "dark";
 
         # Active colors derive from the current wallpaper (Material You
-        # "content" scheme). kape stays declared below as the custom
-        # palette, one click away in Settings → Color Scheme.
+        # "content" scheme).
         source = "wallpaper";
         wallpaper_scheme = "m3-content";
-        custom_palette = "kape";
         builtin = "Ayu";
         # Community palettes auto-download from api.noctalia.dev on
         # first use and cache locally — safe to declare on a fresh box.
@@ -293,65 +291,6 @@ in
         directory = wallpaperDir;
         transition = [ "fade" ];
         default.path = fallbackWallpaper;
-      };
-    };
-
-    # ── Kape palette ─────────────────────────────────────────────────
-    # Material-role mapping of the kape palette (autumn-amber variant,
-    # https://github.com/gabiuz/kape) — the same mapping previously in
-    # assets/themes/kape/theme.json for DMS, renamed onto Noctalia's
-    # token names. Written to ~/.config/noctalia/palettes/kape.json.
-    # Terminal ANSI colors mirror the ghostty "kape" theme
-    # (config/ghostty.nix), which is the authoritative 16-color set.
-    # No light variant is defined; Noctalia falls back to dark.
-    customPalettes.kape = {
-      # NOTE: theme.source above is "wallpaper", so this palette is the
-      # declared base/fallback, not necessarily what's active.
-      dark = {
-        mPrimary = "#d99a4a";          # amber
-        mOnPrimary = "#181616";
-        mSecondary = "#b8642e";        # burnt sienna
-        mOnSecondary = "#181616";
-        mTertiary = "#689d8a";         # sage teal (DMS "info")
-        mOnTertiary = "#181616";
-        mError = "#b53535";
-        mOnError = "#181616";
-        mSurface = "#181616";
-        mOnSurface = "#d4be98";
-        mSurfaceVariant = "#2e2a2a";
-        mOnSurfaceVariant = "#bdae8b";
-        mOutline = "#928374";
-        mShadow = "#0a0808";
-        mHover = "#b8642e";
-        mOnHover = "#181616";
-        terminal = {
-          normal = {
-            black = "#181616";
-            red = "#b53535";
-            green = "#b4c76e";
-            yellow = "#d99a4a";
-            blue = "#7b8fd4";
-            magenta = "#b06880";
-            cyan = "#689d8a";
-            white = "#c2c2c2";
-          };
-          bright = {
-            black = "#2e2a2a";
-            red = "#c94040";
-            green = "#cad98a";
-            yellow = "#e6ad60";
-            blue = "#9aaae0";
-            magenta = "#c8889a";
-            cyan = "#89b8a8";
-            white = "#d4be98";
-          };
-          foreground = "#d4be98";
-          background = "#181616";
-          selectionFg = "#d4be98";
-          selectionBg = "#2e2a2a";
-          cursorText = "#181616";
-          cursor = "#d4be98";
-        };
       };
     };
   };

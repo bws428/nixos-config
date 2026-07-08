@@ -24,19 +24,6 @@
   # These are symlinked into ~/.config/ via the Nix store.
   xdg.configFile = {
     "niri/config.kdl".source = ./config/niri/config.kdl;
-    # Custom Zed theme — kape palette mapped onto Zed's theme schema.
-    # Pick "Kape" via Zed's theme selector (Cmd-K Cmd-T).
-    "zed/themes/kape.json".source = ./assets/themes/kape/zed.json;
-  };
-
-  # Obsidian themes live inside the vault, not under $XDG_CONFIG_HOME,
-  # so they're symlinked via home.file (path is relative to $HOME).
-  # Update the vault path here if the vault is renamed or moved.
-  home.file = {
-    "Documents/Obsidian/Notes/.obsidian/themes/Kape/manifest.json".source =
-      ./assets/themes/kape/obsidian/manifest.json;
-    "Documents/Obsidian/Notes/.obsidian/themes/Kape/theme.css".source =
-      ./assets/themes/kape/obsidian/theme.css;
   };
 
   # ── Per-program configs ────────────────────────────────────────────

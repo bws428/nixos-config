@@ -31,10 +31,9 @@
   # theme files are separate. The active "noctalia" theme is RENDERED by
   # Noctalia (theme.templates.user.rmpc in config/noctalia/noctalia.nix) into
   # ~/.config/rmpc/themes/noctalia.ron on every theme/wallpaper apply,
-  # so rmpc follows the shell's colors. The static kape theme stays on
-  # disk as a fallback — if noctalia.ron is ever missing (fresh machine
-  # before the first theme apply), switch theme back to "kape" or
-  # re-apply the color scheme in Noctalia's settings.
+  # so rmpc follows the shell's colors. If noctalia.ron is ever missing
+  # (fresh machine before the first theme apply), re-apply the color
+  # scheme in Noctalia's settings to regenerate it.
   programs.rmpc = {
     enable = true;
     config = ''
@@ -47,6 +46,4 @@
       )
     '';
   };
-
-  xdg.configFile."rmpc/themes/kape.ron".source = ./rmpc/kape.ron;
 }

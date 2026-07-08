@@ -172,7 +172,7 @@ binds {
         spawn "chromium";
     }
     // Noctalia has no processlist panel (DMS did); btop is the
-    // system monitor here, in the kape-themed terminal.
+    // system monitor here.
     Mod+M hotkey-overlay-title="System Monitor" {
         spawn "ghostty" "-e" "btop";
     }

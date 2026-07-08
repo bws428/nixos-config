@@ -3,7 +3,7 @@
 {
   # ── Noctalia greeter (replaces GDM) ────────────────────────────────
   # The Noctalia greeter shares the shell's visual language, so the
-  # login screen matches the lock screen — same wallpaper, same kape
+  # login screen matches the lock screen — same wallpaper, same
   # palette. Module comes from the noctalia-greeter flake input (see
   # flake.nix); it enables greetd and sets its default_session to
   # noctalia-greeter-session. Docs: https://docs.noctalia.dev/v5/greeter/
@@ -36,15 +36,42 @@
     # just typing the password.
     greeter-args = "--session niri --user bws428";
 
-    # Written to /var/lib/noctalia-greeter/greeter.toml. Match the
-    # session's cursor (home.pointerCursor in home.nix).
+    # Written to /var/lib/noctalia-greeter/greeter.toml — but only if
+    # that file doesn't exist yet: the module deploys it with a
+    # tmpfiles `C` rule (copy-if-absent), and the greeter itself
+    # rewrites the live file at runtime (last session, last scheme).
+    # To land changes made here, delete the runtime file and let
+    # tmpfiles re-seed it:
+    #   sudo rm /var/lib/noctalia-greeter/greeter.toml
+    #   sudo systemd-tmpfiles --create
     settings = {
       cursor = {
         theme = "Adwaita";
         size = 24;
       };
+      appearance = {
+        # No Noctalia brand logo on the login screen.
+        hide_logo = true;
+        # "Synced" = use the wallpaper/palette pushed by the shell's
+        # manual Sync Now. The greeter normally writes this key itself
+        # after a sync; declaring it keeps the synced look when the
+        # runtime greeter.toml is reset (see above).
+        scheme = "Synced";
+      };
     };
   };
+
+  # ── AccountsService (user avatar on the greeter) ───────────────────
+  # The greeter fetches avatars over D-Bus from org.freedesktop.Accounts
+  # (IconFile property) and falls back to a generic glyph without it.
+  # GDM pulled accounts-daemon in transitively; greetd doesn't — same
+  # niri-specific-plumbing story as avahi/gvfs/udisks2. Avatar state is
+  # imperative user data in /var/lib/AccountsService (set it via
+  # Noctalia Settings' avatar picker); nothing in this repo ships it.
+  # Upstream noctalia-greeter enables this by default in revs newer
+  # than our pin (commit e56dc9d7), so this line becomes redundant
+  # after a future flake update.
+  services.accounts-daemon.enable = true;
 
   # ── Keyring auto-unlock under greetd ───────────────────────────────
   # GDM's PAM stack ran pam_gnome_keyring.so so the login password
