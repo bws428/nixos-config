@@ -184,6 +184,7 @@
     obs-studio # Screen recording / streaming
     vlc # Media player
     spotify # Streaming music
+    tauon # Local music player / library manager
     spicetify-cli # Spotify UI customization
     ffmpeg # Audio/video conversion and processing
     imagemagick # Image conversion, resizing, and manipulation
