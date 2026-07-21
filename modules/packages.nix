@@ -6,11 +6,10 @@
 }: {
   # ── Flatpak ────────────────────────────────────────────────────────
   # Declarative Flatpak management via nix-flatpak (flake input).
-  # Bambu Studio is here (not in systemPackages) because the nixpkgs
-  # `bambu-studio` build currently ships a blank 3D viewport on
-  # NVIDIA+Wayland — tracked by nixpkgs#498311 and PR #522161. The
-  # Flathub build bundles its own GL/WebKit deps and works reliably.
-  # Revisit moving to native once #522161 merges.
+  # Currently empty: the Bambu Studio flatpak was removed 2026-07-21
+  # after the org.gnome.Platform//50 runtime update made it abort on
+  # launch (fatal GTK "Could not load a pixbuf from icon theme");
+  # replaced by native orca-slicer in systemPackages below.
   services.flatpak = {
     enable = true;
     # Refresh installed flatpaks on every rebuild — keeps them in sync
@@ -21,9 +20,7 @@
     # rebuild. Comment this out if you want to experiment with ad-hoc
     # `flatpak install` without losing the app on the next switch.
     uninstallUnmanaged = true;
-    packages = [
-      "com.bambulab.BambuStudio"
-    ];
+    packages = [];
   };
 
   # ── SpaceMouse ─────────────────────────────────────────────────────
@@ -197,6 +194,11 @@
     hunspellDicts.en_US # US English dictionary
     kdePackages.okular # PDF viewer (annotations, forms, signatures)
     libgen-cli # Library Genesis CLI
+
+    # ── 3D printing ──────────────────────────────────────────────────
+    # Native package works since 2.3.2 (nixpkgs#345590, incl. NVIDIA
+    # fix); trialing it as a replacement for the Bambu Studio flatpak.
+    orca-slicer # 3D printer slicer (Bambu Studio fork)
 
     # ── Database clients ─────────────────────────────────────────────
     postgresql # psql, pg_dump, etc. (client only; no server)
