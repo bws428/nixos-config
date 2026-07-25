@@ -111,6 +111,8 @@
     eza # Modern ls replacement with icons
     zoxide # Smart cd that learns your directories
     alejandra # Nix code formatter
+    taplo # TOML formatter/linter (Cargo.toml, etc.)
+    prettier # Formatter for Markdown/YAML/JSON/HTML/CSS (runs without package.json)
     tldr # Community-maintained command cheatsheets
 
     # ── Networking tools ─────────────────────────────────────────────
