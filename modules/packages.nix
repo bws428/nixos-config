@@ -202,6 +202,7 @@
 
     # ── Database clients ─────────────────────────────────────────────
     postgresql # psql, pg_dump, etc. (client only; no server)
+    sqlite-interactive # sqlite3 CLI with readline (plain `sqlite` lacks line editing)
 
     # ── Neovim  ──────────────────────────────────────────────────────
     # Config is managed by lazy.nvim (not Home Manager)
