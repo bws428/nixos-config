@@ -196,6 +196,7 @@
     hunspellDicts.en_US # US English dictionary
     kdePackages.okular # PDF viewer (annotations, forms, signatures)
     libgen-cli # Library Genesis CLI
+    frogmouth # TUI Markdown reader
 
     # ── 3D printing ──────────────────────────────────────────────────
     # Native package works since 2.3.2 (nixpkgs#345590, incl. NVIDIA
