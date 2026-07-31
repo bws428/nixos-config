@@ -93,9 +93,9 @@ gestures {
 
 // Window Rules - Auto-placement
 
-// Open Firefox on workspace 1, primary display (DP-1)
+// Open Chromium on workspace 1, primary display (DP-1)
 window-rule {
-    match app-id="firefox"
+    match app-id="ungoogled-chromium"
     open-on-output "DP-1"
     open-on-workspace "1"
     open-fullscreen true

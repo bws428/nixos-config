@@ -36,6 +36,7 @@
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
       microfetch                        # Show system info on shell startup
+      fortune
 
       # Warn if a newer system generation has been built but not booted
       # into. Happens after `nixos-rebuild boot` — most notably the
