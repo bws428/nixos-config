@@ -146,7 +146,7 @@
     # ── Fun ──────────────────────────────────────────────────────────
     cmatrix # Matrix rain animation
     unimatrix # Unicode matrix rain
-    fortune-kind # Random kind/wholesome quotes
+    fortune # Random quotes
 
     # ── Monitoring ───────────────────────────────────────────────────
     # btop is managed via Home Manager (config/btop.nix) for theming.
@@ -197,6 +197,8 @@
     kdePackages.okular # PDF viewer (annotations, forms, signatures)
     libgen-cli # Library Genesis CLI
     frogmouth # TUI Markdown reader
+    asciinema # screen recorder for terminal sessions
+    asciinema-agg # generate animated GIF files from asciicast files
 
     # ── 3D printing ──────────────────────────────────────────────────
     # Native package works since 2.3.2 (nixpkgs#345590, incl. NVIDIA
