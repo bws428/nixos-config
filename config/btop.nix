@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # ── btop — interactive resource monitor ────────────────────────────
   # Uses Noctalia's wallpaper-driven theme, written by its btop template
   # to ~/.config/btop/themes/noctalia.theme. Declaring it here (rather
@@ -8,6 +8,9 @@
   # first wallpaper apply.
   programs.btop = {
     enable = true;
+    # Default btop is built without GPU_SUPPORT; the cuda variant links
+    # NVML so the gpu0 box ("5" key) works.
+    package = pkgs.btop-cuda;
     settings = {
       color_theme = "noctalia";
       theme_background = false;
