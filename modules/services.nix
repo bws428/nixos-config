@@ -134,4 +134,13 @@
   # and lets non-root users mount USB sticks / external disks without
   # editing fstab.
   services.udisks2.enable = true;
+
+  # ── Ollama LLM ─────────────────────────────────────────────────────
+  # Local LLM inference engine. Uses the CUDA build so models run on
+  # the NVIDIA GPU. Listens on 127.0.0.1:11434 by default — Pi connects
+  # locally, so no need to bind to 0.0.0.0.
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+  };
 }
