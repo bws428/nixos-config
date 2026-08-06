@@ -95,7 +95,6 @@
     gnome-themes-extra # provides the Adwaita-dark GTK widget theme
 
     # ── File managers ────────────────────────────────────────────────
-    yazi # Terminal file manager
     nautilus # GNOME graphical file manager
 
     # ── Archive tools ────────────────────────────────────────────────
