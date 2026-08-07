@@ -28,7 +28,7 @@
         owner = "PrismML-Eng";
         repo = "llama.cpp";
         rev = "62061f91088281e65071cc38c5f69ee95c39f14e";
-        hash = "sha256-CH4k2ga+NDvjb2lzxdi9OtJrwaowbt9mIcOgsCfserI=";
+        hash = "sha256-zLxB5UKnCTCw/okB+L8u1VtM1o2yVjVYTlTBgL/BsaM=";
         leaveDotGit = true;
         postFetch = ''
           git -C "$out" rev-parse --short HEAD > $out/COMMIT
