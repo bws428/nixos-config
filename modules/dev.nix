@@ -70,6 +70,9 @@
   environment.systemPackages = with pkgs; [
     # Rust — rustup manages channels and honors rust-toolchain.toml.
     # Don't install `cargo`/`rustc` directly; rustup overlays them.
+    # If cargo/rustc ENOENT after a glibc bump + GC (dangling ELF
+    # interpreter), fix with: rustup toolchain uninstall stable &&
+    # rustup toolchain install stable && rustup default stable
     rustup
 
     # Node.js — pinned to the 24.x LTS line. Ships corepack, which

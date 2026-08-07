@@ -100,6 +100,7 @@
         ./modules/mt7927-wifi.nix
         ./modules/bluetooth.nix
         ./modules/services.nix
+        ./modules/llms.nix
         ./modules/storage.nix
         ./modules/backups.nix
         ./modules/upgrade.nix
