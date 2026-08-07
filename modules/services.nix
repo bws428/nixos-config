@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   # ── Printing (CUPS) ────────────────────────────────────────────────
@@ -135,15 +136,52 @@
   # editing fstab.
   services.udisks2.enable = true;
 
-  # ── Ollama LLM ─────────────────────────────────────────────────────
-  # Local LLM inference engine. Uses the CUDA build so models run on
-  # the NVIDIA GPU. Listens on 127.0.0.1:11434 by default — Pi connects
-  # locally, so no need to bind to 0.0.0.0.
-  services.ollama = {
+  # ── Local LLM (llama.cpp) ──────────────────────────────────────────
+  # Replaces Ollama. llama-server exposes an OpenAI-compatible API on
+  # 127.0.0.1:11434 so Pi needs no reconfiguration.
+  #
+  # Model: bartowski/Qwen_Qwen3.6-35B-A3B-GGUF Q4_K_M (~22.3 GB).
+  # The MoE architecture activates only ~3B params per token, making
+  # partial GPU offloading viable even on a 16 GB 5080. The remaining
+  # weights live in system RAM; --n-cpu-moe routes expert switching
+  # through the CPU.
+  services.llama-cpp = {
     enable = true;
-    package = pkgs.ollama-cuda;
-    environmentVariables = {
-     OLLAMA_CONTEXT_LENGTH = "32768";
-   };
+    package = pkgs.llama-cpp.override { cudaSupport = true; };
+
+    settings = {
+      host = "127.0.0.1";
+      port = 11434;               # match Ollama's port
+      model = "/mnt/seagate500/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf";
+
+      # Layer offloading: explicit cap leaves GPU headroom for KV cache.
+      # The model has ~40 layers; 24 on GPU ≈ 13.4 GB weights, leaving
+      # ~2-3 GB for KV cache and CUDA overhead. Increase if nvtop shows
+      # spare VRAM (try 28, then 30). Decrease if you see OOM.
+      ngl = 24;
+
+      # MoE expert routing: keeps routed expert weights of the first 36
+      # layers on CPU. This is the video's core trick — the expert
+      # matrices are 90% of params but only ~3B are active per token.
+      n-cpu-moe = 36;
+
+      no-mmap = true;             # load weights into RAM, not disk-mmap
+      ctx-size = 128000;          # 128K context window
+
+      # KV-cache quantization: q4_0 gives maximum VRAM headroom.
+      # The video used no explicit KV quant (default fp16), but on a
+      # 16 GB card with 128K context we need the space. If output
+      # quality feels degraded, try q8_0 instead.
+      cache-type-k = "q4_0";
+      cache-type-v = "q4_0";
+      flash-attn = true;          # faster + less VRAM on long contexts
+
+      # --mlock is omitted for now: the NixOS service runs as a
+      # DynamicUser without CAP_IPC_LOCK. On a desktop with ample RAM
+      # it is unnecessary. To enable later, uncomment below AND add a
+      # systemd.services.llama-cpp.serviceConfig override for
+      # AmbientCapabilities / CapabilityBoundingSet.
+      # mlock = true;
+    };
   };
 }
