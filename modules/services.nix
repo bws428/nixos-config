@@ -155,10 +155,10 @@
       model = "/mnt/seagate500/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf";
 
       # Layer offloading: explicit cap leaves GPU headroom for KV cache.
-      # The model has ~40 layers; 24 on GPU ≈ 13.4 GB weights, leaving
-      # ~2-3 GB for KV cache and CUDA overhead. Increase if nvtop shows
-      # spare VRAM (try 28, then 30). Decrease if you see OOM.
-      gpu-layers = 24;
+      # The model has ~40 layers; 32 on GPU ≈ 16 GB weights, leaving
+      # ~1-2 GB for KV cache and CUDA overhead. Increase if nvtop shows
+      # spare VRAM (try 36, then 38). Decrease if you see OOM.
+      gpu-layers = 32;
 
       # MoE expert routing: keeps routed expert weights of the first 36
       # layers on CPU. This is the video's core trick — the expert
