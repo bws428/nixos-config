@@ -174,7 +174,7 @@
       # quality feels degraded, try q8_0 instead.
       cache-type-k = "q4_0";
       cache-type-v = "q4_0";
-      flash-attn = true;          # faster + less VRAM on long contexts
+      flash-attn = "on";          # faster + less VRAM on long contexts
 
       # --mlock is omitted for now: the NixOS service runs as a
       # DynamicUser without CAP_IPC_LOCK. On a desktop with ample RAM
