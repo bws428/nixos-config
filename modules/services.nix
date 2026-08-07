@@ -154,34 +154,27 @@
       port = 11434;               # match Ollama's port
       model = "/mnt/seagate500/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf";
 
-      # Layer offloading: explicit cap leaves GPU headroom for KV cache.
-      # The model has ~40 layers; 32 on GPU ≈ 16 GB weights, leaving
-      # ~1-2 GB for KV cache and CUDA overhead. Increase if nvtop shows
-      # spare VRAM (try 36, then 38). Decrease if you see OOM.
-      gpu-layers = 32;
+      # Layer offloading: pushes more onto GPU to max VRAM. Model has ~40 layers.
+      gpu-layers = 38;
 
-      # MoE expert routing: keeps routed expert weights of the first 36
-      # layers on CPU. This is the video's core trick — the expert
-      # matrices are 90% of params but only ~3B are active per token.
-      n-cpu-moe = 36;
+      # MoE expert routing: routes expert weights of the first 32
+      # layers to CPU (only ~3B active per token). Combined with 38 GPU
+      # layers, layers 33–38 have their MoE experts on GPU.
+      # The expert matrices are 90% of params but only ~3B are active per token.
+      n-cpu-moe = 32;
 
       no-mmap = true;             # load weights into RAM, not disk-mmap
       ctx-size = 262144;          # 256K context window (model's trained limit)
 
-      # KV-cache quantization: q4_0 gives maximum VRAM headroom.
-      # The video used no explicit KV quant (default fp16), but on a
-      # 16 GB card with 128K context we need the space. If output
-      # quality feels degraded, try q8_0 instead.
-      cache-type-k = "q4_0";
+      # KV-cache quantization: q8_0 for better quality at 256K context.
+      # Doubles KV cache size vs q4_0 but the extra GPU layers and
+      # reduced MoE CPU offload compensate for the VRAM budget.
+      cache-type-k = "q8_0";
       cache-type-v = "q4_0";
-      flash-attn = "on";          # faster + less VRAM on long contexts
 
-      # --mlock is omitted for now: the NixOS service runs as a
-      # DynamicUser without CAP_IPC_LOCK. On a desktop with ample RAM
-      # it is unnecessary. To enable later, uncomment below AND add a
-      # systemd.services.llama-cpp.serviceConfig override for
-      # AmbientCapabilities / CapabilityBoundingSet.
-      # mlock = true;
+      # Flash attention
+      flash-attn = "on";          # faster + less VRAM on long contexts
+      
     };
   };
 }
