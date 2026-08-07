@@ -137,44 +137,58 @@
   services.udisks2.enable = true;
 
   # ── Local LLM (llama.cpp) ──────────────────────────────────────────
-  # Replaces Ollama. llama-server exposes an OpenAI-compatible API on
-  # 127.0.0.1:11434 so Pi needs no reconfiguration.
-  #
-  # Model: bartowski/Qwen_Qwen3.6-35B-A3B-GGUF Q4_K_M (~22.3 GB).
-  # The MoE architecture activates only ~3B params per token, making
-  # partial GPU offloading viable even on a 16 GB 5080. The remaining
-  # weights live in system RAM; --n-cpu-moe routes expert switching
-  # through the CPU.
+  # llama-server, OpenAI-compatible API on 127.0.0.1:11434 (Ollama's port).
+  # Model: Qwen3.6-35B-A3B Q4_K_M MoE (~22.3 GB, ~40 layers, ~3B active/token).
+  # VRAM budget: keep ~1 GiB free on the 16 GB 5080 for desktop/browser.
   services.llama-cpp = {
     enable = true;
     package = pkgs.llama-cpp.override { cudaSupport = true; };
 
     settings = {
       host = "127.0.0.1";
-      port = 11434;               # match Ollama's port
+      port = 11434;
       model = "/mnt/seagate500/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf";
 
-      # Layer offloading: pushes more onto GPU to max VRAM. Model has ~40 layers.
-      gpu-layers = 38;
+      # Put every layer's attention/dense weights on GPU (they're small).
+      # Leave at 99; VRAM is tuned with n-cpu-moe instead.
+      gpu-layers = 99;
 
-      # MoE expert routing: routes expert weights of the first 32
-      # layers to CPU (only ~3B active per token). Combined with 38 GPU
-      # layers, layers 33–38 have their MoE experts on GPU.
-      # The expert matrices are 90% of params but only ~3B are active per token.
-      n-cpu-moe = 32;
+      # How many layers' MoE experts stay on CPU (~500 MiB VRAM each).
+      # MAIN VRAM KNOB: lower = faster (esp. prefill); -2 while >1 GiB free.
+      n-cpu-moe = 22;
 
-      no-mmap = true;             # load weights into RAM, not disk-mmap
-      ctx-size = 262144;          # 256K context window (model's trained limit)
+      # Load weights fully into RAM instead of mmapping from disk.
+      # Slower start, but no disk stalls when CPU experts get paged.
+      no-mmap = true;
 
-      # KV-cache quantization: q8_0 for better quality at 256K context.
-      # Doubles KV cache size vs q4_0 but the extra GPU layers and
-      # reduced MoE CPU offload compensate for the VRAM budget.
+      # Context window in tokens (model's trained max). Lowering frees
+      # VRAM (KV cache) but caps how much repo the agent can hold.
+      ctx-size = 262144;
+
+      # KV-cache quantization: smaller = more VRAM headroom, subtly
+      # dumber on long contexts. K is quality-critical; keep K >= V.
       cache-type-k = "q8_0";
       cache-type-v = "q4_0";
 
-      # Flash attention
-      flash-attn = "on";          # faster + less VRAM on long contexts
-      
+      # Faster attention + less VRAM at long context. Always on.
+      flash-attn = "on";
+
+      # Use the model's embedded chat template. REQUIRED for OpenAI-style
+      # tool calling in Pi (esp. Qwen3-Coder); without it tool calls fail.
+      jinja = true;
+
+      # Prompt chunk sizes; ubatch is the PREFILL SPEED knob (file/repo
+      # ingestion). Halve ubatch to 1024 if VRAM gets tight.
+      batch-size = 2048;
+      ubatch-size = 2048;
+
+      # Prefill is compute-bound on CPU experts: use all 16 SMT threads.
+      # Decode threads stay at the default 8 (memory-bandwidth-bound).
+      threads-batch = 16;
+
+      # Reuse KV-cache chunks (this granularity, in tokens) when a prompt
+      # shifts, instead of reprocessing everything after the first edit.
+      cache-reuse = 256;
     };
   };
 }
