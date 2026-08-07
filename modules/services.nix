@@ -158,7 +158,7 @@
       # The model has ~40 layers; 24 on GPU ≈ 13.4 GB weights, leaving
       # ~2-3 GB for KV cache and CUDA overhead. Increase if nvtop shows
       # spare VRAM (try 28, then 30). Decrease if you see OOM.
-      ngl = 24;
+      gpu-layers = 24;
 
       # MoE expert routing: keeps routed expert weights of the first 36
       # layers on CPU. This is the video's core trick — the expert
