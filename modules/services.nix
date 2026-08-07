@@ -166,7 +166,7 @@
       n-cpu-moe = 36;
 
       no-mmap = true;             # load weights into RAM, not disk-mmap
-      ctx-size = 128000;          # 128K context window
+      ctx-size = 262144;          # 256K context window (model's trained limit)
 
       # KV-cache quantization: q4_0 gives maximum VRAM headroom.
       # The video used no explicit KV quant (default fp16), but on a
