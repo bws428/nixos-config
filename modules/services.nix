@@ -152,8 +152,6 @@
     llama = pkgs.llama-cpp.override {cudaSupport = true;};
 
     # Flags shared by every model. Knobs:
-    #   --gpu-layers 99      all attention/dense weights on GPU (small);
-    #                        VRAM is tuned per-model with --n-cpu-moe
     #   --no-mmap            load weights fully into RAM, not disk-mmap
     #   --flash-attn on      faster + less VRAM at long context
     #   --jinja              model's embedded chat template; REQUIRED for
@@ -173,31 +171,33 @@
     # + GPU idle + degrades with fill. Test any new combo before trust.
     commonFlags =
       "--host 127.0.0.1 --port \${PORT}"
-      + " --gpu-layers 99 --no-mmap"
+      + " --no-mmap"
       + " --flash-attn on --jinja"
       + " --batch-size 2048 --ubatch-size 2048"
       + " --threads-batch 16 --cache-reuse 256";
 
     # Per-model knobs:
+    #   --gpu-layers    99 on MoE entries (VRAM tuned via --n-cpu-moe);
+    #                   omit on dense entries so auto-fit sizes to free VRAM
     #   --n-cpu-moe N   MAIN VRAM KNOB: layers of MoE experts kept on CPU
-    #                   (35B ≈ 450 MiB/layer, coder ≈ 250 MiB/layer);
+    #                   (35B ≈ 450 MiB/layer);
     #                   lower = faster decode; -2 while >1 GiB VRAM free
     #   --ctx-size      context window; lowering frees VRAM for experts
-    #                   (coder KV ≈ 3.34 GiB per 64K at q8/q8)
     #
     # Also prefer K-quant GGUFs (Q3_K/Q4_K/UD-*_K_*) over i-quants
     # (IQ2/IQ3/...) whenever experts live on CPU: i-quant CPU matmul
     # is markedly slower (documented llama.cpp behavior).
     #
-    # Benchmarks 2026-08-07 (7.4K-token prompt, cold): 35B 269 pp /
-    # 41 tg; coder@128K 4,876 pp / 74 tg. Coder prefill is GPU-streamed
-    # (large-batch op offload), so high n-cpu-moe barely hurts it.
+    # Benchmarks 2026-08-07 (13.2K-token prompt, cold): 35B 269 pp /
+    # 41 tg; 27B-fast 1332 pp / 19 tg (25 tg short ctx); 9B-sprint
+    # 6940 pp / 89 tg. Prefill streams CPU-parked experts through the
+    # GPU in large batches, so high n-cpu-moe barely hurts prefill.
     swapConfig = pkgs.writeText "llama-swap.yaml" ''
       healthCheckTimeout: 600
 
       # Naming: <vendor><gen>-<level>. Level = how much thought per
-      # token you're buying: think > code (lite) > sprint. Aliases keep
-      # the original ids routing for old sessions/scripts.
+      # token you're buying. Aliases keep the original ids routing for
+      # old sessions/scripts.
       models:
         "qwen3.6-think":
           name: "Think — Qwen3.6-35B · 256K"
@@ -206,49 +206,30 @@
           cmd: >
             ${llama}/bin/llama-server ${commonFlags}
             --model /var/lib/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf
+            --gpu-layers 99
             --cache-type-k q8_0 --cache-type-v q4_0
             --ctx-size 262144
             --n-cpu-moe 22
 
-        # Q4_K_M: best coder quality (18.6 GB); more experts on CPU to
-        # pay for it. Tune n-cpu-moe down while >1 GiB VRAM stays free.
-        # q8_0 V (NOT q4_0) on all coder entries: q4_0 V triggers the
-        # CPU-attention fallback on this arch — see KV note above.
-        "qwen3-code":
-          name: "Code — Qwen3-Coder-30B Q4 · 128K"
-          aliases:
-            - "qwen3-coder-30b-q4"
+        # Dense hybrid (GDN), fits VRAM whole at Q3_K_S; no --gpu-layers
+        # so auto-fit adapts to free VRAM. MTP drafting ~1.7x decode.
+        "qwen3.6-fast":
+          name: "Fast — Qwen3.6-27B MTP · 64K"
           cmd: >
             ${llama}/bin/llama-server ${commonFlags}
-            --model /var/lib/llms/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf
-            --cache-type-k q8_0 --cache-type-v q8_0
-            --ctx-size 131072
-            --n-cpu-moe 33
+            --model /var/lib/llms/Qwen3.6-27B-Q3_K_S.gguf
+            --parallel 1 --ctx-size 65536 --ubatch-size 1024
+            --spec-type draft-mtp --spec-draft-n-max 2
+            --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0
 
-        # Q3_K_XL of the same coder: A/B rival for qwen3-code. If the
-        # quality gap is imperceptible after real use, one of them goes.
-        "qwen3-code-lite":
-          name: "Code Lite — Qwen3-Coder-30B Q3 · 128K"
-          aliases:
-            - "qwen3-coder-30b"
+        # Dense hybrid 9B at Q8_0, fully VRAM-resident; the speed tier.
+        "qwen3.5-sprint":
+          name: "Sprint — Qwen3.5-9B Q8 · 128K"
           cmd: >
             ${llama}/bin/llama-server ${commonFlags}
-            --model /var/lib/llms/Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL.gguf
-            --cache-type-k q8_0 --cache-type-v q8_0
-            --ctx-size 131072
-            --n-cpu-moe 26
-
-        # Same GGUF as code-lite; trades context for faster decode.
-        "qwen3-sprint":
-          name: "Sprint — Qwen3-Coder-30B Q3 · 64K"
-          aliases:
-            - "qwen3-coder-30b-fast"
-          cmd: >
-            ${llama}/bin/llama-server ${commonFlags}
-            --model /var/lib/llms/Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL.gguf
-            --cache-type-k q8_0 --cache-type-v q8_0
-            --ctx-size 65536
-            --n-cpu-moe 12
+            --model /var/lib/llms/Qwen_Qwen3.5-9B-Q8_0.gguf
+            --parallel 1 --ctx-size 131072
+            --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0
     '';
   in {
     description = "llama-swap multi-model LLM proxy";
