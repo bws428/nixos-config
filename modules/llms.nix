@@ -114,7 +114,7 @@
         # q4_0 V trips the CPU flash-attn fallback on this model —
         # keep V at q8_0. n-cpu-moe 27 makes room for the bigger V.
         "qwen3.6-think":
-          name: "Think — Qwen3.6-35B · 256K"
+          name: "Qwen3.6 35B"
           aliases:
             - "qwen3.6-35b"
           cmd: >
@@ -128,7 +128,7 @@
         # Dense hybrid at 1.71 bpw; whole model + 256K KV ≈ 13.9 GiB,
         # fits the card whole (q4_0 KV ≈ 1.6 GiB per 64K).
         "bonsai-27b":
-          name: "Bonsai — Ternary 27B · 256K"
+          name: "Bonsai 27B"
           aliases:
             - "bonsai"
           cmd: >
