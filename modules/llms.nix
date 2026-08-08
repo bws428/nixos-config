@@ -152,16 +152,16 @@
             --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0
 
         # Ternary Bonsai 27B: ~7.2 GB dense hybrid at 1.71 bpw.
-        # Fits whole in VRAM with headroom; 4-bit KV keeps long
-        # contexts practical on a 16 GB card.
+        # Native 256K ctx; q4_0 KV costs ~1.6 GiB per 64K, so the
+        # full window totals ~13.9 GiB — fits the 16 GB card whole.
         "bonsai-27b":
-          name: "Bonsai — Ternary 27B · 64K"
+          name: "Bonsai — Ternary 27B · 256K"
           aliases:
             - "bonsai"
           cmd: >
             ${llama-bonsai}/bin/llama-server ${commonFlags}
             --model /var/lib/llms/Ternary-Bonsai-27B-Q2_0.gguf
-            --parallel 1 --ctx-size 65536
+            --parallel 1 --ctx-size 262144
             --cache-type-k q4_0 --cache-type-v q4_0
             --temp 0.7 --top-p 0.95 --top-k 20 --min-p 0.0
 
