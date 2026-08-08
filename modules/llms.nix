@@ -118,9 +118,9 @@
     # is markedly slower (documented llama.cpp behavior).
     #
     # Benchmarks 2026-08-07 (13.2K-token prompt, cold): 35B 269 pp /
-    # 41 tg; 27B-fast 1332 pp / 19 tg (25 tg short ctx); 9B-sprint
-    # 6940 pp / 89 tg. Prefill streams CPU-parked experts through the
-    # GPU in large batches, so high n-cpu-moe barely hurts prefill.
+    # 41 tg; bonsai 2112 pp / 66 tg (41 tg @54K, 27 tg @107K).
+    # Prefill streams CPU-parked experts through the GPU in large
+    # batches, so high n-cpu-moe barely hurts prefill.
     swapConfig = pkgs.writeText "llama-swap.yaml" ''
       healthCheckTimeout: 600
 
@@ -140,18 +140,8 @@
             --ctx-size 262144
             --n-cpu-moe 22
 
-        # Dense hybrid (GDN), fits VRAM whole at Q3_K_S; no --gpu-layers
-        # so auto-fit adapts to free VRAM. MTP drafting ~1.7x decode.
-        "qwen3.6-fast":
-          name: "Fast — Qwen3.6-27B MTP · 64K"
-          cmd: >
-            ${llama}/bin/llama-server ${commonFlags}
-            --model /var/lib/llms/Qwen3.6-27B-Q3_K_S.gguf
-            --parallel 1 --ctx-size 65536 --ubatch-size 1024
-            --spec-type draft-mtp --spec-draft-n-max 2
-            --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0
-
         # Ternary Bonsai 27B: ~7.2 GB dense hybrid at 1.71 bpw.
+        # No --gpu-layers (dense): auto-fit sizes layers to free VRAM.
         # Native 256K ctx; q4_0 KV costs ~1.6 GiB per 64K, so the
         # full window totals ~13.9 GiB — fits the 16 GB card whole.
         "bonsai-27b":
@@ -164,15 +154,6 @@
             --parallel 1 --ctx-size 262144
             --cache-type-k q4_0 --cache-type-v q4_0
             --temp 0.7 --top-p 0.95 --top-k 20 --min-p 0.0
-
-        # Dense hybrid 9B at Q8_0, fully VRAM-resident; the speed tier.
-        "qwen3.5-sprint":
-          name: "Sprint — Qwen3.5-9B Q8 · 128K"
-          cmd: >
-            ${llama}/bin/llama-server ${commonFlags}
-            --model /var/lib/llms/Qwen_Qwen3.5-9B-Q8_0.gguf
-            --parallel 1 --ctx-size 131072
-            --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0
     '';
   in {
     description = "llama-swap multi-model LLM proxy";
