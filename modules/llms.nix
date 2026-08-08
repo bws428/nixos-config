@@ -5,24 +5,19 @@
   ...
 }: {
   # ── Local LLMs (llama-swap + llama.cpp) ────────────────────────────
-  # llama-swap proxies an OpenAI-compatible API on 127.0.0.1:11434
-  # (Ollama's port, so Pi needs no reconfiguration) and hot-swaps
-  # llama-server instances on demand: whichever model name a request
-  # asks for gets loaded, unloading the other. Models are lazy-loaded
-  # on first request after boot. VRAM budget: keep ~1 GiB free on the
-  # 16 GB 5080 for desktop/browser.
-  #
-  # Model files live on the NVMe in /var/lib/llms (world-readable; the
-  # service runs as a DynamicUser). Loads are ~5-10 s from NVMe.
+  # OpenAI-compatible proxy on 127.0.0.1:11434 (Ollama's port, so Pi
+  # needs no reconfiguration). A request's model name picks which
+  # llama-server instance runs; models lazy-load on first request.
+  # - VRAM budget: keep ~1 GiB of the 16 GB 5080 free for the desktop
+  # - model files: /var/lib/llms on NVMe (world-readable; service is a
+  #   DynamicUser); loads ~5-10 s
   systemd.tmpfiles.rules = ["d /var/lib/llms 0755 bws428 users -"];
 
   systemd.services.llama-swap = let
     llama = pkgs.llama-cpp.override {cudaSupport = true;};
 
-    # llama.cpp build from the PrismML fork — required for ternary
-    # (Q2_0) weights (Ternary Bonsai 27B). Upstream llama.cpp merged
-    # CPU/Metal Q2_0 but CUDA support landed later; the PrismML fork
-    # is the proven serving path for this model today.
+    # PrismML llama.cpp fork: CUDA kernels for ternary (Q2_0) weights,
+    # which this pin of upstream only runs on CPU/Metal.
     llama-bonsai = let
       src = pkgs.fetchFromGitHub {
         owner = "PrismML-Eng";
@@ -80,24 +75,18 @@
         doCheck = false;
       });
 
-    # Flags shared by every model. Knobs:
-    #   --no-mmap            load weights fully into RAM, not disk-mmap
-    #   --flash-attn on      faster + less VRAM at long context
-    #   --jinja              model's embedded chat template; REQUIRED for
-    #                        OpenAI-style tool calling in Pi
-    #   --ubatch-size        PREFILL SPEED knob (repo/file ingestion);
-    #                        halve to 1024 if VRAM gets tight
-    #   --threads-batch 16   prefill on all SMT threads (compute-bound);
-    #                        decode stays at default 8 (bandwidth-bound)
-    #   --cache-reuse 256    reuse KV chunks on shifted prompts
+    # Shared flags:
+    # - --no-mmap: load weights fully into RAM, not disk-mmap
+    # - --flash-attn on: faster + less VRAM at long context
+    # - --jinja: embedded chat template; required for tool calling in Pi
+    # - --ubatch-size: prefill speed; halve to 1024 if VRAM gets tight
+    # - --threads-batch 16: prefill on all SMT threads; decode default 8
+    # - --cache-reuse 256: reuse KV chunks on shifted prompts
     #
-    # KV quantization (--cache-type-k/v) is PER-MODEL, not shared:
-    # whether the CUDA flash-attention kernel supports a quantized KV
-    # combo depends on the model's head layout. If unsupported it
-    # silently falls back to CPU attention — no error, just a ~50x
-    # slowdown that worsens with context depth (coder went 30 -> 5,153
-    # tok/s prefill when q4_0 V was lifted, 2026-08-07). Symptom: slow
-    # + GPU idle + degrades with fill. Test any new combo before trust.
+    # KV quantization (--cache-type-k/v) is PER-MODEL: an unsupported
+    # combo makes CUDA flash-attn silently fall back to CPU — no error,
+    # ~50x slower, worsens with depth (symptom: slow + GPU idle).
+    # Benchmark at depth before trusting any new combo.
     commonFlags =
       "--host 127.0.0.1 --port \${PORT}"
       + " --no-mmap"
@@ -106,28 +95,24 @@
       + " --threads-batch 16 --cache-reuse 256";
 
     # Per-model knobs:
-    #   --gpu-layers    99 on MoE entries (VRAM tuned via --n-cpu-moe);
-    #                   omit on dense entries so auto-fit sizes to free VRAM
-    #   --n-cpu-moe N   MAIN VRAM KNOB: layers of MoE experts kept on CPU
-    #                   (35B ≈ 450 MiB/layer);
-    #                   lower = faster decode; -2 while >1 GiB VRAM free
-    #   --ctx-size      context window; lowering frees VRAM for experts
+    # - --gpu-layers 99 on MoE entries only; dense entries omit it so
+    #   auto-fit sizes layers to free VRAM
+    # - --n-cpu-moe N: MoE expert layers on CPU (35B ≈ 450 MiB/layer).
+    #   Treat as pure VRAM slack: on A3B it costs little decode, and
+    #   prefill streams CPU-parked experts through the GPU regardless
+    # - --ctx-size: lowering frees VRAM
+    # - prefer K-quant GGUFs over i-quants (IQ2/IQ3/...) whenever
+    #   experts live on CPU: i-quant CPU matmul is markedly slower
     #
-    # Also prefer K-quant GGUFs (Q3_K/Q4_K/UD-*_K_*) over i-quants
-    # (IQ2/IQ3/...) whenever experts live on CPU: i-quant CPU matmul
-    # is markedly slower (documented llama.cpp behavior).
-    #
-    # Benchmarks 2026-08-07 (13.2K-token prompt, cold): 35B 269 pp /
-    # 41 tg; bonsai 2112 pp / 66 tg (41 tg @54K, 27 tg @107K).
-    # Prefill streams CPU-parked experts through the GPU in large
-    # batches, so high n-cpu-moe barely hurts prefill.
+    # Measured: think 3508 pp / 70 tg @48K (81 tg short ctx);
+    # bonsai 2112 pp / 66 tg @13K (41 tg @54K, 27 tg @107K).
     swapConfig = pkgs.writeText "llama-swap.yaml" ''
       healthCheckTimeout: 600
 
-      # Naming: <vendor><gen>-<level>. Level = how much thought per
-      # token you're buying. Aliases keep the original ids routing for
-      # old sessions/scripts.
+      # Naming: <vendor><gen>-<level>; aliases keep old ids routing.
       models:
+        # q4_0 V trips the CPU flash-attn fallback on this model —
+        # keep V at q8_0. n-cpu-moe 27 makes room for the bigger V.
         "qwen3.6-think":
           name: "Think — Qwen3.6-35B · 256K"
           aliases:
@@ -136,14 +121,12 @@
             ${llama}/bin/llama-server ${commonFlags}
             --model /var/lib/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf
             --gpu-layers 99
-            --cache-type-k q8_0 --cache-type-v q4_0
+            --cache-type-k q8_0 --cache-type-v q8_0
             --ctx-size 262144
-            --n-cpu-moe 22
+            --n-cpu-moe 27
 
-        # Ternary Bonsai 27B: ~7.2 GB dense hybrid at 1.71 bpw.
-        # No --gpu-layers (dense): auto-fit sizes layers to free VRAM.
-        # Native 256K ctx; q4_0 KV costs ~1.6 GiB per 64K, so the
-        # full window totals ~13.9 GiB — fits the 16 GB card whole.
+        # Dense hybrid at 1.71 bpw; whole model + 256K KV ≈ 13.9 GiB,
+        # fits the card whole (q4_0 KV ≈ 1.6 GiB per 64K).
         "bonsai-27b":
           name: "Bonsai — Ternary 27B · 256K"
           aliases:
@@ -166,9 +149,8 @@
       Restart = "on-failure";
       RestartSec = 5;
 
-      # Sandbox mirrors the upstream services.llama-cpp unit, which is
-      # proven to work with CUDA on this box (PrivateDevices must stay
-      # false for GPU access).
+      # Sandbox mirrors the upstream services.llama-cpp unit;
+      # PrivateDevices must stay false for GPU access.
       DynamicUser = true;
       StateDirectory = "llama-swap";
       CacheDirectory = "llama-swap";
@@ -185,8 +167,7 @@
       ProtectKernelModules = true;
       ProtectKernelTunables = true;
       ProtectProc = "invisible";
-      # "all" (not "pid"): llama-swap polls /proc/meminfo for its stats;
-      # "pid" blocks that and spams the journal every 5s.
+      # "all": llama-swap polls /proc/meminfo; "pid" spams the journal.
       ProcSubset = "all";
       ProtectSystem = "strict";
       RemoveIPC = true;
