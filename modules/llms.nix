@@ -111,6 +111,7 @@
 
       # Aliases keep retired ids routing (old Pi sessions/scripts).
       models:
+        # Qwen3.6 35B A3B (https://huggingface.co/bartowski/Qwen_Qwen3.6-35B-A3B-GGUF)
         # q4_0 V trips the CPU flash-attn fallback on this model —
         # keep V at q8_0. n-cpu-moe 27 makes room for the bigger V.
         "qwen3.6-35b":
@@ -125,6 +126,7 @@
             --ctx-size 262144
             --n-cpu-moe 27
 
+        # Bonsai 27B (https://prismml.com/news/bonsai-27b)
         # Dense hybrid at 1.71 bpw; whole model + 256K KV ≈ 13.9 GiB,
         # fits the card whole (q4_0 KV ≈ 1.6 GiB per 64K).
         "bonsai-27b":
