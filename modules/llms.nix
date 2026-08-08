@@ -109,14 +109,14 @@
     swapConfig = pkgs.writeText "llama-swap.yaml" ''
       healthCheckTimeout: 600
 
-      # Naming: <vendor><gen>-<level>; aliases keep old ids routing.
+      # Aliases keep retired ids routing (old Pi sessions/scripts).
       models:
         # q4_0 V trips the CPU flash-attn fallback on this model —
         # keep V at q8_0. n-cpu-moe 27 makes room for the bigger V.
-        "qwen3.6-think":
+        "qwen3.6-35b":
           name: "Qwen3.6 35B"
           aliases:
-            - "qwen3.6-35b"
+            - "qwen3.6-think"
           cmd: >
             ${llama}/bin/llama-server ${commonFlags}
             --model /var/lib/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf
