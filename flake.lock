@@ -1,23 +1,5 @@
 {
   "nodes": {
-    "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
-      },
-      "locked": {
-        "lastModified": 1769996383,
-        "narHash": "sha256-AnYjnFWgS49RlqX7LrC4uA+sCCDBj0Ry/WOJ5XWAsa0=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "57928607ea566b5db3ad13af0e57e921e6b12381",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -38,22 +20,38 @@
         "type": "github"
       }
     },
-    "mt7927": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
-      },
+    "mediatek-mt7927-dkms": {
+      "flake": false,
       "locked": {
-        "lastModified": 1772013169,
-        "narHash": "sha256-zoAWMgezawDhUTGjuG/V9KgDEi74WrYgXeI3bhi51Rc=",
-        "owner": "clemenscodes",
-        "repo": "linux-mt7927",
-        "rev": "6add3ebc92b4257fd0440cc8895b3d375825a0f9",
+        "lastModified": 1783265495,
+        "narHash": "sha256-GXbwhZbvfWE+w9TgMReAsAFL/WkbCokzEiIChmX2d00=",
+        "owner": "jetm",
+        "repo": "mediatek-mt7927-dkms",
+        "rev": "ad1f3e4d19fe540aaa1f449ddba86c65db9bfc82",
         "type": "github"
       },
       "original": {
-        "owner": "clemenscodes",
-        "repo": "linux-mt7927",
+        "owner": "jetm",
+        "repo": "mediatek-mt7927-dkms",
+        "type": "github"
+      }
+    },
+    "mt7927": {
+      "inputs": {
+        "mediatek-mt7927-dkms": "mediatek-mt7927-dkms",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1786228379,
+        "narHash": "sha256-webW4s7CSgcQmYA3SyDFxDYexjtvT8/qTosyiCi/mbo=",
+        "owner": "cmspam",
+        "repo": "mt7927-nixos",
+        "rev": "45d9b8385279fd6fd24895e0cf830caf7d8819cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmspam",
+        "repo": "mt7927-nixos",
         "type": "github"
       }
     },
@@ -74,32 +72,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771848320,
-        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
+        "lastModified": 1786106723,
+        "narHash": "sha256-zDSUbpoeo/9ZmD2+wXnzxoo1+uhL8vxc0b8yuYMKYq0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
+        "rev": "f13ff45afd1bb73e640eaa08a7066dbed07e3238",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1769909678,
-        "narHash": "sha256-cBEymOf4/o3FD5AZnzC3J9hLbiZ+QDT/KDuyHXVJOpM=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "72716169fe93074c333e8d0173151350670b824c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
         "type": "github"
       }
     },

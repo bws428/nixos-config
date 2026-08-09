@@ -24,7 +24,7 @@
 
     # Patched kernel modules + firmware for the MediaTek MT7927
     # (Filogic 380) WiFi/BT card. Mainline support is not yet merged.
-    mt7927.url = "github:clemenscodes/linux-mt7927";
+    mt7927.url = "github:cmspam/mt7927-nixos";
 
     # Noctalia v5 — native C++/OpenGL ES Wayland shell (bar, launcher,
     # lock screen, notifications). Not yet in nixpkgs; consumed from the
