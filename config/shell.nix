@@ -19,8 +19,7 @@
     history.size = 10000;
 
     shellAliases = {
-      # Modern ls with icons and directories grouped first.
-      ls = "eza -lh --group-directories-first --icons=auto";
+      # Use eza, but don't alias `ls`; the LLMs hate it
       lsa = "ls -la";
       # Zed editor
       zed = "zeditor";
