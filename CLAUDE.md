@@ -78,6 +78,24 @@ fileSystems."/mnt/scratch" = {
 
 Get UUIDs with `blkid` or `lsblk -f`.
 
+## Working Constraints
+
+Exactly one build command is sanctioned. Run it to prove a change is sound before handing work back:
+
+```sh
+nix build --no-link .#nixosConfigurations.ghost.config.system.build.toplevel
+```
+
+It builds everything `nixos-rebuild switch` would build, stops short of activating, and leaves no `./result` behind. It evaluates the whole config, so it subsumes `nix flake check`.
+
+Everything else is blocked:
+
+- **Never activate.** No `rebuild`, `nh os switch`, `nixos-rebuild`, or `sudo nixos-rebuild` — in any form, `switch` / `test` / `boot` / `build` / `dry-activate` alike. Activation is the user's call, always.
+- **Never a bare `nix build`.** Without `--no-link` it drops a `./result` symlink into the repo, which then shows up in `git status`.
+- **No partial-attribute builds.** Building one attribute proves that attribute compiles and hides breakage everywhere else. Build the toplevel.
+
+A clean build proves derivations compile — not that activation scripts, systemd units, or kernel modules work at runtime. Report it as "builds", never as "works".
+
 ## Before Making Config Changes
 
 Before writing or modifying any Nix configuration, consult the relevant documentation to ensure you are using canonical NixOS/Home Manager patterns:
