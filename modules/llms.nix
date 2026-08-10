@@ -44,9 +44,6 @@
           # --flash-attn: faster + less VRAM at long context
           # --jinja: embedded chat template, required for tool calling
           --no-mmap --flash-attn on --jinja
-          # The GGUF ships Qwen's trained draft head (blk.40.nextn); its guesses
-          # are verified in one batched pass, which costs ~0.2 ms/token here.
-          --spec-type draft-mtp
           # --ubatch-size drives prefill speed; halve if VRAM gets tight
           --batch-size 2048 --ubatch-size 2048
           # prefill on all SMT threads; decode stays on the default 8
@@ -56,11 +53,9 @@
           # q4_0 V trips the CPU fallback on this model — keep V at q8_0
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 262144
-          # MoE expert layers on CPU (~450 MiB/layer). Treat as pure VRAM
-          # slack: on an A3B it costs little decode, and prefill streams
-          # CPU-parked experts through the GPU regardless. 27 makes room
-          # for the larger q8_0 V-cache.
-          --n-cpu-moe 27
+          # MoE expert layers on CPU (~400 MiB/layer); each one pulled back to
+          # the GPU is worth ~2% decode. 26 leaves ~830 MiB free for the desktop.
+          --n-cpu-moe 26
         '';
       };
     };
