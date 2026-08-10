@@ -44,6 +44,9 @@
           # --flash-attn: faster + less VRAM at long context
           # --jinja: embedded chat template, required for tool calling
           --no-mmap --flash-attn on --jinja
+          # The GGUF ships Qwen's trained draft head (blk.40.nextn); its guesses
+          # are verified in one batched pass, which costs ~0.2 ms/token here.
+          --spec-type draft-mtp
           # --ubatch-size drives prefill speed; halve if VRAM gets tight
           --batch-size 2048 --ubatch-size 2048
           # prefill on all SMT threads; decode stays on the default 8
