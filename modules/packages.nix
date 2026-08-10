@@ -77,7 +77,7 @@
     curl
 
     # ── Desktop utilities ────────────────────────────────────────────
-    loupe # GNOME image viewer
+    gthumb # GNOME image browser
     wl-clipboard # Wayland clipboard (wl-copy / wl-paste)
     wiremix # PipeWire audio mixer
     libnotify # Desktop notification CLI (notify-send)
