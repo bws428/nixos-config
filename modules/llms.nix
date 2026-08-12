@@ -18,7 +18,7 @@
   in {
     enable = true;
     listenAddress = "127.0.0.1";
-    port = 11434;
+    port = 8080;
 
     settings = {
       healthCheckTimeout = 600;
