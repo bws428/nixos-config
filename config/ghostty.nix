@@ -14,12 +14,12 @@
       # intact HM symlink: Noctalia's post-hook no-ops when the theme is
       # already "noctalia". On a fresh install ghostty falls back to
       # default colors until the first wallpaper apply.
-      theme = "noctalia";
+      theme = "Catppuccin Macchiato";
       font-family = "JetBrainsMono Nerd Font";
       font-size = 15;
       # Frosted-glass window, matching alacritty.
-      background-opacity = 0.9;
-      background-blur = true;
+      # background-opacity = 0.9;
+      # background-blur = true;
       # Inner padding so text doesn't touch the edges.
       window-padding-x = 25;
       window-padding-y = 10;
