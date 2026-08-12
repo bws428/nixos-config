@@ -54,7 +54,7 @@
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 262144
           # MoE expert layers on CPU (~400 MiB/layer); each one pulled back to
-          # the GPU is worth ~2% decode. 26 leaves ~830 MiB free for the desktop.
+          # the GPU is worth ~2% decode. 26 leaves ~670 MiB spare past the desktop.
           --n-cpu-moe 26
         '';
       };
