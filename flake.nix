@@ -46,6 +46,12 @@
     # config and have nixos-rebuild install/update/remove them to match
     # — keeps Flathub apps in the same source-of-truth as everything else.
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    # Herdr — AI terminal desktop (TUI agent IDE).
+    herdr = {
+      url = "github:herdrdev/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # ── Flake outputs ────────────────────────────────────────────────────
@@ -60,6 +66,7 @@
     noctalia,
     noctalia-greeter,
     nix-flatpak,
+    herdr,
     ...
   }: let
     # Absolute path to this repo on disk. Passed to modules that need

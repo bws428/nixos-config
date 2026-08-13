@@ -218,10 +218,7 @@
     fd # telescope file finder
     lazygit # lazygit.nvim integration
     python3 # LazyVim Python provider / LSPs
-
-    # ── AI ───────────────────────────────────────────────────────────
-    claude-code
-
+     
     # ── Hardware testing ─────────────────────────────────────────────
     spacenav-cube-example # 3Dconnexion SpaceMouse test app
   ];
