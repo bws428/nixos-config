@@ -72,6 +72,39 @@
           --n-cpu-moe 26
         '';
       };
+
+      models."qwen3.8-27b" = {
+        name = "Qwen3.8 27B";
+        aliases = ["qwen3.8"];
+        ttl = 900;
+
+        # Qwen3.8 27B (dense, Gated DeltaNet hybrid), IQ4_XS from
+        # https://huggingface.co/bartowski/Qwen3.8-27B-GGUF
+        #
+        # Dense, not MoE: every token hits all 27B params, so --n-cpu-moe
+        # does not apply and each layer offloaded to CPU costs decode speed
+        # (GPU idles ~15% util while the CPU churns). 48/64 layers are
+        # DeltaNet (fixed recurrent state), 16/64 are full attention — the
+        # only layers with a growing KV cache.
+        #
+        # --flash-attn is REQUIRED: off, the prefill compute buffer grows
+        # to ~3.5 GiB and the load OOMs. KV stays f16 (no --cache-type-k/v)
+        # to avoid the silent CPU-fallback trap noted on qwen3.6.
+        #
+        # 62 layers @16K ≈ 28 t/s decode (measured); 63 layers leaves only
+        # ~110 MiB VRAM free and risks OOM under desktop pressure. 256K ctx
+        # is impossible — KV alone would be ~16 GiB.
+        cmd = ''
+          ${lib.getExe' llama "llama-server"}
+          --host 127.0.0.1 --port ''${PORT}
+          --no-mmap --flash-attn on --jinja
+          --batch-size 2048 --ubatch-size 2048
+          --threads-batch 16 --cache-reuse 256
+          --model /var/lib/llms/Qwen3.8-27B-IQ4_XS.gguf
+          --gpu-layers 62
+          --ctx-size 16384
+        '';
+      };
     };
   };
 }
