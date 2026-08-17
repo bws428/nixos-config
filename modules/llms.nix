@@ -4,17 +4,31 @@
   ...
 }: {
   # ── Local LLM (llama-swap + llama.cpp) ─────────────────────────────
-  # OpenAI-compatible proxy on 127.0.0.1:11434 (Ollama's port, so Pi
-  # and OpenCode need no reconfiguration). The model lazy-loads on the
-  # first request and unloads again once idle, so the card is free for
-  # games whenever the LLM isn't in use.
+  # OpenAI-compatible proxy. The model lazy-loads on the first request
+  # and unloads again once idle, so the card is free for games whenever
+  # the LLM isn't in use.
   # - VRAM budget: keep ~1 GiB of the 16 GB 5080 free for the desktop
-  # - model files: /var/lib/llms on NVMe (world-readable; the service
-  #   is a DynamicUser); loads ~5-10 s
+  # - model files: /var/lib/llms
   systemd.tmpfiles.rules = ["d /var/lib/llms 0755 bws428 users -"];
 
   services.llama-swap = let
-    llama = pkgs.llama-cpp.override {cudaSupport = true;};
+    # Pinned to b10419: minimum release for Qwen3.8 arch / MTP draft decoding.
+    # nixpkgs-unstable still ships b10273, so drop this once it catches up (>= b10419).
+    llama = (pkgs.llama-cpp.override {cudaSupport = true;}).overrideAttrs (prev: {
+      version = "10419";
+      src = pkgs.fetchFromGitHub {
+        owner = "ggml-org";
+        repo = "llama.cpp";
+        tag = "b10419";
+        hash = "sha256-SrobDe1mO6hOiiDIDxogup2ym60tKuTsArQepQtszeE=";
+        leaveDotGit = true;
+        postFetch = ''
+          git -C "$out" rev-parse --short HEAD > $out/COMMIT
+          find "$out" -name .git -print0 | xargs -0 rm -rf
+        '';
+      };
+      npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";
+    });
   in {
     enable = true;
     listenAddress = "127.0.0.1";
