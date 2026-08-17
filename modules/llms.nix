@@ -12,15 +12,18 @@
   systemd.tmpfiles.rules = ["d /var/lib/llms 0755 bws428 users -"];
 
   services.llama-swap = let
-    # Pinned to b10419: minimum release for Qwen3.8 arch / MTP draft decoding.
-    # nixpkgs-unstable still ships b10273, so drop this once it catches up (>= b10419).
+    # Pinned to b10472 (latest) for Qwen3.8 arch support. NOTE: llama.cpp's CUDA
+    # backend does not implement the GATED_DELTA_NET op Qwen3.8 relies on — docs/ops.md
+    # shows CUDA as unsupported, so output is garbage on CUDA even at b10472 (verified).
+    # The model only works on Vulkan/Metal/CPU backends. nixpkgs-unstable still ships
+    # b10273, so keep the pin until CUDA GDN support lands and nixpkgs catches up.
     llama = (pkgs.llama-cpp.override {cudaSupport = true;}).overrideAttrs (prev: {
-      version = "10419";
+      version = "10472";
       src = pkgs.fetchFromGitHub {
         owner = "ggml-org";
         repo = "llama.cpp";
-        tag = "b10419";
-        hash = "sha256-SrobDe1mO6hOiiDIDxogup2ym60tKuTsArQepQtszeE=";
+        tag = "b10472";
+        hash = "sha256-re0WlafJUDZOPNfIq2ECRSctdrDFVc0fXb5iSd7gDR8=";
         leaveDotGit = true;
         postFetch = ''
           git -C "$out" rev-parse --short HEAD > $out/COMMIT
@@ -91,9 +94,11 @@
         # to ~3.5 GiB and the load OOMs. KV stays f16 (no --cache-type-k/v)
         # to avoid the silent CPU-fallback trap noted on qwen3.6.
         #
-        # 62 layers @16K ≈ 28 t/s decode (measured); 63 layers leaves only
-        # ~110 MiB VRAM free and risks OOM under desktop pressure. 256K ctx
-        # is impossible — KV alone would be ~16 GiB.
+        # --gpu-layers is left unset: the 27B dense weights don't fit at full
+        # offload, so llama.cpp's auto-fit picks the count (~59 layers on the
+        # 16 GB 5080, ~13.7 GiB) while keeping ~1 GiB headroom for the desktop.
+        # A hardcoded 62 OOMs on load. 256K ctx is impossible — KV alone would
+        # be ~16 GiB.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -101,7 +106,6 @@
           --batch-size 2048 --ubatch-size 2048
           --threads-batch 16 --cache-reuse 256
           --model /var/lib/llms/Qwen3.8-27B-IQ4_XS.gguf
-          --gpu-layers 62
           --ctx-size 16384
         '';
       };
