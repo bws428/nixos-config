@@ -40,7 +40,7 @@
           --batch-size 2048 --ubatch-size 2048
           # Use all threads for prompt reading
           --threads-batch 16 --cache-reuse 256
-          --model /var/lib/llms/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf
+          --model /var/lib/llms/Qwen3.6-35B-A3B-Q4_K_M.gguf
           --gpu-layers 99
           # Keep V at q8_0 or it falls back to slow CPU
           --cache-type-k q8_0 --cache-type-v q8_0
