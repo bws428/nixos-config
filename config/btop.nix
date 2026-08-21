@@ -15,7 +15,7 @@
       color_theme = "noctalia";
       theme_background = false;
       # Show the GPU as its own box, not merged into the CPU box.
-      shown_boxes = "cpu mem net proc gpu0";
+      shown_boxes = "cpu mem net gpu0 gpu1";
       show_gpu_info = "Off";
     };
   };
