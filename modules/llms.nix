@@ -5,8 +5,9 @@
 }: {
   # ── Local LLM (llama-swap + llama.cpp) ─────────────────────────────
   # OpenAI-compatible proxy. The model loads on first use and unloads
-  # when idle, so the card is free for games. Settings leave ~1 GiB of
-  # the 16 GB RTX 5080 for desktop & apps. Model files: /var/lib/llms.
+  # when idle, so the cards are free for games. The model spans both
+  # GPUs (16 GB RTX 5080 + 24 GB RTX 3090 = 40 GB VRAM), with layers
+  # split across them. Model files: /var/lib/llms.
   systemd.tmpfiles.rules = ["d /var/lib/llms 0755 bws428 users -"];
 
   services.llama-swap = let
@@ -27,8 +28,8 @@
         # Qwen3.6 35B A3B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.6-35B-A3B-GGUF
         # Mixture-of-experts (MoE) model with 35 billion total parameters
-        # but only 3 billion active params, allowing CPU offload of some
-        # expert layers with negligible slowdown.
+        # but only 3 billion active params. Fits entirely in the 40 GB of
+        # combined VRAM, so no CPU offload is needed.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -42,11 +43,13 @@
           --threads-batch 16 --cache-reuse 256
           --model /var/lib/llms/Qwen3.6-35B-A3B-Q4_K_M.gguf
           --gpu-layers 99
+          # Split layers across both GPUs. Unset --tensor-split means
+          # llama.cpp splits by free VRAM, so the 24 GB 3090 gets a
+          # proportionally larger share than the 16 GB 5080.
+          --split-mode layer
           # Keep V at q8_0 or it falls back to slow CPU
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 262144
-          # Put some expert layers on CPU to fit VRAM
-          --n-cpu-moe 26
         '';
       };
     };
