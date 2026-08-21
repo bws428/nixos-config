@@ -58,6 +58,19 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
+  # Cap the 3090's power limit to 270 W (default 350 W). Measured
+  # A/B/A with llama.cpp: 37.3 tok/s at 270 W vs 29.9 at 350 W —
+  # inference is memory-bandwidth-bound, and the lower cap keeps
+  # GDDR6X cooler and boost clocks stable. Quieter, cooler, faster.
+  systemd.services.nvidia-power-limit = {
+    description = "Set RTX 3090 power limit";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -i 1 -pl 270";
+    };
+  };
+
   # Ensure /var/tmp exists for Nvidia's VRAM suspend storage.
   systemd.tmpfiles.rules = [
     "d /var/tmp 1777 root root -"
