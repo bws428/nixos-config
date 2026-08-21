@@ -7,9 +7,9 @@
   # `nix flake update` refreshes them and writes the resolved
   # versions to flake.lock.
   #
-  # The weekly auto-upgrade bumps only nixpkgs, home-manager, and
-  # nix-flatpak; mt7927, noctalia, and noctalia-greeter are pinned
-  # until a manual `nix flake update <input>` (see modules/upgrade.nix).
+  # The weekly auto-upgrade bumps nixpkgs, home-manager, nix-flatpak,
+  # and herdr; mt7927, noctalia, and noctalia-greeter are pinned until
+  # a manual `nix flake update <input>` (see modules/upgrade.nix).
   inputs = {
     # Track the NixOS unstable channel for the latest packages.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
