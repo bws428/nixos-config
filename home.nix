@@ -43,6 +43,7 @@
     ./config/tmux.nix
     ./config/mpd.nix
     ./config/beets.nix
+    ./config/herdr.nix
   ];
 
   # ── Session PATH additions ──────────────────────────────────────────
