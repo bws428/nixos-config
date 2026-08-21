@@ -52,6 +52,33 @@
           --ctx-size 262144
         '';
       };
+
+      models."qwen3.8-27b" = {
+        name = "Qwen3.8 27B";
+        # Unloads after 15 min idle (900s) to free VRAM.
+        ttl = 900;
+
+        # Qwen3.8 27B (Q5_K_M)
+        # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
+        # Dense hybrid model (SSM layers + full attention every 4th
+        # layer), so the 256K KV cache costs only ~9 GB. ~21 GB of
+        # weights; ~34 GB total across both GPUs. Slower per token
+        # than the A3B MoE but smarter.
+        cmd = ''
+          ${lib.getExe' llama "llama-server"}
+          --host 127.0.0.1 --port ''${PORT}
+          --no-mmap --flash-attn on --jinja
+          --batch-size 2048 --ubatch-size 2048
+          --threads-batch 16
+          --model /var/lib/llms/Qwen3.8-27B-Q5_K_M.gguf
+          --gpu-layers 99
+          # Split by *free* VRAM — the 5080 also drives the displays,
+          # so a hardcoded --tensor-split would overcommit it.
+          --split-mode layer
+          --cache-type-k q8_0 --cache-type-v q8_0
+          --ctx-size 262144
+        '';
+      };
     };
   };
 }
