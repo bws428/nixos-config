@@ -20,7 +20,7 @@
 
     shellAliases = {
       # Use eza, but don't alias `ls`; the LLMs hate it
-      lsa = "ls -la";
+      lsa = "eza -la";
       # Zed editor
       zed = "zeditor";
     };
