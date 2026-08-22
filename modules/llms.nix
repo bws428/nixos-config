@@ -62,13 +62,15 @@
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
         # Dense hybrid model (SSM layers + full attention every 4th
         # layer), so the 256K KV cache costs only ~9 GB. ~21 GB of
-        # weights; ~34 GB total across both GPUs. Slower per token
-        # than the A3B MoE but smarter.
+        # weights; ~34 GB total across both GPUs.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
           --no-mmap --flash-attn on --jinja
-          --batch-size 2048 --ubatch-size 2048
+          # ubatch 1024 (not 2048): measured *faster* prompt reading
+          # (1499 vs 1324 tok/s) and leaves more VRAM headroom on the
+          # display GPU. Gen speed within noise.
+          --batch-size 2048 --ubatch-size 1024
           --threads-batch 16
           --model /var/lib/llms/Qwen3.8-27B-Q5_K_M.gguf
           --gpu-layers 99
@@ -77,6 +79,10 @@
           --split-mode layer
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 262144
+          # MTP speculative decoding via the model's built-in NextN
+          # head (blk.64): measured 37 -> ~60 tok/s generation.
+          # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
+          --spec-type draft-mtp --spec-draft-n-max 2
         '';
       };
     };
