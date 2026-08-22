@@ -65,7 +65,7 @@
   # ── Language toolchains ────────────────────────────────────────────
   # Managed natively (rustup, corepack, bun, uv) rather than via
   # per-project `nix develop` shells — day-to-day workflow matches
-  # a standard Linux box. See CLAUDE.md "Native dev toolchains via
+  # a standard Linux box. See AGENTS.md "Native dev toolchains via
   # nix-ld" for the full rationale.
   environment.systemPackages = with pkgs; [
     # Rust — rustup manages channels and honors rust-toolchain.toml.

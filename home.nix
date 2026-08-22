@@ -49,8 +49,8 @@
   # ── Session PATH additions ──────────────────────────────────────────
   # npm global installs land in ~/.npm-global/bin (see config/shell.nix
   # for the NPM_CONFIG_PREFIX variable that redirects them there).
-  # ~/.local/bin holds user-installed binaries (e.g. the native
-  # Claude Code install), which expect this on PATH per the XDG/systemd
+  # ~/.local/bin holds user-installed binaries (e.g. native CLI
+  # installs), which expect this on PATH per the XDG/systemd
   # user convention.
   home.sessionPath = [
     "$HOME/.npm-global/bin"

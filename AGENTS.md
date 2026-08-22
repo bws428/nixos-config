@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding agents working in this repository.
 
 ## Overview
 
@@ -30,11 +30,22 @@ Home Manager is wired into the NixOS config (not a standalone `home-manager swit
 
 ## Architecture
 
-- `flake.nix` — single `nixosConfigurations.ghost`. Imports each file in `modules/` explicitly and mounts `home.nix` under `home-manager.users.bws428`.
-- `hardware-configuration.nix` — machine-specific; regenerate with `nixos-generate-config` if hardware changes.
-- `modules/` — system-level NixOS modules split by concern (boot, users, locale, nvidia, networking, bluetooth, services, desktop, fonts, packages, upgrade). Add a new module by creating the file and adding it to the `modules = [ … ]` list in `flake.nix`.
-- `home.nix` — Home Manager entry point. Imports per-program configs from `config/` (shell, helix, alacritty, niri) and places `config/niri/config.kdl` via `xdg.configFile`.
-- `config/` — user-space program configs. `.nix` files are Home Manager modules; `config/niri/config.kdl` is a raw dotfile symlinked through XDG.
+- `flake.nix` — single `nixosConfigurations.ghost`. Imports each file in `modules/` explicitly (grouped: hardware, system, desktop, fonts & packages, development, Home Manager) and mounts `home.nix` under `home-manager.users.bws428`.
+- `hardware-configuration.nix` — machine-specific boot disk, `/boot`, and swap; regenerate with `nixos-generate-config` if hardware changes. Data drives live in `modules/storage.nix`, not here.
+- `modules/` — system-level NixOS modules split by concern:
+  - System basics: `boot`, `users`, `locale`, `bluetooth`, `networking`, `services`, `fonts`, `packages`, `upgrade` (weekly auto-upgrade + nightly GC).
+  - `mt7927-wifi.nix` — out-of-tree MediaTek Wi-Fi/BT modules (via the `mt7927` flake input).
+  - `storage.nix` — data drives under `/mnt/*`, all `nofail` + automounted.
+  - `backups.nix` — 3-2-1 restic: local disk, Synology NAS, Backblaze B2. Runbook: `docs/system-backups.md`.
+  - `nvidia.nix` — dual-GPU: RTX 5080 16 GB (displays) + RTX 3090 24 GB (power-capped, for LLMs); open driver.
+  - `llms.nix` — llama-swap local-LLM proxy (OpenAI-compatible, 127.0.0.1:8080); model files in `/var/lib/llms`, idle-unloaded to free VRAM.
+  - `desktop.nix` — niri compositor + system-side prerequisites for the Noctalia shell.
+  - `greeter.nix` — Noctalia greeter on greetd (replaces GDM).
+  - `dev.nix` — nix-ld + envfs + native language toolchains (see Design Conventions).
+  Add a new module by creating the file and adding it to the `modules = [ … ]` list in `flake.nix`.
+- `home.nix` — Home Manager entry point. Imports per-program modules from `config/` and places `config/niri/config.kdl` via `xdg.configFile`.
+- `config/` — user-space program configs. Each `.nix` is a Home Manager module managing one program (niri, noctalia, shell, helix, alacritty, ghostty, tmux, btop, mpd, beets, herdr); a subdirectory may carry raw assets the module deploys itself (e.g. `config/noctalia/` ships theme templates via its own `xdg.configFile`).
+- `docs/` — ops runbooks that don't depend on rebuilding: `system-backups.md` covers restic restores, the append-only prune ritual, and the bare-metal disaster drill.
 
 When adding user-facing programs, prefer a new `config/<name>.nix` imported from `home.nix`. System-wide packages/services go in the appropriate `modules/*.nix`.
 
@@ -62,9 +73,15 @@ Because this system uses niri (not GNOME/KDE) as the desktop, services that GNOM
 
 When a GUI program that "just works" on GNOME misbehaves here, check whether it depends on one of these before declaring it broken.
 
+### Desktop shell: Noctalia v5
+
+- Noctalia is the whole desktop shell (bar, launcher, lock screen, notifications, OSD) and also the greeter. It's not in nixpkgs — the `noctalia` flake input pulls prebuilt binaries from upstream's cachix, which is why that input deliberately does NOT follow our `nixpkgs`.
+- The shell runs as a systemd user service tied to `graphical-session.target` (config: `config/noctalia/noctalia.nix`). System-side prerequisites (UPower, power-profiles-daemon, NetworkManager, Bluetooth, dconf, gnome-keyring, polkit) live in `modules/desktop.nix`.
+- The greeter's wallpaper/palette syncs only on manual "Sync Now" — a polkit quirk upstream, documented in `modules/greeter.nix`. Don't "fix" the missing auto-sync.
+
 ### Declarative disk mounts
 
-Non-boot disks declared in `hardware-configuration.nix` (or a dedicated `modules/storage.nix`) should use `nofail` + `x-systemd.automount` + `x-systemd.device-timeout=5s` so a missing or failed drive doesn't drop the system into emergency mode at boot. This matters given the weekly auto-upgrade: an unattended rebuild must not be wedged by a disconnected disk.
+Non-boot disks (declared in `modules/storage.nix`) should use `nofail` + `x-systemd.automount` + `x-systemd.device-timeout=5s` so a missing or failed drive doesn't drop the system into emergency mode at boot. This matters given the weekly auto-upgrade: an unattended rebuild must not be wedged by a disconnected disk.
 
 Example:
 
