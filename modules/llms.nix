@@ -61,8 +61,9 @@
         # Qwen3.8 27B (Q5_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
         # Dense hybrid model (SSM layers + full attention every 4th
-        # layer), so the 256K KV cache costs only ~9 GB. ~21 GB of
-        # weights; ~34 GB total across both GPUs.
+        # layer). KV cache ~4.8 GB at 128K ctx, ~19 GB weights (~24 GB
+        # combined), leaving real headroom on the 16 GB display GPU.
+        # 256K ctx grew KV to ~9.5 GB and OOM'd the 5080.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -78,7 +79,7 @@
           # so a hardcoded --tensor-split would overcommit it.
           --split-mode layer
           --cache-type-k q8_0 --cache-type-v q8_0
-          --ctx-size 262144
+          --ctx-size 131072
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
