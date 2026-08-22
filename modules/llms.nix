@@ -58,12 +58,12 @@
         # Unloads after 15 min idle (900s) to free VRAM.
         ttl = 900;
 
-        # Qwen3.8 27B (Q5_K_M)
+        # Qwen3.8 27B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
         # Dense hybrid model (SSM layers + full attention every 4th
-        # layer). KV cache ~4.8 GB at 128K ctx, ~19 GB weights (~24 GB
-        # combined), leaving real headroom on the 16 GB display GPU.
-        # 256K ctx grew KV to ~9.5 GB and OOM'd the 5080.
+        # layer). 17.8 GB weights; the full native 256K context with
+        # full-precision KV (q8_0/q8_0) fits in VRAM. Benchmarked
+        # +0.5% PPL vs the Q5_K_M quant it replaced.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -73,13 +73,14 @@
           # display GPU. Gen speed within noise.
           --batch-size 2048 --ubatch-size 1024
           --threads-batch 16
-          --model /var/lib/llms/Qwen3.8-27B-Q5_K_M.gguf
+          --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
           --gpu-layers 99
           # Split by *free* VRAM — the 5080 also drives the displays,
           # so a hardcoded --tensor-split would overcommit it.
           --split-mode layer
+          # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
-          --ctx-size 131072
+          --ctx-size 262144
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
