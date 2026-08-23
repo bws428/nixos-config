@@ -19,6 +19,9 @@
 
     settings = {
       healthCheckTimeout = 600;
+      # Surface llama-server's own output (model load log, CUDA errors) to
+      # the journal. Default 'proxy' discards the upstream process output.
+      logToStdout = "both";
 
       models."qwen3.6-35b" = {
         name = "Qwen3.6 35B";
@@ -28,8 +31,9 @@
         # Qwen3.6 35B A3B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.6-35B-A3B-GGUF
         # Mixture-of-experts (MoE) model with 35 billion total parameters
-        # but only 3 billion active params. Fits entirely in the 40 GB of
-        # combined VRAM, so no CPU offload is needed.
+        # but only 3 billion active params. Context pinned at 192K with
+        # --fit reserving headroom on the 5080; 256K overcommitted both
+        # cards and froze niri (2026-08-22).
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -42,14 +46,15 @@
           # Use all threads for prompt reading
           --threads-batch 16 --cache-reuse 256
           --model /var/lib/llms/Qwen3.6-35B-A3B-Q4_K_M.gguf
-          --gpu-layers 99
-          # Split layers across both GPUs. Unset --tensor-split means
-          # llama.cpp splits by free VRAM, so the 24 GB 3090 gets a
-          # proportionally larger share than the 16 GB 5080.
+          # --fit auto-places layers/KV to leave the target margin free on
+          # each GPU: 2 GiB on the 5080 (it also drives the displays) and
+          # 256 MiB on the 3090. Replaces the free-VRAM split, which grabbed
+          # everything and left the desktop nothing to grow into.
           --split-mode layer
           # Keep V at q8_0 or it falls back to slow CPU
           --cache-type-k q8_0 --cache-type-v q8_0
-          --ctx-size 262144
+          --ctx-size 196608
+          --fit on --fit-target 2048,256
         '';
       };
 
@@ -61,9 +66,9 @@
         # Qwen3.8 27B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
         # Dense hybrid model (SSM layers + full attention every 4th
-        # layer). 17.8 GB weights; the full native 256K context with
-        # full-precision KV (q8_0/q8_0) fits in VRAM. Benchmarked
-        # +0.5% PPL vs the Q5_K_M quant it replaced.
+        # layer). 17.8 GB weights. Context pinned at 192K with --fit
+        # reserving headroom on the 5080; 256K overcommitted both cards
+        # and froze niri (2026-08-22). Benchmarked +0.5% PPL vs Q5_K_M.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -74,13 +79,15 @@
           --batch-size 2048 --ubatch-size 1024
           --threads-batch 16
           --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
-          --gpu-layers 99
-          # Split by *free* VRAM — the 5080 also drives the displays,
-          # so a hardcoded --tensor-split would overcommit it.
+          # --fit auto-places layers/KV to leave the target margin free on
+          # each GPU: 2 GiB on the 5080 (it also drives the displays) and
+          # 256 MiB on the 3090. Replaces the free-VRAM split, which grabbed
+          # everything and left the desktop nothing to grow into.
           --split-mode layer
           # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
-          --ctx-size 262144
+          --ctx-size 196608
+          --fit on --fit-target 2048,256
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
