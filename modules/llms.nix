@@ -48,13 +48,13 @@
           --model /var/lib/llms/Qwen3.6-35B-A3B-Q4_K_M.gguf
           # --fit auto-places layers/KV to leave the target margin free on
           # each GPU: 2 GiB on the 5080 (it also drives the displays) and
-          # 256 MiB on the 3090. Replaces the free-VRAM split, which grabbed
+          # 1 GiB on the 3090. Replaces the free-VRAM split, which grabbed
           # everything and left the desktop nothing to grow into.
           --split-mode layer
           # Keep V at q8_0 or it falls back to slow CPU
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 196608
-          --fit on --fit-target 2048,256
+          --fit on --fit-target 2048,1024
         '';
       };
 
@@ -81,13 +81,13 @@
           --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
           # --fit auto-places layers/KV to leave the target margin free on
           # each GPU: 2 GiB on the 5080 (it also drives the displays) and
-          # 256 MiB on the 3090. Replaces the free-VRAM split, which grabbed
+          # 1 GiB on the 3090. Replaces the free-VRAM split, which grabbed
           # everything and left the desktop nothing to grow into.
           --split-mode layer
           # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 196608
-          --fit on --fit-target 2048,256
+          --fit on --fit-target 2048,1024
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
