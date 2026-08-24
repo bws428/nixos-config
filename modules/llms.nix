@@ -65,10 +65,8 @@
 
         # Qwen3.8 27B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
-        # Dense hybrid model (SSM layers + full attention every 4th
-        # layer). 17.8 GB weights. Context pinned at 192K with --fit
-        # reserving headroom on the 5080; 256K overcommitted both cards
-        # and froze niri (2026-08-22). Benchmarked +0.5% PPL vs Q5_K_M.
+        # Dense hybrid (SSM + full attention every 4th layer). 17.8 GB.
+        # Benchmarked +0.5% PPL vs Q5_K_M.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -79,15 +77,11 @@
           --batch-size 2048 --ubatch-size 1024
           --threads-batch 16
           --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
-          # --fit auto-places layers/KV to leave the target margin free on
-          # each GPU: 2 GiB on the 5080 (it also drives the displays) and
-          # 1 GiB on the 3090. Replaces the free-VRAM split, which grabbed
-          # everything and left the desktop nothing to grow into.
-          --split-mode layer
           # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
           --ctx-size 196608
-          --fit on --fit-target 2048,1024
+          # 2,5 pins the 5080 at ~24% of layers (--fit gave it ~38%)
+          --split-mode layer --tensor-split 2,5
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
