@@ -13,9 +13,6 @@
     # Patched kernel modules for the MediaTek MT7927 wifi card.
     mt7927.url = "github:cmspam/mt7927-nixos";
 
-    # Deliberately NOT following nixpkgs
-    noctalia.url = "github:noctalia-dev/noctalia";
-
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +28,6 @@
     nixpkgs,
     home-manager,
     mt7927,
-    noctalia,
     noctalia-greeter,
     nix-flatpak,
     ...
@@ -82,10 +78,7 @@
           home-manager.backupFileExtension = "hm-bak";
           home-manager.extraSpecialArgs = {inherit flakePath;};
           home-manager.users.bws428 = {
-            imports = [
-              noctalia.homeModules.default
-              ./home.nix
-            ];
+            imports = [ ./home.nix ];
           };
         }
       ];

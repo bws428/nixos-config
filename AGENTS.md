@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository.
 
 ## Overview
 
-Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades weekly from the local clone (see `modules/upgrade.nix`), pulling latest commits and updating the well-governed flake inputs (nixpkgs, home-manager, nix-flatpak) before rebuilding — so changes pushed to `main` propagate to the live machine. Test before pushing. The third-party inputs (mt7927, noctalia, noctalia-greeter) are deliberately excluded from auto-update; bump them only when asked, via `nix flake update <input>`.
+Personal NixOS flake for host `ghost`, with Home Manager integrated as a NixOS module. Tracks `nixos-unstable`. The system auto-upgrades weekly from the local clone (see `modules/upgrade.nix`), pulling latest commits and updating the well-governed flake inputs (nixpkgs, home-manager, nix-flatpak) before rebuilding — so changes pushed to `main` propagate to the live machine. Test before pushing. The third-party inputs (mt7927, noctalia-greeter) are deliberately excluded from auto-update; bump them only when asked, via `nix flake update <input>`.
 
 ## Common Commands
 
@@ -75,7 +75,7 @@ When a GUI program that "just works" on GNOME misbehaves here, check whether it 
 
 ### Desktop shell: Noctalia v5
 
-- Noctalia is the whole desktop shell (bar, launcher, lock screen, notifications, OSD) and also the greeter. It's not in nixpkgs — the `noctalia` flake input pulls prebuilt binaries from upstream's cachix, which is why that input deliberately does NOT follow our `nixpkgs`.
+- Noctalia is the whole desktop shell (bar, launcher, lock screen, notifications, OSD) and also the greeter. The shell follows nixpkgs: the `programs.noctalia` home module is bundled with Home Manager (upstreamed from the Noctalia repo — do NOT also import a third-party copy, it double-declares the option), and the package is `pkgs.noctalia` (the module's default), so the shell moves with the weekly auto-upgrade. The greeter stays on the pinned `noctalia-greeter` flake input, with prebuilt binaries substituted from upstream's cachix (substituter in `modules/desktop.nix`).
 - The shell runs as a systemd user service tied to `graphical-session.target` (config: `config/noctalia/noctalia.nix`). System-side prerequisites (UPower, power-profiles-daemon, NetworkManager, Bluetooth, dconf, gnome-keyring, polkit) live in `modules/desktop.nix`.
 - The greeter's wallpaper/palette syncs only on manual "Sync Now" — a polkit quirk upstream, documented in `modules/greeter.nix`. Don't "fix" the missing auto-sync.
 

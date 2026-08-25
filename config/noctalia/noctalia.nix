@@ -21,9 +21,10 @@ in {
   # Bar, launcher, lock screen, notifications, OSD, wallpaper.
   # https://docs.noctalia.dev/v5/
   #
-  # The package and module come from the noctalia flake input (see
-  # flake.nix); binaries are substituted from noctalia.cachix.org
-  # (see modules/desktop.nix). System prerequisites (upower,
+  # The home module is bundled with Home Manager (upstreamed from the
+  # Noctalia repo), and the package is pkgs.noctalia from nixpkgs —
+  # deliberately unpinned, so the shell moves with the weekly
+  # nixpkgs auto-upgrade. System prerequisites (upower,
   # power-profiles-daemon) also live in modules/desktop.nix.
   programs.noctalia = {
     enable = true;

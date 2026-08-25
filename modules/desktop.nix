@@ -28,10 +28,10 @@
   # (`noctalia msg power-cycle` and the Control Center toggle).
   services.power-profiles-daemon.enable = true;
 
-  # Noctalia is not in nixpkgs yet; it builds from the upstream flake.
   # Pull pre-built binaries from upstream's cachix instead of
-  # compiling the C++ shell locally. (This is why the noctalia input
-  # does NOT follow our nixpkgs — see flake.nix.)
+  # compiling locally. The shell now comes from nixpkgs (substituted
+  # from cache.nixos.org), so this cache matters for the greeter,
+  # which is a meson C++ build from the pinned flake input.
   nix.settings = {
     extra-substituters = ["https://noctalia.cachix.org"];
     extra-trusted-public-keys = [
