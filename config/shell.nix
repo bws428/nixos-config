@@ -34,8 +34,8 @@
     # Extra Zsh init sourced at the end of .zshrc.
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
-      microfetch                        # Show system info on shell startup
-      fortune
+      microfetch                       # Show system info on shell startup
+      fortune | cowsay | dotacat       # Show a colorful greeting
 
       # Warn if a newer system generation has been built but not booted
       # into. Happens after `nixos-rebuild boot` — most notably the

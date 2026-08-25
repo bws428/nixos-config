@@ -145,7 +145,11 @@
     # ── Fun ──────────────────────────────────────────────────────────
     cmatrix # Matrix rain animation
     unimatrix # Unicode matrix rain
-    fortune # Random quotes
+    fortune-kind # Random quotes, less dumb
+    neo-cowsay # cowsay reborn, in Go
+    dotacat # like lolcat, but fast, in Rust
+    figlet # make ascii block letters from text
+    
 
     # ── Monitoring ───────────────────────────────────────────────────
     # btop is managed via Home Manager (config/btop.nix) for theming.
