@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   # ── Noctalia greeter (replaces GDM) ────────────────────────────────
@@ -57,6 +58,17 @@
       };
     };
   };
+
+  # ── Pin the greeter to the AMD iGPU ────────────────────────────────
+  # The greeter bundles its own wlroots compositor. Without this it
+  # would pick a Nvidia card (no monitor attached after the cable move)
+  # and show a black login screen. WLR_DRM_DEVICES forces wlroots onto
+  # the iGPU's card node.
+  services.greetd.settings.default_session.command = lib.mkForce (
+    "env WLR_DRM_DEVICES=/dev/dri/by-path/pci-0000:7a:00.0-card "
+    + "${config.programs.noctalia-greeter.package}/bin/noctalia-greeter-session -- "
+    + config.programs.noctalia-greeter.greeter-args
+  );
 
   # ── AccountsService (user avatar on the greeter) ───────────────────
   # The greeter fetches avatars over D-Bus from org.freedesktop.Accounts

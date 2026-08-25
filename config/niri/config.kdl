@@ -13,13 +13,10 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-output "DP-1" {
-    mode "2560x1440@59.951"
-    scale  1
-    transform "normal"
-}
+// Outputs are auto-configured: the monitor is now on the AMD iGPU's
+// HDMI port, so the old "DP-1" (5080) block no longer applies. The
+// panel's preferred mode (2560x1440@60) is what niri picks by default.
+// Run `niri msg outputs` inside a session to confirm the connector name.
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
@@ -93,10 +90,9 @@ gestures {
 
 // Window Rules - Auto-placement
 
-// Open Chromium on workspace 1, primary display (DP-1)
+// Open Chromium on workspace 1, fullscreen
 window-rule {
     match app-id="ungoogled-chromium"
-    open-on-output "DP-1"
     open-on-workspace "1"
     open-fullscreen true
 }
@@ -153,6 +149,12 @@ overview {
 // the xdg-activation serial is stale (recommended by Noctalia docs).
 debug {
     honor-xdg-activation-with-invalid-serial
+    // Drive the display from the AMD iGPU. The two Nvidia cards are
+    // pure LLM compute now; ignoring them keeps niri from allocating
+    // render contexts on VRAM the model wants all to itself.
+    render-drm-device "/dev/dri/by-path/pci-0000:7a:00.0-render"
+    ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    ignore-drm-device "/dev/dri/by-path/pci-0000:03:00.0-render"
 }
 
 // Keybinds
