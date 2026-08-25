@@ -48,6 +48,14 @@
   # microcode updates — hardware.cpu.amd.updateMicrocode keys off it.
   hardware.enableRedistributableFirmware = true;
 
+  # Colon-free alias for the iGPU's DRM card node. WLR_DRM_DEVICES is a
+  # colon-separated list, so the by-path name (pci-0000:7a:00.0-card) gets
+  # split on its colons and the greeter opens nothing. The greeter points
+  # at /dev/dri/card-amdgpu instead.
+  services.udev.extraRules = ''
+    KERNEL=="card[0-9]*", SUBSYSTEM=="drm", KERNELS=="0000:7a:00.0", SYMLINK+="dri/card-amdgpu"
+  '';
+
   hardware.nvidia = {
     # Use the open-source kernel modules (required for RTX 5080).
     open = true;

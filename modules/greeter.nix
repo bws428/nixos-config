@@ -65,7 +65,7 @@
   # and show a black login screen. WLR_DRM_DEVICES forces wlroots onto
   # the iGPU's card node.
   services.greetd.settings.default_session.command = lib.mkForce (
-    "env WLR_DRM_DEVICES=/dev/dri/by-path/pci-0000:7a:00.0-card "
+    "env WLR_DRM_DEVICES=/dev/dri/card-amdgpu "
     + "${config.programs.noctalia-greeter.package}/bin/noctalia-greeter-session -- "
     + config.programs.noctalia-greeter.greeter-args
   );
