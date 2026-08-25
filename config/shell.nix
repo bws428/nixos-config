@@ -35,7 +35,7 @@
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
       microfetch                       # Show system info on shell startup
-      fortune | cowsay | dotacat       # Show a colorful greeting
+      fortune | cowsay                 # Show a bovine greeting
 
       # Warn if a newer system generation has been built but not booted
       # into. Happens after `nixos-rebuild boot` — most notably the
