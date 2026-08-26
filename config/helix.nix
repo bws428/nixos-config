@@ -29,6 +29,22 @@
     };
 
     # ── Editor settings ──────────────────────────────────────────────
+    # ── Language overrides ───────────────────────────────────────────────────
+    languages = {
+      language = [
+        {
+          name = "rust";
+          # Auto-format on save using rustfmt.
+          auto-format = true;
+          formatter = {
+            command = "rustfmt";
+            # Stdin rustfmt defaults to edition 2015; our projects are 2024.
+            args = [ "--edition" "2024" ];
+          };
+        }
+      ];
+    };
+
     settings = {
       theme = "catppuccin_macchiato";
 
