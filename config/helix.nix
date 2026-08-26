@@ -44,7 +44,7 @@
 
     # ── Editor settings ──────────────────────────────────────────────
     settings = {
-      theme = "noctalia_transparent";
+      theme = "catppuccin_macchiato";
 
       editor = {
         # Relative line numbers for easier vim-style motions (5j, 12k).
