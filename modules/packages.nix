@@ -149,7 +149,7 @@
     neo-cowsay # cowsay reborn, in Go
     dotacat # like lolcat, but fast, in Rust
     figlet # make ascii block letters from text
-    
+    feedr # TUI RSS reader, in Rust
 
     # ── Monitoring ───────────────────────────────────────────────────
     # btop is managed via Home Manager (config/btop.nix) for theming.
