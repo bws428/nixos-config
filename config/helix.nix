@@ -28,20 +28,6 @@
       };
     };
 
-    # ── Language overrides ───────────────────────────────────────────
-    languages = {
-      language = [
-        {
-          name = "rust";
-          # Auto-format on save using rustfmt.
-          auto-format = true;
-          formatter = {
-            command = "rustfmt";
-          };
-        }
-      ];
-    };
-
     # ── Editor settings ──────────────────────────────────────────────
     settings = {
       theme = "catppuccin_macchiato";
