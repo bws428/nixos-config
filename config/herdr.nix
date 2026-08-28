@@ -1,26 +1,23 @@
-# Herdr — AI terminal workspace manager for coding agents.
-# Writes ~/.config/herdr/config.toml; see herdr.dev/docs/configuration.
-# The binary comes from nixpkgs (no flake input needed).
+# Herdr — AI terminal workspace manager.
 { ... }:
 {
   programs.herdr = {
     enable = true;
 
     settings = {
-      # First-run wizard — already set up, don't show it again.
+      # Skip first-run wizard.
       onboarding = false;
 
-      # nixpkgs updates the binary, so background self-update checks
-      # would only nag. Keep the agent-detection manifest current.
+      # nixpkgs updates the binary; keep manifest checks only.
       update = {
         version_check = false;
         manifest_check = true;
       };
 
-      # Match the rest of the desktop (Catppuccin, like ghostty).
+      # Match desktop theme.
       theme.name = "catppuccin";
 
-      # Default shell for new panes (matches the login shell).
+      # Default shell for new panes.
       terminal.default_shell = "zsh";
 
       ui = {
@@ -32,8 +29,7 @@
         };
       };
 
-      # Relaunch pi/claude/codex panes into their previous sessions
-      # after a herdr restart.
+      # Relaunch agent panes into previous sessions on restore.
       session.resume_agents_on_restore = true;
     };
   };

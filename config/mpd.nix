@@ -1,15 +1,10 @@
 {config, ...}: {
-  # ── Music Player Daemon ────────────────────────────────────────────
-  # Single-user desktop setup: MPD runs as a Home Manager *user* service
-  # (not a system service), so it can read $HOME/Music without uid/gid
-  # gymnastics and is tied to the login session.
-  #
-  # `network.startWhenNeeded = true` enables socket activation — the
-  # daemon spins up on first client connect, idles to zero otherwise.
-  # No always-on process.
+  # ── MPD ──
+  # User service (not system) so it reads $HOME/Music without uid/gid.
   services.mpd = {
     enable = true;
     musicDirectory = "${config.home.homeDirectory}/Music";
+    # Socket activation: spin up on first connect, idle to zero.
     network.startWhenNeeded = true;
     extraConfig = ''
       audio_output {
@@ -19,19 +14,10 @@
     '';
   };
 
-  # MPRIS bridge — without this, `playerctl`, the shell's media widget, and
-  # the keyboard media keys can't see MPD. With it, MPD appears alongside
-  # Spotify in the same control surface.
+  # MPRIS bridge so playerctl / media keys see MPD.
   services.mpd-mpris.enable = true;
 
-  # ── rmpc (Rusty MPD client, TUI) ───────────────────────────────────
-  # The HM module writes `~/.config/rmpc/config.ron` from `config` below;
-  # theme files are separate. The active "noctalia" theme is RENDERED by
-  # Noctalia (theme.templates.user.rmpc in config/noctalia/noctalia.nix) into
-  # ~/.config/rmpc/themes/noctalia.ron on every theme/wallpaper apply,
-  # so rmpc follows the shell's colors. If noctalia.ron is ever missing
-  # (fresh machine before the first theme apply), re-apply the color
-  # scheme in Noctalia's settings to regenerate it.
+  # ── rmpc ──
   programs.rmpc = {
     enable = true;
     config = ''

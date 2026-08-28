@@ -68,12 +68,11 @@
     # update the flake inputs that are safe to take unattended.
     #
     # Only well-governed inputs auto-update (nixpkgs, home-manager,
-    # nix-flatpak). Inputs that ship kernel-space code from a personal
-    # repo (mt7927) or binaries signed by a third-party cache key
-    # (noctalia, noctalia-greeter) stay pinned to flake.lock until a
-    # deliberate manual bump:
+    # nix-flatpak). Inputs shipping binaries signed by a third-party cache
+    # key (noctalia-greeter) stay pinned to flake.lock until a deliberate
+    # manual bump:
     #
-    #   nix flake update mt7927 noctalia noctalia-greeter   # any subset
+    #   nix flake update noctalia-greeter
     #   rebuild
     preStart = ''
       git config --global safe.directory ${flakePath}

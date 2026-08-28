@@ -7,8 +7,7 @@
   programs.zsh = {
     enable = true;
 
-    # Store Zsh dotfiles under XDG_CONFIG_HOME instead of $HOME,
-    # keeping the home directory clean.
+    # Keep zsh dotfiles under XDG_CONFIG_HOME.
     dotDir = "${config.xdg.configHome}/zsh";
 
     # Fish-style autosuggestions from command history (grey text).
@@ -34,25 +33,18 @@
     # Extra Zsh init sourced at the end of .zshrc.
     initContent = ''
       bindkey '^ ' autosuggest-accept  # Ctrl+Space to accept suggestion
-      microfetch                       # Show system info on shell startup
-      fortune                          # Show a greeting
+      microfetch                       # system info on shell startup
+      fortune                          # greeting
 
-      # Warn if a newer system generation has been built but not booted
-      # into. Happens after `nixos-rebuild boot` — most notably the
-      # weekly auto-upgrade (modules/upgrade.nix), which uses `boot`
-      # mode so critical-component changes can't fail live activation.
+      # Warn when a newer generation is built but not booted.
       if [[ "$(readlink -f /nix/var/nix/profiles/system 2>/dev/null)" \
          != "$(readlink -f /run/booted-system 2>/dev/null)" ]]; then
         print -P "\n%F{yellow}NixOS has been updated. Please reboot for the changes to take effect.%f"
       fi
 
-      # One-shot rebuild: stage and commit local changes, `nh os switch`,
-      # then push only if the switch succeeded — so origin/main (which
-      # the weekly auto-upgrade consumes) only ever receives configs
-      # that just built on this machine. The `git add .` must precede
-      # the build: Nix's git fetcher ignores untracked files, so a new
-      # module would otherwise be invisible to the switch.
-      # Optional argument = commit message: rebuild "gc: fix flags"
+      # One-shot rebuild: commit, switch, push only on success.
+      # `git add .` must precede the build (git fetcher ignores untracked).
+      # Arg = commit message: rebuild "gc: fix flags"
       rebuild() {
         cd "${flakePath}" || return
         git add .
@@ -64,11 +56,7 @@
     '';
   };
 
-  # ── Starship prompt ────────────────────────────────────────────────
-  # https://starship.rs
-  # Minimal, fast, cross-shell prompt. This config follows the "Pure"
-  # prompt style: user, host (SSH only), directory, git info, then a
-  # colored prompt character that turns red on error.
+  # ── Starship prompt ──
   programs.starship = {
     enable = true;
     enableZshIntegration = true;

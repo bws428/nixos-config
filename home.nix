@@ -3,35 +3,25 @@
   pkgs,
   ...
 }: {
-  # ── Home Manager identity ──────────────────────────────────────────
-  # These tell Home Manager which user it manages and where their
-  # home directory lives. Must match the NixOS user definition.
+  # ── Identity ──
   home.username = "bws428";
   home.homeDirectory = "/home/bws428";
 
-  # Analogous to system.stateVersion — tracks the Home Manager release
-  # this config was originally written for. Prevents breaking changes
-  # on upgrade. Do not change after initial setup.
+  # Do not change after initial setup.
   home.stateVersion = "25.05";
 
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # ── XDG base directories ──────────────────────────────────────────
-  # Enable XDG directory management ($XDG_CONFIG_HOME, etc.) so that
-  # programs follow the XDG Base Directory Specification.
+  # ── XDG ──
   xdg.enable = true;
 
-  # Raw dotfiles that don't have a dedicated Home Manager module.
-  # These are symlinked into ~/.config/ via the Nix store.
+  # Raw dotfiles symlinked into ~/.config.
   xdg.configFile = {
     "niri/config.kdl".source = ./config/niri/config.kdl;
   };
 
-  # ── Per-program configs ────────────────────────────────────────────
-  # Each file in config/ is a Home Manager module that manages one
-  # program's settings. Add new programs by creating config/<name>.nix
-  # and appending it here.
+  # ── Per-program configs ──
+  # Each file in config/ manages one program; add new ones here.
   imports = [
     ./config/niri/niri.nix
     ./config/noctalia/noctalia.nix
@@ -46,44 +36,25 @@
     ./config/herdr.nix
   ];
 
-  # ── Session PATH additions ──────────────────────────────────────────
-  # npm global installs land in ~/.npm-global/bin (see config/shell.nix
-  # for the NPM_CONFIG_PREFIX variable that redirects them there).
-  # ~/.local/bin holds user-installed binaries (e.g. native CLI
-  # installs), which expect this on PATH per the XDG/systemd
-  # user convention.
+  # ── Session PATH ──
+  # npm global + user-local binaries.
   home.sessionPath = [
     "$HOME/.npm-global/bin"
     "$HOME/.local/bin"
   ];
 
-  # ── Mouse cursor theme ─────────────────────────────────────────────
-  # Single source of truth for the pointer cursor across Wayland (niri
-  # reads XCURSOR_THEME/XCURSOR_SIZE, set here), GTK apps, and
-  # X11/XWayland clients. Adwaita: stock GNOME cursor, complete glyph
-  # set. The niri `cursor` block in config/niri/config.kdl is kept in
-  # sync (xcursor-theme "Adwaita", xcursor-size 24).
+  # ── Cursor ──
   home.pointerCursor = {
     enable = true;
     gtk.enable = true;
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
     size = 24;
-    # Don't let HM manage ~/.icons: a pre-existing manual symlink
-    # (~/.icons -> .local/share/icons) lives there, so HM's dotIcons
-    # writes collide with it (mkdir "File exists" → activation fails).
-    # The cursor theme is still written to ~/.local/share/icons via the
-    # module's unconditional xdg.dataFile, which is where that symlink
-    # points — so this is fully covered without touching ~/.icons.
+    # Keep ~/.icons manual symlink intact (HM writes collide).
     dotIcons.enable = false;
   };
 
-  # ── GTK theme + icon theme ─────────────────────────────────────────
-  # Canonical HM shape (writes gtk-3.0/settings.ini, gtk-4.0/settings.ini,
-  # .gtkrc-2.0). Replaces the older GTK_THEME env-var approach, which set
-  # the widget theme but had no equivalent for `gtk-icon-theme-name` —
-  # so app-icon lookups had nothing to prefer over (mostly-empty)
-  # hicolor and rendered as broken-image placeholders.
+  # ── GTK + icons ──
   gtk = {
     enable = true;
     iconTheme = {
@@ -94,21 +65,15 @@
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
-    # Adopt the post-26.05 default: don't push a theme name into GTK4.
-    # libadwaita apps (Nautilus, Loupe, etc.) ignore theme names anyway
-    # — dark mode is driven by the dconf color-scheme key set below.
+    # Post-26.05 default: no theme name pushed into GTK4.
     gtk4.theme = null;
   };
 
-  # ── libadwaita / GNOME app dark mode ───────────────────────────────
-  # Single source of truth for "prefer dark" across libadwaita apps.
-  # Reads as `org.gnome.desktop.interface color-scheme = 'prefer-dark'`.
+  # ── Dark mode ──
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # ── Qt theme ───────────────────────────────────────────────────────
-  # Route Qt apps through the GTK3 platform plugin so they pick up the
-  # GTK theme above. Replaces QT_STYLE_OVERRIDE / QT_QPA_PLATFORMTHEME
-  # env vars with the canonical HM module.
+  # ── Qt ──
+  # Route Qt apps through the GTK3 plugin.
   qt = {
     enable = true;
     platformTheme.name = "gtk3";

@@ -4,34 +4,23 @@
   flakePath,
   ...
 }: {
-  # ── Flatpak ────────────────────────────────────────────────────────
-  # Declarative Flatpak management via nix-flatpak (flake input).
-  # Currently empty: the Bambu Studio flatpak was removed 2026-07-21
-  # after the org.gnome.Platform//50 runtime update made it abort on
-  # launch (fatal GTK "Could not load a pixbuf from icon theme");
-  # replaced by native orca-slicer in systemPackages below.
+  # ── Flatpak ──
   services.flatpak = {
     enable = true;
-    # Refresh installed flatpaks on every rebuild — keeps them in sync
-    # with the weekly auto-upgrade rather than drifting out-of-band.
+    # Refresh flatpaks on each rebuild.
     update.onActivation = true;
-    # Treat the `packages` list as the source of truth: any flatpak
-    # installed imperatively that isn't listed here gets removed on
-    # rebuild. Comment this out if you want to experiment with ad-hoc
-    # `flatpak install` without losing the app on the next switch.
+    # Remove unlisted (imperative) flatpaks on rebuild.
     uninstallUnmanaged = true;
     packages = [];
   };
 
-  # ── SpaceMouse ─────────────────────────────────────────────────────
-  # 3Dconnexion SpaceMouse driver. The wantedBy override ensures the
-  # daemon starts at boot even if no device is plugged in yet.
+  # ── SpaceMouse ──
+  # Start at boot even with no device plugged in.
   hardware.spacenavd.enable = true;
   systemd.services.spacenavd.wantedBy = ["multi-user.target"];
 
-  # ── Gaming ─────────────────────────────────────────────────────────
-  # Steam with firewall rules for Remote Play, dedicated servers,
-  # and local network game transfers (LAN play).
+  # ── Gaming ──
+  # Firewall rules for Remote Play / LAN play.
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -39,34 +28,26 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # Feral GameMode — optimizes CPU governor, I/O priority, and GPU
-  # clocks while a game is running.
+  # Optimize CPU governor / GPU clocks while gaming.
   programs.gamemode.enable = true;
 
-  # ── Shell & browser ────────────────────────────────────────────────
-  # System-level Zsh enablement (the actual config lives in config/shell.nix
-  # via Home Manager). Must be enabled here so NixOS registers it as a
-  # valid login shell.
+  # ── Shell & browser ──
+  # Register Zsh as a valid login shell (config in config/shell.nix).
   programs.zsh.enable = true;
 
   # Firefox as the default browser.
   programs.firefox.enable = true;
 
-  # ── Networking programs ────────────────────────────────────────────
-  # LocalSend — local network file transfer (AirDrop alternative).
-  # Automatically opens the required firewall port.
+  # ── Networking programs ──
   programs.localsend.enable = true;
 
-  # ── Nix helper (nh) ───────────────────────────────────────────────
-  # https://github.com/nix-community/nh
-  # A friendlier wrapper around nixos-rebuild and nix-collect-garbage.
-  # `flake` tells it where to find the system flake by default.
+  # ── Nix helper (nh) ──
   programs.nh = {
     enable = true;
     flake = flakePath;
   };
 
-  # Make nvim the default editor for anything that honors $EDITOR.
+  # Default editor for $EDITOR.
   environment.variables.EDITOR = "nvim";
 
   # ── System packages ───────────────────────────────────────────────
@@ -84,15 +65,11 @@
     playerctl # MPRIS media player control (play/pause/next)
     chafa # Terminal image viewer (wallpaper preview, etc.)
 
-    # ── Icon & GTK themes ────────────────────────────────────────────
-    # GDM used to pull these in transitively. Now that the greeter is
-    # Noctalia-under-greetd, no GNOME component drags them in — install
-    # explicitly so the shell dock/launcher, Nautilus, and other GTK
-    # apps can resolve icon names instead of falling back to hicolor
-    # (which is mostly empty) and rendering broken-image placeholders.
-    papirus-icon-theme # primary: broad app + folder + MIME coverage
-    adwaita-icon-theme # fallback Papirus inherits from; Nautilus chrome
-    gnome-themes-extra # provides the Adwaita-dark GTK widget theme
+    # ── Icon & GTK themes ──
+    # Explicit now that no GNOME component drags them in.
+    papirus-icon-theme # broad app + folder + MIME coverage
+    adwaita-icon-theme # fallback Papirus inherits from
+    gnome-themes-extra # Adwaita-dark GTK widget theme
 
     # ── File managers ────────────────────────────────────────────────
     nautilus # GNOME graphical file manager
@@ -125,11 +102,8 @@
     ipcalc # IP subnet calculator
     rsync # File sync (used by claude-nas-sync)
 
-    # ── Backup tooling ───────────────────────────────────────────────
-    # restic itself comes with services.restic (modules/backups.nix);
-    # this is the Backblaze CLI for B2 bucket/key management. NOTE: the
-    # binary is `backblaze-b2`, not `b2` (nixpkgs renames it to avoid
-    # clashing with boost-build's b2). Runbook: docs/system-backups.md
+    # ── Backup tooling ──
+    # B2 bucket/key CLI; binary is `backblaze-b2`, not `b2`.
     backblaze-b2
 
     # ── Misc CLI ─────────────────────────────────────────────────────
@@ -151,8 +125,8 @@
     figlet # make ascii block letters from text
     feedr # TUI RSS reader, in Rust
 
-    # ── Monitoring ───────────────────────────────────────────────────
-    # btop is managed via Home Manager (config/btop.nix) for theming.
+    # ── Monitoring ──
+    # btop is in Home Manager (config/btop.nix).
     nvtopPackages.nvidia # Nvidia GPU process monitor
     ookla-speedtest # ISP speed test (official Ookla binary)
 
@@ -203,9 +177,7 @@
     asciinema # screen recorder for terminal sessions
     asciinema-agg # generate animated GIF files from asciicast files
 
-    # ── 3D printing ──────────────────────────────────────────────────
-    # Native package works since 2.3.2 (nixpkgs#345590, incl. NVIDIA
-    # fix); trialing it as a replacement for the Bambu Studio flatpak.
+    # ── 3D printing ──
     orca-slicer # 3D printer slicer (Bambu Studio fork)
 
     # ── Database clients ─────────────────────────────────────────────
@@ -213,9 +185,8 @@
     sqlite-interactive # sqlite3 CLI with readline (plain `sqlite` lacks line editing)
     sqlite-rsync # sqlite3_rsync — live-DB replication over ssh
 
-    # ── Neovim  ──────────────────────────────────────────────────────
-    # Config is managed by lazy.nvim (not Home Manager)
-    # https://www.lazyvim.org/installation
+    # ── Neovim ──
+    # Config via lazy.nvim (not Home Manager).
     neovim
     gcc # C compiler for nvim-treesitter
     tree-sitter # tree-sitter CLI (parser builds)
