@@ -71,10 +71,9 @@ cursor {
 }
 
 // Startup programs
-// Ghostty autostart is handled by a Noctalia start hook (set in the
-// Noctalia settings UI, not in this repo): launching it there dodges
-// the session-start race that made a niri-spawned ghostty exit
-// silently (ghostty-org/ghostty#8770).
+// Alacritty autostart is handled by Noctalia's started hook (in
+// config/noctalia/noctalia.nix), not niri spawn-at-startup: the hook
+// fires once the session is fully up, avoiding a session-start race.
 
 hotkey-overlay {
 }
@@ -168,7 +167,7 @@ binds {
         spawn "noctalia" "msg" "panel-toggle" "launcher";
     }
     Mod+Return hotkey-overlay-title="Open a Terminal" {
-        spawn "ghostty";
+        spawn "alacritty";
     }
     Mod+B hotkey-overlay-title="Open a Web Browser" {
         spawn "chromium";
@@ -176,7 +175,7 @@ binds {
     // Noctalia has no processlist panel (DMS did); btop is the
     // system monitor here.
     Mod+M hotkey-overlay-title="System Monitor" {
-        spawn "ghostty" "-e" "btop";
+        spawn "alacritty" "-e" "btop";
     }
     Mod+S hotkey-overlay-title="Control Center" {
         spawn "noctalia" "msg" "panel-toggle" "control-center";

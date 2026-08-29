@@ -1,5 +1,5 @@
 {...}: {
-  # ── Ghostty ──
+  # ── Ghostty (secondary terminal) ──
   programs.ghostty = {
     enable = true;
 

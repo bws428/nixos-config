@@ -1,6 +1,6 @@
 {...}: {
   # ── Alacritty ──
-  # Secondary terminal (Ghostty primary).
+  # Primary terminal (Ghostty secondary).
 
   # Noctalia's sed rewrites this file; force lets HM relink it.
   xdg.configFile."alacritty/alacritty.toml".force = true;

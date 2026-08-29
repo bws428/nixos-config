@@ -3,18 +3,6 @@
   pkgs,
   ...
 }: let
-  # Assets shipped inside the noctalia package, referenced through the
-  # package so the path survives version bumps. (The GUI had baked a
-  # versioned /nix/store/...-noctalia-5.0.0 path into settings.toml,
-  # which would silently break on upgrade.)
-  noctaliaAssets = "${config.programs.noctalia.package}/share/noctalia/assets";
-
-  # Fresh-install fallback wallpaper — comes from nixpkgs, so it always
-  # exists. Real wallpapers live in ~/Pictures/Wallpapers (user data,
-  # not in this repo); picking one in the GUI overrides this per-key in
-  # ~/.local/state/noctalia/settings.toml.
-  fallbackWallpaper = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
-
   wallpaperDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
 in {
   # ── Noctalia v5 desktop shell ──────────────────────────────────────
@@ -59,9 +47,6 @@ in {
           margin_edge = 0;
           margin_ends = 0;
           widget_spacing = 10;
-          start = ["launcher" "Spacer" "workspaces" "Spacer"];
-          center = ["date" "clock" "Spacer" "media"];
-          end = ["tray" "notifications" "network" "bluetooth" "Spacer" "volume" "Spacer" "session"];
         };
       };
 
@@ -74,10 +59,7 @@ in {
         };
         clock.anchor = true;
         date.format = "{:%a %d %B}";
-        launcher = {
-          custom_image = "${noctaliaAssets}/images/distros/nixos.svg";
-          scale = 1.3;
-        };
+        launcher.scale = 1.3;
         media = {
           hide_album_art = true;
           max_length = 160;
@@ -88,7 +70,6 @@ in {
           minimal = true;
           active_pill_size = 2.5;
           inactive_pill_size = 1.3;
-          scale = 1.3;
         };
       };
 
@@ -102,24 +83,21 @@ in {
         magnification_scale = 1.35;
         launcher_position = "start";
         show_dots = true;
-        pinned = ["chromium-browser" "com.mitchellh.ghostty" "obsidian" "signal" "dev.zed.Zed" "steam"];
       };
 
-      # Ghostty is spawned by Noctalia's started hook rather than niri
+      # Alacritty is spawned by Noctalia's started hook rather than niri
       # spawn-at-startup: the hook fires only once the session is fully
-      # up, avoiding ghostty's startup race.
+      # up, avoiding a session-start race.
       #
-      # systemd-run detaches ghostty into its own transient scope
+      # systemd-run detaches alacritty into its own transient scope
       # instead of noctalia.service's cgroup — otherwise every noctalia
       # restart (any rebuild that touches it) kills all terminals,
       # including the one running the rebuild.
       #
-      # The pgrep guard spawns only when no ghostty is running, so a
+      # The pgrep guard spawns only when no alacritty is running, so a
       # mid-session noctalia restart doesn't add extra windows but a
-      # fresh login still gets one. The pattern must stay unanchored:
-      # the NixOS wrapper's comm is ".ghostty-wrappe" (15-char
-      # truncation), so `pgrep -x ghostty` would never match.
-      hooks.started = "sh -c 'pgrep ghostty >/dev/null || systemd-run --user ghostty'";
+      # fresh login still gets one.
+      hooks.started = "sh -c 'pgrep alacritty >/dev/null || systemd-run --user alacritty'";
 
       # ── Idle / lock ──────────────────────────────────────────────────
       idle = {
@@ -144,80 +122,6 @@ in {
       };
 
       lockscreen.fingerprint = false;
-
-      # Lock screen layout: login box, digital clock, and weather card.
-      # Positions (cx/cy) and the login-box key are tied to output DP-1
-      # (the 2560x1440 desktop monitor). On hardware without a DP-1,
-      # Noctalia creates its default login box for whatever output
-      # exists, so this degrades safely.
-      lockscreen_widgets = {
-        enabled = true;
-        schema_version = 2;
-        widget_order = [
-          "lockscreen-login-box@DP-1"
-          "lockscreen-widget-0000000000000001"
-          "lockscreen-widget-0000000000000002"
-        ];
-        grid = {
-          cell_size = 16;
-          major_interval = 4;
-          visible = true;
-        };
-        widget = {
-          "lockscreen-login-box@DP-1" = {
-            type = "login_box";
-            output = "DP-1";
-            box_width = 448.0;
-            box_height = 80.0;
-            cx = 1280.0;
-            cy = 784.0;
-            rotation = 0.0;
-            settings = {
-              background_color = "surface_variant";
-              background_opacity = 0.88;
-              background_radius = 12.0;
-              input_opacity = 1.0;
-              input_radius = 6.0;
-              show_caps_lock = true;
-              show_keyboard_layout = true;
-              show_login_button = true;
-              show_password_hint = true;
-            };
-          };
-          "lockscreen-widget-0000000000000001" = {
-            type = "clock";
-            output = "DP-1";
-            box_width = 512.0;
-            box_height = 192.0;
-            cx = 1280.0;
-            cy = 560.0;
-            rotation = 0.0;
-            settings = {
-              background = false;
-              background_opacity = 0.88;
-              background_radius = 12;
-              center_text = true;
-              clock_style = "digital";
-              font_family = "MesloLGL Nerd Font"; # declared in modules/fonts.nix
-              shadow = true;
-            };
-          };
-          "lockscreen-widget-0000000000000002" = {
-            type = "weather";
-            output = "DP-1";
-            box_width = 320.0;
-            box_height = 144.0;
-            cx = 2368.0;
-            cy = 96.0;
-            rotation = 0.0;
-            settings = {
-              background = true;
-              forecast_days = 1;
-              show_forecast = true;
-            };
-          };
-        };
-      };
 
       # ── Misc shell behavior ──────────────────────────────────────────
       location.auto_locate = true;
@@ -254,12 +158,6 @@ in {
         community_palette = "Oxocarbon";
 
         templates = {
-          builtin_ids = ["alacritty" "btop" "cava" "emacs" "gtk3" "gtk4" "ghostty" "helix" "kitty" "niri" "qt" "wezterm"];
-          # Community templates are fetched into
-          # ~/.local/state/noctalia/community-templates and re-download
-          # on a fresh install.
-          community_ids = ["spicetify" "zen-browser" "neovim" "obsidian" "vscode" "zed" "steam" "telegram" "yazi"];
-
           # ── User templates ─────────────────────────────────────────
           # Apps outside Noctalia's built-in template catalog. Rendered
           # from the {{...}}-tokenized input on every theme/wallpaper
@@ -288,15 +186,13 @@ in {
       };
 
       # ── Wallpaper ────────────────────────────────────────────────────
-      # Only the portable pieces are declared: directory, transition,
-      # and a store-path fallback. The current wallpaper, per-monitor
-      # assignments, and favorites are runtime curation in settings.toml
-      # and reference files under ~/Pictures/Wallpapers that a fresh
-      # install won't have.
+      # Only the portable pieces are declared: directory and transition.
+      # The current wallpaper, per-monitor assignments, and favorites
+      # are runtime curation in settings.toml and reference files under
+      # ~/Pictures/Wallpapers that a fresh install won't have.
       wallpaper = {
         directory = wallpaperDir;
         transition = ["fade"];
-        default.path = fallbackWallpaper;
       };
     };
   };
