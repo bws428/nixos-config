@@ -13,10 +13,13 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// Outputs are auto-configured: the monitor is now on the AMD iGPU's
-// HDMI port, so the old "DP-1" (5080) block no longer applies. The
-// panel's preferred mode (2560x1440@60) is what niri picks by default.
-// Run `niri msg outputs` inside a session to confirm the connector name.
+// The monitor sits on the AMD iGPU's HDMI port (connector HDMI-A-1).
+// The panel's preferred mode is 60 Hz but it does 74.97; run it at the
+// faster mode to shrink the compositor frame budget (GPU-terminal
+// typing latency tracks this).
+output "HDMI-A-1" {
+    mode "2560x1440@74.971"
+}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
