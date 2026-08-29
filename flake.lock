@@ -1,5 +1,55 @@
 {
   "nodes": {
+    "contemporary-rs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769306269,
+        "narHash": "sha256-da+7CKVmkj9WG+PRTShxhLnc0Tnz7hz6nt3G7bAgssc=",
+        "owner": "vicr123",
+        "repo": "contemporary-rs",
+        "rev": "0025e12336f45823fe84b5599ddba27dce98868f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicr123",
+        "ref": "v0.1.0",
+        "repo": "contemporary-rs",
+        "type": "github"
+      }
+    },
+    "crane": {
+      "locked": {
+        "lastModified": 1785782307,
+        "narHash": "sha256-MPaRdVkf6zZP5fCPxYCi8Dr4pZzgmXzg8T9nVEbp3Mw=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "2c71e194474d13de031d729b729c968ddbe3507f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1785627969,
+        "narHash": "sha256-4dtXQk/NMePegK/nWp5NSeuZKLATItOq61lpEvmXqGw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "427bf4bd9435fdf21321c8cc628c24efc14c0f7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -18,6 +68,30 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
+      }
+    },
+    "hummingbird": {
+      "inputs": {
+        "contemporary-rs": "contemporary-rs",
+        "crane": "crane",
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1787885846,
+        "narHash": "sha256-mnSjr4wkVgEaGJdEMBHvDFw0/lFD5ayxsDRIdjmOOIs=",
+        "ref": "refs/heads/master",
+        "rev": "0236a8a297d01e4f71388985f49722bd51378590",
+        "revCount": 1160,
+        "type": "git",
+        "url": "https://git.mailliw.org/hummingbird/hummingbird"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.mailliw.org/hummingbird/hummingbird"
       }
     },
     "nix-flatpak": {
@@ -51,6 +125,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1785031560,
+        "narHash": "sha256-OmshNvn2vupOFpYinLUu+1Dnpu4n7Q5N3ggGVNHpkUI=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "0e79af5e3d4dcfcd676ab5ba3f95d2e3352e078c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "noctalia-greeter": {
       "inputs": {
         "nixpkgs": [
@@ -74,9 +163,31 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "hummingbird": "hummingbird",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "noctalia-greeter": "noctalia-greeter"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "hummingbird",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786638241,
+        "narHash": "sha256-KJhq0HYg2gIZjpsj47z1kWrjoUUAqSqdD2mMWAsOg4k=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "892c035d7c2ff75acd5da10424a47ab454e1f3dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     }
   },

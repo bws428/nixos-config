@@ -2,6 +2,7 @@
   config,
   pkgs,
   flakePath,
+  hummingbird,
   ...
 }: {
   # ── Flatpak ──
@@ -161,6 +162,7 @@
     vlc # Media player
     spotify # Streaming music
     tauon # Local music player / library manager
+    hummingbird.packages.${pkgs.stdenv.hostPlatform.system}.default # GPUI music player (built from source)
     spicetify-cli # Spotify UI customization
     ffmpeg # Audio/video conversion and processing
     imagemagick # Image conversion, resizing, and manipulation
@@ -176,6 +178,10 @@
     frogmouth # TUI Markdown reader
     asciinema # screen recorder for terminal sessions
     asciinema-agg # generate animated GIF files from asciicast files
+
+    # ── Chess ──
+    stockfish # UCI chess engine (used by en-croissant)
+    en-croissant # Chess GUI / database
 
     # ── 3D printing ──
     orca-slicer # 3D printer slicer (Bambu Studio fork)

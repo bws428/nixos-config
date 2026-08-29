@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hummingbird = {
+      url = "git+https://git.mailliw.org/hummingbird/hummingbird";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
@@ -25,13 +30,17 @@
     nixpkgs,
     home-manager,
     noctalia-greeter,
+    hummingbird,
     nix-flatpak,
     ...
   }: let
     flakePath = "/home/bws428/.nixos-config";
   in {
     nixosConfigurations.ghost = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit flakePath;};
+      specialArgs = {
+        inherit flakePath;
+        inherit hummingbird;
+      };
 
       modules = [
         # ── Hardware ──
