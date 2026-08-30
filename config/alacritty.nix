@@ -15,11 +15,11 @@
       };
       # 256-color support in remote sessions.
       env.TERM = "xterm-256color";
-      # Frosted-glass window. Blur disabled: compositor-side blur is
-      # expensive on the 2-CU iGPU (suspected mouse-hitch source).
-      # Re-enable `window.blur = true;` if the desktop moves to a
-      # discrete card.
+      # Frosted-glass window with compositor-side blur. Re-enabled now
+      # that the desktop renders on the discrete 5080 (blur was too
+      # expensive on the 2-CU iGPU).
       window.opacity = 0.9;
+      window.blur = true;
       # Inner padding.
       window.padding = {
         x = 25;

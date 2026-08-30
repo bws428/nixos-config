@@ -13,11 +13,9 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// The monitor sits on the AMD iGPU's HDMI port (connector HDMI-A-1).
-// The panel's preferred mode is 60 Hz but it does 74.97; run it at the
-// faster mode to shrink the compositor frame budget (GPU-terminal
-// typing latency tracks this).
-output "HDMI-A-1" {
+// The monitor sits on the RTX 5080's DisplayPort. Confirm the name with
+// `niri msg outputs` after the cable move; it was "DP-1" before the iGPU.
+output "DP-1" {
     mode "2560x1440@74.971"
 }
 
@@ -151,12 +149,11 @@ overview {
 // the xdg-activation serial is stale (recommended by Noctalia docs).
 debug {
     honor-xdg-activation-with-invalid-serial
-    // Drive the display from the AMD iGPU. The two Nvidia cards are
-    // pure LLM compute now; ignoring them keeps niri from allocating
-    // render contexts on VRAM the model wants all to itself.
-    render-drm-device "/dev/dri/by-path/pci-0000:7a:00.0-render"
-    ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    // Render on the 5080 (01:00.0). Ignore the 3090 (03:00.0, pure LLM
+    // compute) and the AMD iGPU (7a:00.0, kept loaded as a fallback only).
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
     ignore-drm-device "/dev/dri/by-path/pci-0000:03:00.0-render"
+    ignore-drm-device "/dev/dri/by-path/pci-0000:7a:00.0-render"
 }
 
 // Keybinds

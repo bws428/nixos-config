@@ -59,13 +59,13 @@
     };
   };
 
-  # ── Pin the greeter to the AMD iGPU ────────────────────────────────
+  # ── Pin the greeter to the RTX 5080 ────────────────────────────────
   # The greeter bundles its own wlroots compositor. Without this it
-  # would pick a Nvidia card (no monitor attached after the cable move)
-  # and show a black login screen. WLR_DRM_DEVICES forces wlroots onto
-  # the iGPU's card node.
+  # could pick the 3090 or the iGPU (no monitor attached) and show a
+  # black login screen. WLR_DRM_DEVICES forces wlroots onto the 5080's
+  # card node (colon-free symlink, see modules/nvidia.nix).
   services.greetd.settings.default_session.command = lib.mkForce (
-    "env WLR_DRM_DEVICES=/dev/dri/card-amdgpu "
+    "env WLR_DRM_DEVICES=/dev/dri/card-nvidia "
     + "${config.programs.noctalia-greeter.package}/bin/noctalia-greeter-session -- "
     + config.programs.noctalia-greeter.greeter-args
   );

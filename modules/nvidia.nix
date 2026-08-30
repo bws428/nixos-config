@@ -5,10 +5,10 @@
 }: {
   # ── Kernel module configuration ────────────────────────────────────
 
-  # The display is driven by the CPU's integrated AMD GPU (Ryzen 7
-  # 9800X3D "Granite Ridge"), so the two Nvidia cards stay pure compute
-  # for the LLM and never share a card between the compositor and CUDA
-  # (which is what triggered the RC-watchdog Xid 8 freezes).
+  # The display is driven by the RTX 5080. The RTX 3090 stays pure LLM
+  # compute, so the compositor never shares a card with CUDA (which is
+  # what triggered the RC-watchdog Xid 8 freezes). The AMD iGPU stays
+  # loaded as a fallback display only.
 
   # Nvidia-specific kernel parameters:
   # - modeset/fbdev: enable kernel modesetting and framebuffer device,
@@ -28,8 +28,8 @@
   ];
 
   # Load GPU modules early in the boot process (initrd) so the display
-  # works before the full system comes up. amdgpu drives the iGPU that
-  # the greeter and niri run on.
+  # works before the full system comes up. nvidia drives the 5080 that
+  # the greeter and niri run on; amdgpu stays for the iGPU fallback.
   boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
@@ -40,7 +40,8 @@
 
   # ── Nvidia driver ──────────────────────────────────────────────────
 
-  # Nvidia for compute/offload, amdgpu for the integrated display GPU.
+  # Nvidia (5080) drives the display; amdgpu stays loaded for the iGPU
+  # fallback.
   services.xserver.videoDrivers = ["nvidia" "amdgpu"];
 
   # amdgpu (the iGPU) needs redistributable firmware (gc/sdma/psp/vcn
@@ -48,12 +49,14 @@
   # microcode updates — hardware.cpu.amd.updateMicrocode keys off it.
   hardware.enableRedistributableFirmware = true;
 
-  # Colon-free alias for the iGPU's DRM card node. WLR_DRM_DEVICES is a
-  # colon-separated list, so the by-path name (pci-0000:7a:00.0-card) gets
-  # split on its colons and the greeter opens nothing. The greeter points
-  # at /dev/dri/card-amdgpu instead.
+  # Colon-free aliases for the DRM card nodes. WLR_DRM_DEVICES is a
+  # colon-separated list, so the by-path names (e.g. pci-0000:01:00.0-card)
+  # get split on their colons and the greeter opens nothing. The greeter
+  # points at /dev/dri/card-nvidia (the 5080); card-amdgpu stays as the
+  # iGPU fallback alias.
   services.udev.extraRules = ''
     KERNEL=="card[0-9]*", SUBSYSTEM=="drm", KERNELS=="0000:7a:00.0", SYMLINK+="dri/card-amdgpu"
+    KERNEL=="card[0-9]*", SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", SYMLINK+="dri/card-nvidia"
   '';
 
   hardware.nvidia = {
@@ -90,22 +93,6 @@
   # Ensure /var/tmp exists for Nvidia's VRAM suspend storage.
   systemd.tmpfiles.rules = [
     "d /var/tmp 1777 root root -"
-  ];
-
-  # ── PRIME render offload ───────────────────────────────────────────
-  # The desktop renders on the AMD iGPU (radeonsi/mesa defaults); this
-  # wrapper pushes a program onto the Nvidia card (GPU 0, the 5080).
-  # The Nvidia-specific env vars are scoped here instead of set globally,
-  # so they can't force the compositor or browser onto Nvidia. Launch
-  # games with `prime-run %command%` (Steam launch options) or
-  # `prime-run <cmd>`.
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "prime-run" ''
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      exec "$@"
-    '')
   ];
 
   # ── Graphics / OpenGL ──────────────────────────────────────────────

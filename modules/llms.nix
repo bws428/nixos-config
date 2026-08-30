@@ -5,11 +5,10 @@
 }: {
   # ── Local LLM (llama-swap + llama.cpp) ─────────────────────────────
   # OpenAI-compatible proxy. The model loads on first use and unloads
-  # when idle, so the cards are free for games. The model spans both
-  # Nvidia GPUs (16 GB RTX 5080 + 24 GB RTX 3090 = 40 GB VRAM) with
-  # layers split across them; the desktop renders on the CPU's AMD iGPU
-  # (see modules/nvidia.nix), so compute never shares a card with the
-  # compositor. Model files: /var/lib/llms.
+  # when idle. Every model is pinned to the RTX 3090 (24 GB) alone via
+  # --device CUDA1; the 5080 drives the display and never runs compute
+  # (see modules/nvidia.nix), so inference can't freeze the desktop.
+  # Model files: /var/lib/llms.
   systemd.tmpfiles.rules = ["d /var/lib/llms 0755 bws428 users -"];
 
   services.llama-swap = let
@@ -34,8 +33,8 @@
         # https://huggingface.co/bartowski/Qwen_Qwen3.6-35B-A3B-GGUF
         # Mixture-of-experts (MoE) model with 35 billion total parameters
         # but only 3 billion active params. Tiny KV cache (11 attention
-        # layers), so 256K context fits comfortably across both cards now
-        # that neither drives the display.
+        # layers) keeps its footprint small enough to run 128K on the
+        # 3090 alone.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
@@ -48,17 +47,14 @@
           # Use all threads for prompt reading
           --threads-batch 16 --cache-reuse 256
           --model /var/lib/llms/Qwen3.6-35B-A3B-Q4_K_M.gguf
-          # --fit auto-places layers/KV to leave a 1 GiB margin free on
-          # each GPU. With the display off the Nvidia cards there's no
-          # compositor VRAM to protect, so the margin shrinks from the
-          # old 2 GiB-on-5080.
-          --split-mode layer
+          # Pin to the 3090 only; the 5080 must never run CUDA (Xid 8
+          # history). Single card, so no --split-mode / --fit needed.
+          --device CUDA1 --n-gpu-layers -1
           # Keep V at q8_0 or it falls back to slow CPU
           --cache-type-k q8_0 --cache-type-v q8_0
-          # Full native context (256K): ~21 GB weights + ~3 GB KV + buffers
-          # ≈ 26 GB across 40 GB.
-          --ctx-size 262144
-          --fit on --fit-target 1024,1024
+          # 128K on 24 GB: ~20.75 GiB weights + ~1.4 GiB KV + buffers
+          # ≈ 22.2 GiB, ~1.4 GiB headroom. 256K no longer fits one card.
+          --ctx-size 131072
         '';
       };
 
@@ -80,16 +76,15 @@
           --batch-size 2048 --ubatch-size 1024
           --threads-batch 16
           --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
+          # Pin to the 3090 only; the 5080 must never run CUDA.
+          --device CUDA1 --n-gpu-layers -1
           # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
-          # Full native context (256K). Fits now that both cards are
-          # pure compute: ~17 GB weights + ~9 GB KV + buffers ≈ 28 GB
-          # across 40 GB. The display is on the iGPU, not the 5080.
-          --ctx-size 262144
-          # --fit balances layers/KV by free VRAM (the 3090 takes the
-          # bigger share), with 1 GiB headroom on each card.
-          --split-mode layer
-          --fit on --fit-target 1024,1024
+          # 96K on 24 GB with MTP: ~16.55 GiB weights + ~3.2 GiB KV +
+          # ~2.5 GiB MTP draft ≈ 22.2 GiB, ~1.4 GiB headroom. Drop the
+          # two --spec-* flags to push ctx to 128K instead (loses ~60
+          # -> ~37 tok/s).
+          --ctx-size 98304
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
