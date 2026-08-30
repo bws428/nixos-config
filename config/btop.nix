@@ -8,7 +8,7 @@
       color_theme = "noctalia";
       theme_background = false;
       # GPU as its own box.
-      shown_boxes = "cpu mem net gpu0 gpu1";
+      shown_boxes = "cpu mem gpu0 gpu1";
       show_gpu_info = "Off";
     };
   };
