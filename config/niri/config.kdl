@@ -13,9 +13,10 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// The monitor sits on the RTX 5080's DisplayPort. Confirm the name with
-// `niri msg outputs` after the cable move; it was "DP-1" before the iGPU.
-output "DP-1" {
+// The monitor sits on the RTX 5080's DisplayPort (connector DP-5).
+// 74.97 is the panel's fastest mode; the preferred 59.951 is the
+// default if this block is removed.
+output "DP-3" {
     mode "2560x1440@74.971"
 }
 
