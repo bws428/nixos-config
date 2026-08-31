@@ -33,6 +33,9 @@
       theme = "catppuccin_macchiato";
 
       editor = {
+        # Enable automatic formatting on save
+        # https://docs.helix-editor.com/editor.html
+        auto-format = true;
         # Vim-style relative line numbers.
         line-number = "relative";
         cursorline = true;
