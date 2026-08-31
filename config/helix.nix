@@ -59,7 +59,6 @@
           render = true;
           character = "│";
         };
-        format-on-save.enable = true;
       };
     };
   };
