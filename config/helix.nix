@@ -19,13 +19,12 @@
       language = [
         {
           name = "rust";
-          # Auto-format on save.
-          auto-format = true;
           formatter = {
             command = "rustfmt";
             # stdin rustfmt defaults to 2015; ours is 2024.
             args = [ "--edition" "2024" ];
           };
+          auto-format = true;
         }
       ];
     };
