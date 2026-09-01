@@ -66,7 +66,6 @@
         # Qwen3.8 27B (Q4_K_M)
         # https://huggingface.co/bartowski/Qwen_Qwen3.8-27B-GGUF
         # Dense hybrid (SSM + full attention every 4th layer). 17.8 GB.
-        # Benchmarked +0.5% PPL vs Q5_K_M.
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
