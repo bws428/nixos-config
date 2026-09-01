@@ -83,11 +83,14 @@
           --device CUDA1 --n-gpu-layers -1
           # V cache must stay q8_0 — q4_0 falls back to slow CPU.
           --cache-type-k q8_0 --cache-type-v q8_0
-          # 96K on 24 GB with MTP: ~16.55 GiB weights + ~3.2 GiB KV +
-          # ~2.5 GiB MTP draft ≈ 22.2 GiB, ~1.4 GiB headroom. Drop the
-          # two --spec-* flags to push ctx to 128K instead (loses ~60
-          # -> ~37 tok/s).
-          --ctx-size 98304
+          # 64K on 24 GB with MTP: ~16.55 GiB weights + ~2.2 GiB KV +
+          # ~2.5 GiB MTP draft. At 96K the fused-GDN graph reserve didn't
+          # fit (upstream #27162: silent CPU spill, gen 60 -> 13 tok/s);
+          # ubatch 512 alone recovered only 42 tok/s. Spec-kit plans are
+          # decode-bound and well under 64K, so ctx is the cheap cut.
+          # Last resort: drop the --spec-* flags (frees ~2.5 GiB, keeps
+          # 96K+ ctx) if a plan ever overflows 64K.
+          --ctx-size 65536
           # MTP speculative decoding via the model's built-in NextN
           # head (blk.64): measured 37 -> ~60 tok/s generation.
           # draft-2 beats draft-3 on acceptance-vs-speed tradeoff.
