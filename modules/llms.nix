@@ -70,9 +70,13 @@
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
           --no-mmap --flash-attn on --jinja
-          # ubatch 1024 (not 2048): measured *faster* prompt reading
-          # (1499 vs 1324 tok/s). Gen speed within noise.
-          --batch-size 2048 --ubatch-size 1024
+          # ubatch 512 (not 1024): the fused-GDN graph reserve needs more
+          # VRAM headroom than 1024 leaves at 96K ctx + MTP. When reserve
+          # fails, llama.cpp silently spills the GDN ops to CPU (upstream
+          # #27162) and gen collapses 60 -> ~13 tok/s. 1024 was otherwise
+          # the pp sweet spot (1499 vs 1324 tok/s at 2048) — revisit if
+          # ctx shrinks.
+          --batch-size 2048 --ubatch-size 512
           --threads-batch 16
           --model /var/lib/llms/Qwen3.8-27B-Q4_K_M.gguf
           # Pin to the 3090 only; the 5080 must never run CUDA.
