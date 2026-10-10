@@ -38,10 +38,11 @@
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
-          # no-mmap: load weights into RAM 
+          # load-mode none: read weights into RAM (old --no-mmap, removed
+          # in llama.cpp 0.5.0's load-mode refactor)
           # flash-attn: faster, uses less VRAM
           # jinja: needed for tool calls
-          --no-mmap --flash-attn on --jinja
+          --load-mode none --flash-attn on --jinja
           # Bigger = faster prompt reading; shrink if VRAM is tight
           --batch-size 2048 --ubatch-size 2048
           # Use all threads for prompt reading
@@ -69,7 +70,7 @@
         cmd = ''
           ${lib.getExe' llama "llama-server"}
           --host 127.0.0.1 --port ''${PORT}
-          --no-mmap --flash-attn on --jinja
+          --load-mode none --flash-attn on --jinja
           # ubatch 512 (not 1024): the fused-GDN graph reserve needs more
           # VRAM headroom than 1024 leaves at 96K ctx + MTP. When reserve
           # fails, llama.cpp silently spills the GDN ops to CPU (upstream
