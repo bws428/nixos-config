@@ -67,6 +67,7 @@
 
         # ── Fonts & packages ──
         ./modules/fonts.nix
+        ./modules/overlays.nix
         ./modules/packages.nix
         nix-flatpak.nixosModules.nix-flatpak
 
